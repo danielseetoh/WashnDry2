@@ -1,115 +1,176 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Json;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Android.App;
-//using Android.Content;
-//using Android.Locations;
-//using Android.OS;
+﻿using System;
+using System.Threading;
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Util;
+using Android.Widget;
+using System.Collections.Generic;
+using System.Json;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Android.Locations;
 
-//namespace WashnDry
-//{
-//	[Service]
-//	public class RetrieveLocationService: Service, ILocationListener
-//	{
+namespace WashnDry
+{
 
-//		Location _currentLocation;
-//		LocationManager _locationManager;
-//		string _locationProvider;
-//		Context context;
-//		public RetrieveLocationService(Context context)
-//		{
-//			this.context = context;
-//		}
+	[Service]
+	public class RetrieveLocationService : Service, ILocationListener
+	{
+		static readonly string TAG = "X:" + typeof(RetrieveLocationService).Name;
+		static readonly int TimerWait = 4000;
+		Timer timer;
+		DateTime startTime;
+		//bool isStarted = false;
+		int count = 0;
+		Location _currentLocation;
+		LocationManager _locationManager;
+		string _locationProvider;
+		Context context;
+		string _addressText;
+		string _locationText;
+		string _latitude;
+		string _longitude;
 
-//		void InitializeLocationManager()
-//		{
+		public override void OnCreate()
+		{
+			base.OnCreate();
+			context = this;
+			InitializeLocationManager();
+			getLocation();
+			_locationManager.RequestLocationUpdates(_locationProvider, 0, 0, this);
+		}
 
-//			_locationManager = (LocationManager)context.GetSystemService(Context.LocationService);
-//			Criteria criteriaForLocationService = new Criteria
-//			{
-//				Accuracy = Accuracy.Fine
-//			};
-//			IList<string> acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
+		public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
+		{
+			startTime = DateTime.UtcNow;
+			timer = new Timer(HandleTimerCallback, startTime, 0, TimerWait);
+			return StartCommandResult.NotSticky;
+		}
 
-//			if (acceptableLocationProviders.Any())
-//			{
-//				_locationProvider = acceptableLocationProviders.First();
-//			}
-//			else
-//			{
-//				_locationProvider = string.Empty;
-//			}
-//		}
+		public override IBinder OnBind(Intent intent)
+		{
+			return null;
+		}
 
-//		async void getLocation()
-//		{
-//			if (_currentLocation == null)
-//			{
-//				_addressText.Text = "Can't determine the current address. Try again in a few minutes.";
-//				return;
-//			}
 
-//			Address address = await ReverseGeocodeCurrentLocation();
-//			DisplayAddress(address);
-//		}
+		public override void OnDestroy()
+		{
+			base.OnDestroy();
+		}
 
-//		async Task<Address> ReverseGeocodeCurrentLocation()
-//		{
-//			Geocoder geocoder = new Geocoder(this.Activity);
-//			IList<Address> addressList =
-//				await geocoder.GetFromLocationAsync(_currentLocation.Latitude, _currentLocation.Longitude, 10);
+		void HandleTimerCallback(object state)
+		{
+			BroadcastStarted();
+			count = count + 1;
+		}
 
-//			Address address = addressList.FirstOrDefault();
-//			return address;
-//		}
+		private void BroadcastStarted()
+		{
+			InitializeLocationManager();
+			getLocation();
+			Intent BroadcastIntent = new Intent(this, typeof(HomeFragment.LocationBroadcastReceiver));
+			string action = "Send Location Data";
+			BroadcastIntent.SetAction(action);
+			BroadcastIntent.AddCategory(Intent.CategoryDefault);
+			if (_currentLocation == null)
+			{
+				_latitude = "none";
+				_longitude = "none";
+			}
+			else {
+				_latitude = _currentLocation.Latitude.ToString();
+				_longitude = _currentLocation.Longitude.ToString();
+			}
+			BroadcastIntent.PutExtra("Latitude", _latitude);
+			BroadcastIntent.PutExtra("Longitude", _longitude);
+			BroadcastIntent.PutExtra("Address", _addressText);
+			SendBroadcast(BroadcastIntent);
+		}
 
-//		public string getAddress(Address address)
-//		{
-//			if (address != null)
-//			{
-//				StringBuilder deviceAddress = new StringBuilder();
-//				for (int i = 0; i < address.MaxAddressLineIndex; i++)
-//				{
-//					deviceAddress.AppendLine(address.GetAddressLine(i));
-//				}
-//				// Remove the last comma from the end of the address.
-//				return deviceAddress.ToString();
-//			}
-//			else
-//			{
-//				return  "Unable to determine the address. Try again in a few minutes.";
-//			}
-//		}
 
-//		public async void OnLocationChanged(Location location)
-//		{
-//			_currentLocation = location;
-//			if (_currentLocation == null)
-//			{
-//				_locationText.Text = "Unable to determine your location. Try again in a short while.";
-//			}
-//			else
-//			{
-//				_locationText.Text = string.Format("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude);
-//				Address address = await ReverseGeocodeCurrentLocation();
-//				DisplayAddress(address);
-//				JsonValue json = await FetchWeatherAsync(_currentLocation);
-//				ParseAndDisplay(json);
-//			}
+		void InitializeLocationManager()
+		{
 
-//			Task delay = new Task(() =>
-//			{
-//				Task.Delay(10000);  // Reduce refresh time to 10 seconds
-//			});
-//		}
+			_locationManager = (LocationManager)context.GetSystemService(Context.LocationService);
+			Criteria criteriaForLocationService = new Criteria
+			{
+				Accuracy = Accuracy.Fine
+			};
+			IList<string> acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
 
-//		public void OnProviderDisabled(string provider) { }
+			if (acceptableLocationProviders.Any())
+			{
+				_locationProvider = acceptableLocationProviders.First();
+			}
+			else
+			{
+				_locationProvider = string.Empty;
+			}
+		}
 
-//		public void OnProviderEnabled(string provider) { }
+		async void getLocation()
+		{
+			if (_currentLocation == null)
+			{
+				_addressText = "Can't determine the current address. Try again in a few minutes.";
+				return;
+			}
 
-//		public void OnStatusChanged(string provider, Availability status, Bundle extras) { }
-//	}
-//}
+			Address address = await ReverseGeocodeCurrentLocation();
+			getAddress(address);
+		}
+
+		void getAddress(Address address)
+		{
+			if (address != null)
+			{
+				StringBuilder deviceAddress = new StringBuilder();
+				for (int i = 0; i < address.MaxAddressLineIndex; i++)
+				{
+					deviceAddress.AppendLine(address.GetAddressLine(i));
+				}
+				// Remove the last comma from the end of the address.
+				_addressText = deviceAddress.ToString();
+			}
+			else
+			{
+				_addressText = "Unable to determine the address. Try again in a few minutes.";
+			}
+		}
+
+		async Task<Address> ReverseGeocodeCurrentLocation()
+		{
+			Geocoder geocoder = new Geocoder(context);
+			IList<Address> addressList =
+				await geocoder.GetFromLocationAsync(_currentLocation.Latitude, _currentLocation.Longitude, 10);
+
+			Address address = addressList.FirstOrDefault();
+			return address;
+		}
+
+		public async void OnLocationChanged(Location location)
+		{
+			_currentLocation = location;
+			if (_currentLocation == null)
+			{
+				_locationText = "Unable to determine your location. Try again in a short while.";
+			}
+			else
+			{
+				_locationText = string.Format("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude);
+				Address address = await ReverseGeocodeCurrentLocation();
+				getAddress(address);
+				//JsonValue json = await FetchWeatherAsync(_currentLocation);
+				//ParseAndDisplay(json);
+			}
+		}
+
+		public void OnProviderDisabled(string provider) { }
+
+		public void OnProviderEnabled(string provider) { }
+
+		public void OnStatusChanged(string provider, Availability status, Bundle extras) { }
+	}
+}

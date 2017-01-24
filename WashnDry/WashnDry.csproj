@@ -100,9 +100,10 @@
     <Compile Include="SetupActivity.cs" />
     <Compile Include="AppPreferences.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="RetrieveLocationService.cs" />
     <Compile Include="ListData.cs" />
     <Compile Include="DataTransformers.cs" />
+    <Compile Include="RetrieveLocationService.cs" />
+    <Compile Include="RetrieveWeatherData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -134,6 +135,7 @@
     <AndroidResource Include="Resources\drawable\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\drawable\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\layout\Home.axml" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -1576,14 +1576,17 @@ namespace WashnDry
 			// aapt resource value: 0x7f020056
 			public const int ic_drawer_light = 2130837590;
 			
-			// aapt resource value: 0x7f020059
-			public const int notification_template_icon_bg = 2130837593;
-			
 			// aapt resource value: 0x7f020057
-			public const int splash = 2130837591;
+			public const int Icon = 2130837591;
+			
+			// aapt resource value: 0x7f02005a
+			public const int notification_template_icon_bg = 2130837594;
 			
 			// aapt resource value: 0x7f020058
-			public const int splash_screen = 2130837592;
+			public const int splash = 2130837592;
+			
+			// aapt resource value: 0x7f020059
+			public const int splash_screen = 2130837593;
 			
 			static Drawable()
 			{
@@ -2325,9 +2328,6 @@ namespace WashnDry
 			
 			// aapt resource value: 0x7f060026
 			public const int setup = 2131099686;
-			
-			// aapt resource value: 0x7f06002c
-			public const int sliding_pane_layout_summary = 2131099692;
 			
 			// aapt resource value: 0x7f060014
 			public const int status_bar_notification_info_overflow = 2131099668;
