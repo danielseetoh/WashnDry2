@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Hello World, Click Me!</string>
+	<string name="app_name">WashnDry</string>
+	<string name="account">Account</string>
+	<string name="schedule">Schedule</string>
+	<string name="drying_status">Drying Status</string>
+	<string name="setup">Setup</string>
+	<string name="DrawerOpen">Open</string>
+	<string name="DrawerClose">Close</string>
+  	<string-array name="PagesArray">
+  		<item>Home</item>
+		<item>Status</item>
+		<item>Schedule</item>
+		<item>Account</item>
+	</string-array>
+	<string-array name="laundryFrequencyArray">
+		<item>Select One</item>
+		<item>Seldom</item>
+		<item>Often</item>
+		<item>Very Often</item>
+	</string-array>
+	<string-array name="laundryTimeArray">
+		<item>Morning</item>
+		<item>Afternoon</item>
+		<item>Evening</item>
+		<item>Night</item>
+	</string-array>
+	<string name="action_websearch">Web search</string>
+	<string name="action_slidingpane">Other</string>
+	<string name="app_not_available">Sorry, there\'s no web browser available</string>
+	<string name="sliding_pane_layout_summary">This activity illustrates the use of sliding panes.
+	The content pane may be slid to one side on narrow devices to reveal the left pane used to select content. 
+	Sliding panes can be used to fit a UI intended for wider screens in a smaller space.
+	Tapping the Action Bar\'s Up button at the left side of the bar will navigate up in the hierarchy, 
+	represented by the left pane. If you rotate the device to landscape mode, on most devices you will 
+	see that both panes fit together side by side with no sliding necessary.</string>
+</resources>

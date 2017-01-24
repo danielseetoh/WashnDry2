@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Weather"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/WeatherText" />
+    <TextView
+        android:text="Temperature"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TemperatureText" />
+    <TextView
+        android:text="Wind"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/WindText" />
+    <TextView
+        android:text="Humidity"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/HumidityText" />
+    <TextView
+        android:text="Estimated Time For Drying:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4" />
+    <Button
+        android:text="Start Drying"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1" />
+    <TextView
+        android:text="Current Location:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/CurrentLocationText" />
+    <TextView
+        android:text="Address:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddressText" />
+</LinearLayout>

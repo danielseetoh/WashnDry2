@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:weightSum="100"
+    android:paddingLeft="35px"
+    android:paddingRight="35px">
+    <ScrollView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView1">
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout1">
+            <TextView
+                android:text="Account Page here"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textView1" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:weightSum="100">
+                <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="60px"
+                    android:layout_weight="50"
+                    android:id="@+id/imageView1" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:weightSum="100">
+                    <TextView
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/name"
+                        android:layout_weight="50" />
+                    <TextView
+                        android:text="Tokyo, Japan"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/country"
+                        android:layout_weight="50" />
+                </LinearLayout>
+            </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/changePassword"
+                android:hint="Change Password"
+                android:inputType="textPassword" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeEmail"
+                android:hint="Change Email" />
+            <CheckBox
+                android:text="Allow Location Services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/allowLocationServices" />
+            <TextView
+                android:text="Laundry Frequency"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2" />
+            <Spinner
+                android:entries="@array/laundryFrequencyArray"
+                android:backgroundTint="#64badd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/laundryFrequency_Spinner" />
+            <TextView
+                android:text="When do you do your laundry?"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1" />
+            <ListView
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="600px"
+                android:id="@+id/laundryTime_ListView"
+                android:textAlignment="gravity"
+                android:layout_gravity="start"
+                android:background="#ff96fffa" />
+            <Button
+                android:text="Edit Settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editSettings" />
+            <Button
+                android:text="Reset Settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/resetSettings" />
+            <Button
+                android:text="Save Changes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/saveChanges" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

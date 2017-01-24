@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Username"
+        android:hint="Username" />
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Password"
+        android:hint="Password" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Email"
+        android:hint="Email" />
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/laundryTime_ListView" />
+    <Button
+        android:text="Create Account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/CreateAccountButton" />
+</LinearLayout>
