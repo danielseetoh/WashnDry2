@@ -104,6 +104,7 @@
     <Compile Include="DataTransformers.cs" />
     <Compile Include="RetrieveLocationService.cs" />
     <Compile Include="RetrieveWeatherData.cs" />
+    <Compile Include="ImageAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
