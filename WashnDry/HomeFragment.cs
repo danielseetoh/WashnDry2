@@ -16,11 +16,22 @@ using Plugin.Geolocator;
 using System.Net;
 using System.Json;
 using System.IO;
+using System.Timers;
+
 
 namespace WashnDry
 {
 	public class HomeFragment : Fragment, ILocationListener
 	{
+		public System.Threading.Timer cdtimer;
+		public System.Timers.Timer mytimer;
+		static int timeLeftInSeconds;
+		int initialTimeInSeconds;
+		LinearLayout timerWrapper;
+		TextView timerTextView, timeTakenTextView;
+		Button startDryingButton;
+		static bool isLaundryDone;
+		TextView laundryDoneAlert;
 
 		TextView _addressText;
 		TextView _locationText;
@@ -30,7 +41,6 @@ namespace WashnDry
 		TextView _weatherText;
 		Location _currentLocation;
 		LocationManager _locationManager;
-
 		string _locationProvider;
 
 		Context context;
@@ -39,38 +49,114 @@ namespace WashnDry
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-
-			// Create your fragment here
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			// Use this to return your custom view for this Fragment
-			// return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-
-			//return base.OnCreateView(inflater, container, savedInstanceState);
-
 			rootView = inflater.Inflate(Resource.Layout.Home, container, false);
-			//var imageId = Resources.GetIdentifier(
-			//	"com.companyname.washndry:drawable/earth",
-			//	null, null);
-			//rootView.FindViewById<ImageView>(Resource.Id.indicators).SetImageResource(imageId);
+
+			startDryingButton = rootView.FindViewById<Button>(Resource.Id.startDryingButton);
+			laundryDoneAlert = rootView.FindViewById<TextView>(Resource.Id.laundryDoneAlert);
+			timerWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.timerWrapper);
+			timerTextView = rootView.FindViewById<TextView>(Resource.Id.timerTextView);
+			timeTakenTextView = rootView.FindViewById<TextView>(Resource.Id.timeTaken);
+			initialTimeInSeconds = 7; // should retrieve this value from the app's calculations
+
+			startDryingButton.Click += startDryingHandler;
+			//RegisterBroadcastReceiver();
+
+			mytimer = new System.Timers.Timer();
+			mytimer.Interval = 100;
+			mytimer.Enabled = true;
+			mytimer.Elapsed += TimerElapsedHandler; // Handler method to call when timer elapses every 100ms
+
 			locationTrigger();
-			//Toast.MakeText(this.Activity, "in OnCreateView", ToastLength.Long).Show();
 			return rootView;
 		}
 
-		public override void OnResume()
+		void TimerElapsedHandler(object sender, ElapsedEventArgs e)
 		{
-			base.OnResume();
-			_locationManager.RequestLocationUpdates(_locationProvider, 0, 0, this);
+			if (isLaundryDone) { Activity.RunOnUiThread(stopDryingHandler);  }
+			else { 
+				Activity.RunOnUiThread(() => { 
+					timerTextView.Text = DataTransformers.formatSecondsToTime(timeLeftInSeconds, DataTransformers.TimeFormat.digital); 
+				}); 
+			}
 		}
 
-		public override void OnPause()
+		void startDryingHandler(object sender, EventArgs e)
 		{
-			base.OnPause();
-			_locationManager.RemoveUpdates(this);
+			mytimer.Start(); // starts timer which then periodically upates the data by listening to the broadcast
+			timerWrapper.Visibility = ViewStates.Visible;
+			laundryDoneAlert.Visibility = ViewStates.Gone;
+
+			Intent BroadcastIntent = new Intent(Activity, typeof(TimerService.TimerBroadcastReceiver));
+			string action = "sendInitialTimeInSeconds";
+			BroadcastIntent.SetAction(action);
+			BroadcastIntent.AddCategory(Intent.CategoryDefault);
+			BroadcastIntent.PutExtra("initialTimeInSeconds", initialTimeInSeconds);
+			Activity.SendBroadcast(BroadcastIntent); //when this broadcast is received, it triggers the start of the TimerService
+			//Activity.StartService(new Intent(Activity, typeof(TimerService)));
+
+			Toast.MakeText(Activity, "Started Drying", ToastLength.Short).Show();
 		}
+
+		void stopDryingHandler()
+		{
+			Toast.MakeText(Activity, "Finished Drying", ToastLength.Short).Show();
+			mytimer.Stop();
+			laundryDoneAlert.Visibility = ViewStates.Visible;
+			timerWrapper.Visibility = ViewStates.Gone;
+			timeTakenTextView.Text = "Time Taken: \n" + DataTransformers.formatSecondsToTime(initialTimeInSeconds, DataTransformers.TimeFormat.verbose);
+			timeTakenTextView.Visibility = ViewStates.Visible;
+			Activity.StopService(new Intent(Activity, typeof(TimerService)));
+		}
+
+
+		[BroadcastReceiver]
+		public class HomeBroadcastReceiver : BroadcastReceiver
+		{
+			public static readonly string sendCountDownTimerData = "SendCountDownTimerData";
+			public static readonly string sendLocationBroadcast = "SendLocationData";
+
+			public override void OnReceive(Context context, Intent intent)
+			{
+				if (intent.Action == sendCountDownTimerData) // There can be multipe broadcast received. This is the general listener. check whether the event received is the one which starts the countdown
+				{
+					Bundle extras = intent.Extras;
+					timeLeftInSeconds = extras.GetInt("timeLeftInSeconds");
+					isLaundryDone = extras.GetBoolean("isLaundryDone");
+				}
+
+				else if (intent.Action == sendLocationBroadcast)
+				{
+					// get location data here
+				}
+
+			}
+		}
+
+
+/* ===================================================================================
+============= I somehow think this is redundant to register the receiver =============
+*/
+
+		//private HomeBroadcastReceiver homeReceiver;
+
+		//private void RegisterBroadcastReceiver()
+		//{
+		//	IntentFilter filter = new IntentFilter(HomeBroadcastReceiver.sendCountDownTimerData);
+		//	filter.AddCategory(Intent.CategoryDefault);
+		//	homeReceiver = new HomeBroadcastReceiver();
+		//	this.Activity.RegisterReceiver(homeReceiver, filter);
+		//}
+
+		//private void UnRegisterBroadcastReceiver()
+		//{
+		//	this.Activity.UnregisterReceiver(homeReceiver);
+		//}
+
+		// Other Code that is not mine
 
 		public void locationTrigger()
 		{

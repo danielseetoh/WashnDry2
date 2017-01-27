@@ -148,7 +148,7 @@ namespace WashnDry
 
 		public override bool OnPrepareOptionsMenu(IMenu menu)
 		{
-			var drawerOpen = _drawer.IsDrawerOpen(Resource.Id.left_drawer);
+			var drawerOpen = _drawer.IsDrawerOpen(Resource.Id.drawer_layout);
 			//menu.FindItem(Resource.Id.action_websearch).SetVisible(!drawerOpen);
 			return base.OnPrepareOptionsMenu(menu);
 		}

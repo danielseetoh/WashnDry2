@@ -37,5 +37,31 @@ namespace WashnDry
 			}
 			return boolList;
 		}
+
+		public enum TimeFormat { verbose, digital };
+		public static string formatSecondsToTime(int unformattedTimeInSeconds, TimeFormat format)
+		{
+			string formattedTime;
+
+			int timeInHours = unformattedTimeInSeconds / 3600;
+			int timeInSeconds = unformattedTimeInSeconds % 60;
+			int timeInMinutes = (unformattedTimeInSeconds % 3600) / 60;
+
+			if (format == TimeFormat.digital)
+			{
+				formattedTime = timeInHours.ToString("D2") + ":" + timeInMinutes.ToString("D2") + ":" + timeInSeconds.ToString("D2");
+			}
+			else if (format == TimeFormat.verbose)
+			{
+				string hours = "", minutes = "", seconds = "";
+				if (timeInHours != 0) { hours = timeInHours.ToString() + " " + "Hour(s)" + " "; }
+				if (timeInMinutes != 0) { minutes = timeInMinutes.ToString() + " " + "Minute(s)" + " "; }
+				if (timeInSeconds != 0) { seconds = timeInSeconds.ToString() + " "  + "Second(s)" + " "; }
+				formattedTime = hours + minutes + seconds;
+			}
+			else { formattedTime = "Please select a format"; }
+			return formattedTime;
+		}
+
 	}
 }	
