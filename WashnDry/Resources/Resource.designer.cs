@@ -1604,26 +1604,26 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b006a
 			public const int AddressText = 2131427434;
 			
-			// aapt resource value: 0x7f0b007e
-			public const int CreateAccountButton = 2131427454;
+			// aapt resource value: 0x7f0b007f
+			public const int CreateAccountButton = 2131427455;
 			
 			// aapt resource value: 0x7f0b0069
 			public const int CurrentLocationText = 2131427433;
 			
-			// aapt resource value: 0x7f0b007d
-			public const int Email = 2131427453;
+			// aapt resource value: 0x7f0b007e
+			public const int Email = 2131427454;
 			
 			// aapt resource value: 0x7f0b0066
 			public const int HumidityText = 2131427430;
 			
-			// aapt resource value: 0x7f0b007c
-			public const int Password = 2131427452;
+			// aapt resource value: 0x7f0b007d
+			public const int Password = 2131427453;
 			
 			// aapt resource value: 0x7f0b0064
 			public const int TemperatureText = 2131427428;
 			
-			// aapt resource value: 0x7f0b007b
-			public const int Username = 2131427451;
+			// aapt resource value: 0x7f0b007c
+			public const int Username = 2131427452;
 			
 			// aapt resource value: 0x7f0b0063
 			public const int WeatherText = 2131427427;
@@ -1765,6 +1765,9 @@ namespace WashnDry
 			
 			// aapt resource value: 0x7f0b003b
 			public const int expanded_menu = 2131427387;
+			
+			// aapt resource value: 0x7f0b007b
+			public const int gridview = 2131427451;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int home = 2131427332;

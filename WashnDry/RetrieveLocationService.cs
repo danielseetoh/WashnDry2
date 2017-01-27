@@ -54,7 +54,6 @@ namespace WashnDry
 			return null;
 		}
 
-
 		public override void OnDestroy()
 		{
 			base.OnDestroy();
