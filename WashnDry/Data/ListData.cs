@@ -18,11 +18,7 @@ namespace WashnDry
 		{
 		}
 
-		private List<string> mItems;
-
 		Dictionary<int, string> laundrySlots;
-
-
 
 		public Dictionary<int, string> getLaundryTimeSlots()
 		{

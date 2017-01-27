@@ -17,6 +17,8 @@ namespace WashnDry
 
 	public class AccountFragment : Fragment
 	{
+		private LinearLayout pageWrapper;
+		private ScrollView scrollView1;
 		private TextView name;
 		private TextView country;
 		private EditText changeEmail;
@@ -60,6 +62,8 @@ namespace WashnDry
 			laundryTime_Checked = DataTransformers.stringToBooleanList(userInfo.getLaundryTime());
 
 			// retrieving UI elements as objects
+			pageWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.pageWrapper);
+			scrollView1 = rootView.FindViewById<ScrollView>(Resource.Id.scrollView1);
 			name = rootView.FindViewById<TextView>(Resource.Id.name);
 			country = rootView.FindViewById<TextView>(Resource.Id.country);
 			changeEmail = rootView.FindViewById<EditText>(Resource.Id.changeEmail);
@@ -70,6 +74,11 @@ namespace WashnDry
 			editSettings = rootView.FindViewById<Button>(Resource.Id.editSettings);
 			resetSettings = rootView.FindViewById<Button>(Resource.Id.resetSettings);
 			saveChangesButton = rootView.FindViewById<Button>(Resource.Id.saveChanges);
+
+			string width = pageWrapper.Width.ToString();
+
+			pageWrapper.SetPadding(80,0,80,0);
+
 
 			enableUIElements(false);
 
