@@ -22,9 +22,8 @@ namespace WashnDry
 {
 	public class HomeFragment : Fragment, ILocationListener
 	{
-		public System.Timers.Timer dryingTimer;
 		public System.Threading.Timer toNextDryTimer;
-		public System.Threading.Timer maybeshouldtrythistimer;
+		public System.Threading.Timer dryingTimer;
 
 		static int timeLeftInSeconds;
 		int initialTimeInSeconds;
@@ -73,7 +72,7 @@ namespace WashnDry
 			descriptionText 		= rootView.FindViewById<TextView>(Resource.Id.laundryDoneAlert);
 			timerTextView 			= rootView.FindViewById<TextView>(Resource.Id.timerTextView);
 			timeTakenTextView	 	= rootView.FindViewById<TextView>(Resource.Id.timeTaken);
-			nextLaundryDate 		= new DateTime(2016, 1, 29, 0, 18, 51);
+			nextLaundryDate 		= new DateTime(2016, 1, 29, 1, 38, 51);
 			currentDate 			= DateTime.Now;
 			laundryDateDiff 		= DataTransformers.diffBetweenDates(nextLaundryDate, currentDate);
 			initialTimeInSeconds 	= 17; // should retrieve this value from the app's calculations
@@ -103,11 +102,11 @@ namespace WashnDry
 		public override void OnPause()
 		{
 			base.OnPause();
-			if (maybeshouldtrythistimer != null)
+			if (dryingTimer != null)
 			{
 				Console.WriteLine(" dryertimer destroyed onpause event");
-				maybeshouldtrythistimer.Dispose();
-				maybeshouldtrythistimer = null;
+				dryingTimer.Dispose();
+				dryingTimer = null;
 			}
 			if (toNextDryTimer != null)
 			{
@@ -121,7 +120,7 @@ namespace WashnDry
 		public override void OnResume()
 		{
 			base.OnResume();
-			if (state == State.dryingInProgress){ maybeshouldtrythistimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
+			if (state == State.dryingInProgress){ dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
 			if (laundryDateDiff.hours <= 4 && laundryDateDiff.seconds >= 0 )
 			{
 				int toNextDryTimerInterval;
@@ -162,12 +161,19 @@ namespace WashnDry
 					Toast.MakeText(Activity, "Finished Drying", ToastLength.Short).Show();
 					uiEventsOnFinishedDrying();
 				});
+
+				// create push notification
+				Notification.Builder builder = new Notification.Builder(Activity).SetContentTitle("Finished Drying").SetContentText("Time finished is").SetSmallIcon(Resource.Drawable.splash);
+				Notification notification = builder.Build();
+				NotificationManager notificationManager = Activity.GetSystemService(Context.NotificationService) as NotificationManager;
+				const int notificationId = 0;
+				notificationManager.Notify(notificationId, notification);
 				return;
 
 			}
 			else if (state == State.dryingInProgress)
 			{
-				if (maybeshouldtrythistimer != null) // context guard against null reference exception
+				if (dryingTimer != null) // context guard against null reference exception
 				{
 					Activity.RunOnUiThread(() =>
 					{
@@ -182,7 +188,7 @@ namespace WashnDry
 		{
 			Toast.MakeText(Activity, "Started Drying now!", ToastLength.Short).Show();
 			state = State.dryingInProgress;
-			maybeshouldtrythistimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
+			dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
 			uiEventsOnStartDrying();
 			startTimerBroadcast(initialTimeInSeconds);
 
@@ -202,16 +208,17 @@ namespace WashnDry
 			Toast.MakeText(Activity, "Restarted Drying.", ToastLength.Short).Show();
 			Activity.StopService(new Intent(Activity, typeof(TimerService)));
 			startTimerBroadcast(initialTimeInSeconds);
+
 		}
 
 		void stopTimerBroadcast()
 		{
 			Activity.StopService(new Intent(Activity, typeof(TimerService)));
-			if (maybeshouldtrythistimer != null)
+			if (dryingTimer != null)
 			{
 				Console.WriteLine("timer destroyed");
-				maybeshouldtrythistimer.Dispose();
-				maybeshouldtrythistimer = null;
+				dryingTimer.Dispose();
+				dryingTimer = null;
 			}
 		}
 

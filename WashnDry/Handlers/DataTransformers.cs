@@ -18,6 +18,7 @@ namespace WashnDry
 		public static string sparseArrayToString(SparseBooleanArray mArray)
 		{
 			String mString = "";
+
 			for (var i = 0; i < mArray.Size(); i++)
 				mString += mArray.ValueAt(i) + ",";
 
