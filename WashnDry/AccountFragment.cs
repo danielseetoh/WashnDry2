@@ -52,28 +52,28 @@ namespace WashnDry
 			//	null, null);
 
 			// Constructors of other classes to get stored data
-			userInfo = new AppPreferences(Activity);
-			ListData data = new ListData();
-			laundryTime = data.getLaundryTimeSlots();
+			userInfo 		= new AppPreferences(Activity);
+			ListData data 	= new ListData();
+			laundryTime 	= data.getLaundryTimeSlots();
 
 			// retrieving data from db
-			laundryTime_Keys = laundryTime.Keys.ToList();
-			laundryTime_Values = laundryTime.Values.ToList();
+			laundryTime_Keys 	= laundryTime.Keys.ToList();
+			laundryTime_Values 	= laundryTime.Values.ToList();
 			laundryTime_Checked = DataTransformers.stringToBooleanList(userInfo.getLaundryTime());
 
 			// retrieving UI elements as objects
-			pageWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.pageWrapper);
-			scrollView1 = rootView.FindViewById<ScrollView>(Resource.Id.scrollView1);
-			name = rootView.FindViewById<TextView>(Resource.Id.name);
-			country = rootView.FindViewById<TextView>(Resource.Id.country);
-			changeEmail = rootView.FindViewById<EditText>(Resource.Id.changeEmail);
-			changePassword = rootView.FindViewById<EditText>(Resource.Id.changePassword);
-			allowLocationServices = rootView.FindViewById<CheckBox>(Resource.Id.allowLocationServices);
+			pageWrapper 			= rootView.FindViewById<LinearLayout>(Resource.Id.pageWrapper);
+			scrollView1 			= rootView.FindViewById<ScrollView>(Resource.Id.scrollView1);
+			name 					= rootView.FindViewById<TextView>(Resource.Id.name);
+			country 				= rootView.FindViewById<TextView>(Resource.Id.country);
+			changeEmail 			= rootView.FindViewById<EditText>(Resource.Id.changeEmail);
+			changePassword 			= rootView.FindViewById<EditText>(Resource.Id.changePassword);
+			allowLocationServices 	= rootView.FindViewById<CheckBox>(Resource.Id.allowLocationServices);
 			laundryFrequencySpinner = rootView.FindViewById<Spinner>(Resource.Id.laundryFrequency_Spinner);
-			mListView = rootView.FindViewById<ListView>(Resource.Id.laundryTime_ListView);
-			editSettings = rootView.FindViewById<Button>(Resource.Id.editSettings);
-			resetSettings = rootView.FindViewById<Button>(Resource.Id.resetSettings);
-			saveChangesButton = rootView.FindViewById<Button>(Resource.Id.saveChanges);
+			mListView 				= rootView.FindViewById<ListView>(Resource.Id.laundryTime_ListView);
+			editSettings 			= rootView.FindViewById<Button>(Resource.Id.editSettings);
+			resetSettings 			= rootView.FindViewById<Button>(Resource.Id.resetSettings);
+			saveChangesButton 		= rootView.FindViewById<Button>(Resource.Id.saveChanges);
 
 			string width = pageWrapper.Width.ToString();
 
@@ -109,8 +109,8 @@ namespace WashnDry
 
 			};
 
-			editSettings.Click += editSettingsEvent;
-			resetSettings.Click += resetSettingsEvent;
+			editSettings.Click 		+= editSettingsEvent;
+			resetSettings.Click 	+= resetSettingsEvent;
 			saveChangesButton.Click += saveChangesEvent;
 
 			return rootView;
@@ -154,8 +154,8 @@ namespace WashnDry
 
 		void enableUIElements(bool isEnabled)
 		{
-			changeEmail.Enabled = isEnabled;
-			changePassword.Enabled = isEnabled;
+			changeEmail.Enabled 	= isEnabled;
+			changePassword.Enabled 	= isEnabled;
 			allowLocationServices.Enabled = isEnabled;
 			laundryFrequencySpinner.Enabled = isEnabled;
 			mListView.Enabled = isEnabled;

@@ -11,7 +11,6 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-
 namespace WashnDry
 {
 	public static class DataTransformers
@@ -43,9 +42,9 @@ namespace WashnDry
 		{
 			string formattedTime;
 
-			int timeInHours = unformattedTimeInSeconds / 3600;
-			int timeInSeconds = unformattedTimeInSeconds % 60;
-			int timeInMinutes = (unformattedTimeInSeconds % 3600) / 60;
+			int timeInHours 	= unformattedTimeInSeconds / 3600;
+			int timeInSeconds 	= unformattedTimeInSeconds % 60;
+			int timeInMinutes 	= (unformattedTimeInSeconds % 3600) / 60;
 
 			if (format == TimeFormat.digital)
 			{
@@ -54,14 +53,48 @@ namespace WashnDry
 			else if (format == TimeFormat.verbose)
 			{
 				string hours = "", minutes = "", seconds = "";
-				if (timeInHours != 0) { hours = timeInHours.ToString() + " " + "Hour(s)" + " "; }
-				if (timeInMinutes != 0) { minutes = timeInMinutes.ToString() + " " + "Minute(s)" + " "; }
-				if (timeInSeconds != 0) { seconds = timeInSeconds.ToString() + " "  + "Second(s)" + " "; }
+				if (timeInHours 	!= 0) { hours 	= timeInHours.ToString() + " " + "Hour(s)" + " "; }
+				if (timeInMinutes 	!= 0) { minutes = timeInMinutes.ToString() + " " + "Minute(s)" + " "; }
+				if (timeInSeconds 	!= 0) { seconds = timeInSeconds.ToString() + " "  + "Second(s)" + " "; }
 				formattedTime = hours + minutes + seconds;
 			}
 			else { formattedTime = "Please select a format"; }
 			return formattedTime;
 		}
+
+		public struct DateDifference {
+			public long months;
+			public long monthDiff;
+			public long days;
+			public long dayDiff;
+			public long hours;
+			public long hourDiff;
+			public long minutes;
+			public long minDiff;
+			public long seconds;
+			public long secondDiff;
+
+		}
+		public static DateDifference diffBetweenDates(DateTime laterDate, DateTime earlyDate)
+		{
+			DateDifference dateDiff = new DateDifference();
+
+			dateDiff.monthDiff 	= laterDate.Month - earlyDate.Month;
+			dateDiff.dayDiff 	= laterDate.Day - earlyDate.Day;
+			dateDiff.hourDiff 	= laterDate.Hour - earlyDate.Hour;
+			dateDiff.minDiff 	= laterDate.Minute - earlyDate.Minute;
+			dateDiff.secondDiff = laterDate.Second - earlyDate.Second;
+
+
+			dateDiff.months 	= dateDiff.monthDiff;
+			dateDiff.days 		= dateDiff.monthDiff * 30 + dateDiff.dayDiff;
+			dateDiff.hours 		= dateDiff.days * 24 + dateDiff.hourDiff;
+			dateDiff.minutes 	= dateDiff.hours * 60 + dateDiff.minDiff;
+			dateDiff.seconds 	= dateDiff.minutes * 60 + dateDiff.secondDiff;
+
+			return dateDiff;
+		}
+
 
 	}
 }	

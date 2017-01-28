@@ -61,22 +61,52 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/AddressText" />
             <TextView
-                android:text="Time Left to Dry"
+                android:text="Next Laundry Date"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView5" />
+                android:id="@+id/nextLaundryHeader" />
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nextLaundryTextView" />
+            <TextView
+                android:text="Countdown to next laundry date:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/timeToNextLaundryHeader" />
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/timeToNextLaundryTextView" />
             <Button
                 android:text="Start Drying"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/startDryingButton" />
+            <Button
+                android:text="Restart Timer"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/restartDryingButton" />
+            <Button
+                android:text="Stop Drying"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/stopDryingButton" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/timerWrapper"
-                android:visibility="gone">
+                android:id="@+id/timerWrapper">
                 <TextView
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceLarge"
