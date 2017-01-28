@@ -23,7 +23,9 @@ namespace WashnDry
 	public class HomeFragment : Fragment, ILocationListener
 	{
 		public System.Timers.Timer dryingTimer;
-		public System.Timers.Timer toNextDryTimer;
+		public System.Threading.Timer toNextDryTimer;
+		public System.Threading.Timer maybeshouldtrythistimer;
+
 		static int timeLeftInSeconds;
 		int initialTimeInSeconds;
 		TextView nextLaundryTV, timeToNextLaundryTV;
@@ -31,7 +33,7 @@ namespace WashnDry
 		Button startDryingButton, restartDryingButton, stopDryingButton;
 	
 		enum State { ready, notReady, dryingInProgress, laundryFinished };
-		static State state = State.ready;
+		static State state = State.notReady;
 
 		DateTime nextLaundryDate;
 		DateTime currentDate;
@@ -57,6 +59,8 @@ namespace WashnDry
 			base.OnCreate(savedInstanceState);
 		}
 
+
+
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			rootView = inflater.Inflate(Resource.Layout.Home, container, false);
@@ -69,15 +73,10 @@ namespace WashnDry
 			descriptionText 		= rootView.FindViewById<TextView>(Resource.Id.laundryDoneAlert);
 			timerTextView 			= rootView.FindViewById<TextView>(Resource.Id.timerTextView);
 			timeTakenTextView	 	= rootView.FindViewById<TextView>(Resource.Id.timeTaken);
-			nextLaundryDate 		= new DateTime(2016, 1, 28, 13, 55, 31);
+			nextLaundryDate 		= new DateTime(2016, 1, 29, 0, 18, 51);
 			currentDate 			= DateTime.Now;
 			laundryDateDiff 		= DataTransformers.diffBetweenDates(nextLaundryDate, currentDate);
 			initialTimeInSeconds 	= 17; // should retrieve this value from the app's calculations
-
-			Toast.MakeText(Activity, currentDate.ToString(), ToastLength.Short).Show();
-
-			// have a timer which updates UI in real time on regular intervals
-
 
 			startDryingButton.Click 	+= startDryingHandler;
 			restartDryingButton.Click 	+= restartDryingHandler;
@@ -85,6 +84,7 @@ namespace WashnDry
 			//RegisterBroadcastReceiver();
 
 			// should save state in a store. Various events should trigger a change in the state
+			if (state == State.notReady) { }
 			if (state == State.ready) { uiEventsOnReadyToStartDrying();}
 			if (state == State.dryingInProgress) { uiEventsOnStartDrying();}
 			if (state == State.laundryFinished) { uiEventsOnFinishedDrying(); }
@@ -93,33 +93,56 @@ namespace WashnDry
 			uiOnDateDifference(laundryDateDiff);
 
 
-			dryingTimer = new System.Timers.Timer();
-			dryingTimer.Interval = 1000;
-			dryingTimer.Enabled = true;
-			dryingTimer.Elapsed += TimerElapsedHandler; // Handler method to call when timer elapses every 100ms
-
-			//if (laundryDateDiff.hours <= 3)
-			//{
-			//	Toast.MakeText(Activity, "timer starting now", ToastLength.Short).Show();
-			//	toNextDryTimer = new Timer();
-			//	if (laundryDateDiff.hours <= 3) { toNextDryTimer.Interval = 300000; } // update UI every 5 minutes
-			//	if (laundryDateDiff.minutes <= 60) { Toast.MakeText(Activity, "minutes", ToastLength.Short).Show(); toNextDryTimer.Interval = 4000; } // update UI every minute
-			//	else if (laundryDateDiff.seconds <= 60) { Toast.MakeText(Activity, "seconds", ToastLength.Short).Show(); toNextDryTimer.Interval = 1000; } //update UI every second
-			//	else { toNextDryTimer.Interval = 1000; }
-			//	toNextDryTimer.Enabled = true;
-			//	toNextDryTimer.Elapsed += ToNextDryTimer_Elapsed;
-			//	toNextDryTimer.Start();
-
-			//}
 
 			locationTrigger();
 			return rootView;
 		}
 
-		void ToNextDryTimer_Elapsed(object sender, ElapsedEventArgs e)
+
+
+		public override void OnPause()
+		{
+			base.OnPause();
+			if (maybeshouldtrythistimer != null)
+			{
+				Console.WriteLine(" dryertimer destroyed onpause event");
+				maybeshouldtrythistimer.Dispose();
+				maybeshouldtrythistimer = null;
+			}
+			if (toNextDryTimer != null)
+			{
+				Console.WriteLine("to next dry timer destroyed onpause event");
+				toNextDryTimer.Dispose();
+				toNextDryTimer = null;
+			}
+
+		}
+
+		public override void OnResume()
+		{
+			base.OnResume();
+			if (state == State.dryingInProgress){ maybeshouldtrythistimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
+			if (laundryDateDiff.hours <= 4 && laundryDateDiff.seconds >= 0 )
+			{
+				int toNextDryTimerInterval;
+				Console.Write("to next dry timer created onresume");
+				if (laundryDateDiff.hours >= 3) { toNextDryTimerInterval = 300000; Console.Write("3 hours");} // update UI every 5 minutes
+				else if (laundryDateDiff.minutes >= 60) { toNextDryTimerInterval = 4000; Console.Write("hour");} // update UI every minute
+				else if (laundryDateDiff.seconds >= 60) { toNextDryTimerInterval = 1000; Console.Write("minute");} //update UI every second
+				else { toNextDryTimerInterval = 1000; Console.Write("second"); }
+				toNextDryTimer = new System.Threading.Timer(ToNextDryTimer_Elapsed, null, 0, toNextDryTimerInterval);
+			}
+		}
+
+		void ToNextDryTimer_Elapsed(object sender)
 		{
 			currentDate = DateTime.Now;
-			Toast.MakeText(Activity, "current date" + currentDate.ToString(), ToastLength.Short).Show();
+			Console.WriteLine("to next drying event timer ticking");
+			if (laundryDateDiff.seconds <= 0)
+			{
+				toNextDryTimer.Dispose(); 
+				toNextDryTimer = null;
+			}
 			laundryDateDiff = DataTransformers.diffBetweenDates(nextLaundryDate, currentDate);
 			Activity.RunOnUiThread(() =>
 			{
@@ -127,31 +150,39 @@ namespace WashnDry
 			});
 		}
 
-		void TimerElapsedHandler(object sender, ElapsedEventArgs e)
+		void dryTimer_Elapsed(object objState)
 		{
-			//Toast.MakeText(Activity, "dry timer elapsed", ToastLength.Short).Show();
-			if (state == State.laundryFinished) {
+			Console.WriteLine("dry timer elapsed ticking");
+			if (state == State.laundryFinished)
+			{
+				Console.WriteLine("laundry finished timer message liao");
+				stopTimerBroadcast();
 				Activity.RunOnUiThread(() =>
 				{
 					Toast.MakeText(Activity, "Finished Drying", ToastLength.Short).Show();
 					uiEventsOnFinishedDrying();
-					stopTimerBroadcast();
-					return;
 				});
+				return;
 
 			}
-			else if (state == State.dryingInProgress){ 
-				Activity.RunOnUiThread(() => { 
-					timerTextView.Text = DataTransformers.formatSecondsToTime(timeLeftInSeconds, DataTransformers.TimeFormat.digital); 
-				}); 
+			else if (state == State.dryingInProgress)
+			{
+				if (maybeshouldtrythistimer != null) // context guard against null reference exception
+				{
+					Activity.RunOnUiThread(() =>
+					{
+						timerTextView.Text = DataTransformers.formatSecondsToTime(timeLeftInSeconds, DataTransformers.TimeFormat.digital);
+					});
+				}
 			}
+
 		}
 
 		void startDryingHandler(object sender, EventArgs e)
 		{
-			Toast.MakeText(Activity, "Started Drying.", ToastLength.Short).Show();
+			Toast.MakeText(Activity, "Started Drying now!", ToastLength.Short).Show();
 			state = State.dryingInProgress;
-			dryingTimer.Start(); // starts timer which then periodically upates the data by listening to the broadcast
+			maybeshouldtrythistimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
 			uiEventsOnStartDrying();
 			startTimerBroadcast(initialTimeInSeconds);
 
@@ -174,9 +205,14 @@ namespace WashnDry
 		}
 
 		void stopTimerBroadcast()
-		{	
-			dryingTimer.Stop();
+		{
 			Activity.StopService(new Intent(Activity, typeof(TimerService)));
+			if (maybeshouldtrythistimer != null)
+			{
+				Console.WriteLine("timer destroyed");
+				maybeshouldtrythistimer.Dispose();
+				maybeshouldtrythistimer = null;
+			}
 		}
 
 		void startTimerBroadcast(int initialTime)
@@ -192,11 +228,27 @@ namespace WashnDry
 		void uiOnDateDifference(DataTransformers.DateDifference dateDiff)
 		{
 			if (dateDiff.months >= 1) { timeToNextLaundryTV.Text = dateDiff.months.ToString() + " " + "month(s)" + " " + dateDiff.dayDiff.ToString() + " " + "day(s)"; }
-			else if (dateDiff.days >= 1) { timeToNextLaundryTV.Text = dateDiff.days.ToString() + " " + "day(s)"; }
-			else if (dateDiff.hours >= 3) { timeToNextLaundryTV.Text = dateDiff.hours.ToString() + " " + "hours"; }
-			else if (dateDiff.hours >= 1) { timeToNextLaundryTV.Text = dateDiff.hours.ToString() + " " + "hour(s)" + dateDiff.minDiff.ToString() + " " + "min(s)"; }
-			else if (dateDiff.minutes >= 1) { timeToNextLaundryTV.Text = dateDiff.minutes.ToString() + " " + "minute(s)"; }
-			else { timeToNextLaundryTV.Text = dateDiff.seconds.ToString() + " " + "second(s)"; }
+			else if (dateDiff.days >= 1) { timeToNextLaundryTV.Text = dateDiff.days.ToString() + " " + "day(s)"; Console.WriteLine("days ui"); }
+			else if (dateDiff.hours >= 3) { timeToNextLaundryTV.Text = dateDiff.hours.ToString() + " " + "hours"; Console.WriteLine("3 hour ui"); }
+			else if (dateDiff.hours >= 1) { timeToNextLaundryTV.Text = dateDiff.hours.ToString() + " " + "hour(s)" + dateDiff.minDiff.ToString() + " " + "min(s)"; Console.WriteLine("1 hour ui"); }
+			else if (dateDiff.minutes >= 1) { timeToNextLaundryTV.Text = dateDiff.minutes.ToString() + " " + "minute(s)"; Console.WriteLine("minutes ui"); }
+			else if (dateDiff.seconds >= 1) { timeToNextLaundryTV.Text = dateDiff.seconds.ToString() + " " + "second(s)"; Console.WriteLine("seconds ui"); }
+			else if (dateDiff.minutes >= -60)
+			{
+				timeToNextLaundryTV.Text = "Begin drying now for optimal results!";
+				uiEventsOnReadyToStartDrying();
+			}
+			else { timeToNextLaundryTV.Text = "You have missed the recommended timing by over an hour."; }
+		}
+
+		void uiEventsNotReadyToStartDrying()
+		{
+			startDryingButton.Visibility = ViewStates.Gone;
+			stopDryingButton.Visibility = ViewStates.Gone;
+			restartDryingButton.Visibility = ViewStates.Gone;
+			timerTextView.Visibility = ViewStates.Gone;
+			descriptionText.Visibility = ViewStates.Gone;
+			timeTakenTextView.Visibility = ViewStates.Gone;
 		}
 
 		void uiEventsOnReadyToStartDrying()
@@ -219,6 +271,7 @@ namespace WashnDry
 			timerTextView.Visibility 		= ViewStates.Visible;
 			descriptionText.Visibility 		= ViewStates.Gone;
 			timeTakenTextView.Visibility 	= ViewStates.Gone;
+
 		}
 
 		void uiEventsOnFinishedDrying()
@@ -227,7 +280,7 @@ namespace WashnDry
 			stopDryingButton.Visibility 	= ViewStates.Gone;
 			restartDryingButton.Visibility 	= ViewStates.Gone;
 			timerTextView.Visibility 		= ViewStates.Gone;
-			descriptionText.Text 			= "Laundry Completed";
+			descriptionText.Text 			= "Laundry Completed. Based on your personal schedule, the app will suggest the next suitable date to start your laundry again :)";
 			descriptionText.Visibility 		= ViewStates.Visible;
 			timeTakenTextView.Text 			= "Time taken to dry: \n" + DataTransformers.formatSecondsToTime(initialTimeInSeconds, DataTransformers.TimeFormat.verbose);
 			timeTakenTextView.Visibility 	= ViewStates.Visible;
