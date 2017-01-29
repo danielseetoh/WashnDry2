@@ -18,6 +18,8 @@ namespace WashnDry
 	public class ScheduleFragment : Fragment
 	{
 
+		GridView gridview;
+
 		private static readonly DateTime Jan1st1970 = new DateTime
 	(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 		
@@ -41,15 +43,21 @@ namespace WashnDry
 			//	null, null);
 			//rootView.FindViewById<ImageView>(Resource.Id.indicators).SetImageResource(imageId);
 
-			var gridview = rootView.FindViewById<GridView>(Resource.Id.gridview);
-			string[] events_data = getAndroidCalendarData();
-			gridview.Adapter = new ImageAdapter(this.Activity, events_data);
+			gridview = rootView.FindViewById<GridView>(Resource.Id.gridview);
+
 			//gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
 			//{
 			//	Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
 			//};
 
 			return rootView;
+		}
+
+		public override void OnResume()
+		{
+			base.OnResume();
+			string[] events_data = getAndroidCalendarData();
+			gridview.Adapter = new ImageAdapter(this.Activity, events_data);
 		}
 
 		public string[] getAndroidCalendarData()

@@ -27,7 +27,7 @@ namespace WashnDry
 		{
 			context = c;
 			events_data = ed;
-			parseEventsData();
+			parseEventsData(); 
 			getWashDates();
 		}
 
@@ -194,6 +194,51 @@ namespace WashnDry
 		{
 			wash_title_blocks = new List<string>();
 			wash_timing_blocks = new List<int>();
+			//string currentDate = DateTime.Now.ToString("dd MMM");
+			//Context mContext = Android.App.Application.Context;
+			//AppPreferences ap = new AppPreferences(mContext);
+			//string latestScheduleDate = ap.getUsername();
+
+			//if (latestScheduleDate == currentDate)
+			//{
+			//	Toast.MakeText(context, "Forecast up to date", ToastLength.Long);
+			//	string[] very_good_blocks = ap.getLatestVeryGoodPositions().Split(',');
+			//	string[] good_blocks = ap.getLatestGoodPositions().Split(',');
+			//	string[] ok_blocks = ap.getLatestOkPositions().Split(',');
+			//	for (int i = 0; i < very_good_blocks.Count(); i++)
+			//	{
+			//		wash_title_blocks.Add("VeryGood");
+			//		wash_timing_blocks.Add(int.Parse(very_good_blocks[i]));
+			//	}
+			//	for (int i = 0; i < good_blocks.Count(); i++)
+			//	{
+			//		wash_title_blocks.Add("Good");
+			//		wash_timing_blocks.Add(int.Parse(good_blocks[i]));
+			//	}
+			//	for (int i = 0; i < ok_blocks.Count(); i++)
+			//	{
+			//		wash_title_blocks.Add("Ok");
+			//		wash_timing_blocks.Add(int.Parse(ok_blocks[i]));
+			//	}
+			//	//string combined_blocks = very_good_blocks + "," + good_blocks + "," + ok_blocks;
+			//	//string[] arr = combined_blocks.Split(',');
+			//	//wash_timing_blocks = Array.ConvertAll(arr, s=>int.Parse(s)).ToList();
+			//}
+			//else {
+			//	Toast.MakeText(context, "Forecast outdated, updating now", ToastLength.Long);
+			//	// get latest forecast, using location. perhaps requires a service
+
+			//	// pass latest forecast and username to server, get values back and parse it
+			//	//string very_good_blocks;
+			//	//string good_blocks;
+			//	//string ok_blocks;
+			//	//ap.saveLatestVeryGoodPositions(very_good_blocks);
+			//	//ap.saveLatestVeryGoodPositions(good_blocks);
+			//	//ap.saveLatestVeryGoodPositions(ok_blocks);
+
+			//	// update latestScheduleDate to current date
+			//	latestScheduleDate = currentDate;
+			//}
 
 			// get dummy data
 			wash_title_blocks.Add("Ok");
@@ -215,35 +260,5 @@ namespace WashnDry
 			wash_timing_blocks.Add(134);
 		}
 
-
-		//Dictionary<string, int[]> getWashDates()
-		//{
-		//	Dictionary<string, int[]> washDates = new Dictionary<string, int[]>();
-
-		//	// dummy data
-		//	// need to retrieve real data from server and sync with calendar data
-		//	washDates.Add("veryGood", [10, 11]);
-		//	washDates.Add("good", [13]);
-		//	washDates.Add("ok", [27]);
-
-		//	return washDates;
-
-		//}
-
-		// references to our images
-		//int[] thumbIds = 
-		//{
-		//	Resource.Drawable.sample_2, Resource.Drawable.sample_2,
-		//	Resource.Drawable.sample_2, Resource.Drawable.sample_2,
-		//	Resource.Drawable.sample_6, Resource.Drawable.sample_7,
-		//	Resource.Drawable.sample_0, Resource.Drawable.sample_1,
-		//	Resource.Drawable.sample_2, Resource.Drawable.sample_3,
-		//	Resource.Drawable.sample_4, Resource.Drawable.sample_5,
-		//	Resource.Drawable.sample_6, Resource.Drawable.sample_7,
-		//	Resource.Drawable.sample_0, Resource.Drawable.sample_1,
-		//	Resource.Drawable.sample_2, Resource.Drawable.sample_3,
-		//	Resource.Drawable.sample_4, Resource.Drawable.sample_5,
-		//	Resource.Drawable.sample_6, Resource.Drawable.sample_7
-		//};
 	}
 }

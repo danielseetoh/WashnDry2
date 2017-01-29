@@ -21,7 +21,7 @@ using System.Threading;
 
 namespace WashnDry
 {
-	public class HomeFragment : Fragment//, ILocationListener
+	public class HomeFragment : Fragment
 	{
 
 		TextView _addressText;
@@ -42,7 +42,7 @@ namespace WashnDry
 		static string _currentTemperature;
 		static string _currentWind;
 		static string _currentHumidity;
-		RetrieveWeatherData retrieveWeatherData = new RetrieveWeatherData();
+		//RetrieveWeatherData retrieveWeatherData = new RetrieveWeatherData();
 
 		View rootView;
 
@@ -113,7 +113,7 @@ namespace WashnDry
 
 		async void getWeatherData()
 		{
-			weatherData = await retrieveWeatherData.FetchWeatherAsync(_latitude, _longitude);
+			weatherData = await RetrieveWeatherData.FetchWeatherAsync(_latitude, _longitude);
 			if (weatherData != null)
 				parseWeatherData(weatherData);
 		}
