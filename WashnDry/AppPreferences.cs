@@ -21,6 +21,10 @@ namespace WashnDry
 		private static String PREFERENCE_PASSWORD_KEY = "PREFERENCE_PASSWORD_KEY";
 		private static String PREFERENCE_EMAIL_KEY = "PREFERENCE_EMAIL_KEY";
 		private static String PREFERENCE_LAUNDRY_TIME_KEY = "PREFERENCE_LAUNDRY_TIME_KEY";
+		private static String PREFERENCE_LATEST_SCHEDULE_DATE = "PREFERENCE_LATEST_SCHEDULE_DATE";
+		private static String PREFERENCE_LATEST_VERY_GOOD_POSITIONS = "PREFERENCE_LATEST_VERY_GOOD_POSITIONS";
+		private static String PREFERENCE_LATEST_GOOD_POSITIONS = "PREFERENCE_LATEST_GOOD_POSITIONS";
+		private static String PREFERENCE_LATEST_OK_POSITIONS = "PREFERENCE_LATEST_OK_POSITIONS";
 
 		public AppPreferences(Context context)
 		{
@@ -73,6 +77,50 @@ namespace WashnDry
 		public string getLaundryTime()
 		{
 			return prefs.GetString(PREFERENCE_LAUNDRY_TIME_KEY, "");
+		}
+
+		public void saveLatestScheduleDate(string date)
+		{
+			editor.PutString(PREFERENCE_LATEST_SCHEDULE_DATE, date);
+			editor.Commit();
+		}
+
+		public string getLatestScheduleDate()
+		{
+			return prefs.GetString(PREFERENCE_LATEST_SCHEDULE_DATE, "");
+		}
+
+		public void saveLatestVeryGoodPositions(string dates)
+		{
+			editor.PutString(PREFERENCE_LATEST_VERY_GOOD_POSITIONS, dates);
+			editor.Commit();
+		}
+
+		public string getLatestVeryGoodPositions()
+		{
+			return prefs.GetString(PREFERENCE_LATEST_VERY_GOOD_POSITIONS, "");
+		}
+
+		public void saveLatestGoodPositions(string dates)
+		{
+			editor.PutString(PREFERENCE_LATEST_GOOD_POSITIONS, dates);
+			editor.Commit();
+		}
+
+		public string getLatestGoodPositions()
+		{
+			return prefs.GetString(PREFERENCE_LATEST_GOOD_POSITIONS, "");
+		}
+
+		public void saveLatestOkPositions(string dates)
+		{
+			editor.PutString(PREFERENCE_LATEST_OK_POSITIONS, dates);
+			editor.Commit();
+		}
+
+		public string getLatestOkPositions()
+		{
+			return prefs.GetString(PREFERENCE_LATEST_OK_POSITIONS, "");
 		}
 	}
 }
