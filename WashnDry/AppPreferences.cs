@@ -33,6 +33,7 @@ namespace WashnDry
 		{
 			editor.PutString(PREFERENCE_USERNAME_KEY, username);
 			editor.Commit();
+
 		}
 
 		public string getUsername()

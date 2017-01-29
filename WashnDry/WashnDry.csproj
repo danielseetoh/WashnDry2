@@ -101,9 +101,10 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="RetrieveLocationService.cs" />
     <Compile Include="Data\ListData.cs" />
-    <Compile Include="Handlers\DataTransformers.cs" />
+    <Compile Include="Models\DataTransformers.cs" />
     <Compile Include="MyCountDownTimer.cs" />
     <Compile Include="TimerService.cs" />
+    <Compile Include="DateCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -142,7 +143,7 @@
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\menu\" />
     <Folder Include="Data\" />
-    <Folder Include="Handlers\" />
+    <Folder Include="Models\" />
     <Folder Include="Components\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

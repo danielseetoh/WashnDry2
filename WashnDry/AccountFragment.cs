@@ -34,6 +34,7 @@ namespace WashnDry
 		private SparseBooleanArray updatedLaundryTimes;
 		private AppPreferences userInfo;
 
+		private ICollection<string> myStringCollection;
 		private List<int> laundryTime_Keys;
 		private List<string> laundryTime_Values;
 		private List<bool> laundryTime_Checked;
@@ -75,7 +76,7 @@ namespace WashnDry
 			resetSettings 			= rootView.FindViewById<Button>(Resource.Id.resetSettings);
 			saveChangesButton 		= rootView.FindViewById<Button>(Resource.Id.saveChanges);
 
-			string width = pageWrapper.Width.ToString();
+
 
 			pageWrapper.SetPadding(80,0,80,0);
 
