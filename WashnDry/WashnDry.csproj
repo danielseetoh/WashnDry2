@@ -89,7 +89,6 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AccountActivity.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="MyActionBarDrawerToggle.cs" />
     <Compile Include="ScheduleFragment.cs" />
@@ -99,12 +98,12 @@
     <Compile Include="SetupActivity.cs" />
     <Compile Include="AppPreferences.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="RetrieveLocationService.cs" />
     <Compile Include="Data\ListData.cs" />
     <Compile Include="Models\DataTransformers.cs" />
-    <Compile Include="MyCountDownTimer.cs" />
-    <Compile Include="TimerService.cs" />
-    <Compile Include="DateCalculator.cs" />
+    <Compile Include="ProgressFragment.cs" />
+    <Compile Include="Models\DateCalculator.cs" />
+    <Compile Include="Models\TimerService.cs" />
+    <Compile Include="Models\RetrieveLocationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -127,7 +126,6 @@
     <AndroidResource Include="Resources\layout\Schedule.axml" />
     <AndroidResource Include="Resources\values\Styles.xml" />
     <AndroidResource Include="Resources\drawable\splash_screen.xml" />
-    <AndroidResource Include="Resources\drawable\splash.png" />
     <AndroidResource Include="Resources\values\Colors.xml" />
     <AndroidResource Include="Resources\layout\DrawerListItem.axml" />
     <AndroidResource Include="Resources\menu\main.xml" />
@@ -136,8 +134,17 @@
     <AndroidResource Include="Resources\drawable\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\drawable\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\layout\Home.axml" />
-    <AndroidResource Include="Resources\drawable\buttonStyle.xml" />
+    <AndroidResource Include="Resources\drawable\buttonBgGreen.xml" />
     <AndroidResource Include="Resources\layout\Timer.axml" />
+    <AndroidResource Include="Resources\drawable\textColor.xml" />
+    <AndroidResource Include="Resources\drawable\drawerBg.xml" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\logo.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\logo.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\logo.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\logo.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable\i_splash.png" />
+    <AndroidResource Include="Resources\drawable\bg_textField.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -10,14 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/scrollView1">
         <LinearLayout
-            android:orientation="vertical"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/linearLayout1"
-            android:paddingLeft="80px"
-            android:paddingRight="80px">
+            style="@style/pageWrapperStyle">
             <TextView
                 android:text="Weather"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -42,12 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/HumidityText" />
-            <TextView
-                android:text="Estimated Time For Drying:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView4" />
             <TextView
                 android:text="Current Location:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -84,36 +71,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/timeToNextLaundryTextView" />
+            <TextView
+                android:text="Estimated Time For Drying:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/estHeader" />
+            <TextView
+                android:text="Estimated Time For Drying:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/estTime" />
             <Button
                 android:text="Start Drying"
                 android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                style="@style/greenButtonStyle"
+                android:textSize="20dp"
                 android:id="@+id/startDryingButton" />
             <Button
                 android:text="Restart Timer"
                 android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/greenButtonStyle"
                 android:id="@+id/restartDryingButton" />
             <Button
                 android:text="Stop Drying"
                 android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/greenButtonStyle"
                 android:id="@+id/stopDryingButton" />
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/timerWrapper">
-                <TextView
-                    android:text=""
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/timerTextView" />
-            </LinearLayout>
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/timerTextView" />
             <TextView
                 android:text="Laundry Completed"
                 android:textAppearance="?android:attr/textAppearanceSmall"

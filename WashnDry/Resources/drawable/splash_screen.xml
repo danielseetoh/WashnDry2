@@ -3,9 +3,13 @@
   <item>
     <color android:color="@color/splash_background"/>
   </item>
-  <item>
+  <item
+		android:weightSum="100"
+			>
     <bitmap
-        android:src="@drawable/splash"
+        android:src="@drawable/i_splash"
+		android:layout_weight="10"
+		android:layout_height="wrap_content"
         android:tileMode="disabled"
         android:gravity="center"/>
   </item>

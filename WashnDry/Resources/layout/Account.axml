@@ -16,8 +16,9 @@
         android:id="@+id/scrollView1">
         <LinearLayout
             android:orientation="vertical"
-            android:minWidth="25px"
-            android:minHeight="25px"
+            android:paddingLeft="80px"
+            android:paddingRight="80px"
+            android:weightSum="100"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/pageWrapper">
@@ -59,20 +60,14 @@
                 </LinearLayout>
             </LinearLayout>
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#f2f2f2"
+                style="@style/textFieldStyle"
                 android:id="@+id/changePassword"
                 android:hint="Change Password"
                 android:inputType="textPassword" />
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#f2f2f2"
+                style="@style/textFieldStyle"
                 android:id="@+id/changeEmail"
-                android:hint="Change Email"
-                android:layout_marginTop="10px"
-                android:layout_marginBottom="10px" />
+                android:hint="Change Email" />
             <CheckBox
                 android:text="Allow Location Services"
                 android:layout_width="match_parent"
@@ -110,27 +105,16 @@
                 android:background="#ffffffff" />
             <Button
                 android:text="Edit Settings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/editSettings"
-                android:background="#d6d6d6"
-                android:layout_marginTop="20px"
-                android:layout_marginBottom="20px" />
+                style="@style/greenButtonStyle" />
             <Button
                 android:text="Reset Settings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px"
-                android:layout_marginBottom="20px"
-                android:background="@drawable/buttonstyle"
+                android:layout_weight="50"
+                style="@style/greenButtonStyle"
                 android:id="@+id/resetSettings" />
             <Button
                 android:text="Save Changes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px"
-                android:layout_marginBottom="20px"
-                android:background="#d6d6d6"
+                style="@style/greenButtonStyle"
                 android:id="@+id/saveChanges" />
         </LinearLayout>
     </ScrollView>

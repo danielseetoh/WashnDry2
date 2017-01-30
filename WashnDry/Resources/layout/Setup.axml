@@ -2,32 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Username"
-        android:hint="Username" />
-    <EditText
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Password"
-        android:hint="Password" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Email"
-        android:hint="Email" />
-    <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/laundryTime_ListView" />
-    <Button
-        android:text="Create Account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/CreateAccountButton" />
+    android:layout_height="wrap_content"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:weightSum="100"
+    android:id="@+id/pageLayout">
+    <ScrollView
+        style="@style/scrollWrapperStyle">
+        <LinearLayout
+            style="@style/pageWrapperStyle">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:weightSum="100"
+                android:layout_marginTop="30px">
+                <ImageView
+                    android:src="@drawable/i_splash"
+                    android:layout_height="450px"
+                    android:layout_width="match_parent"
+                    android:layout_weight="30"
+                    android:layout_marginTop="30px"
+                    android:layout_marginBottom="30px"
+                    android:id="@+id/imageView1" />
+            </LinearLayout>
+            <EditText
+                style="@style/textFieldStyle"
+                android:id="@+id/Username"
+                android:hint="Username" />
+            <EditText
+                android:inputType="textPassword"
+                style="@style/textFieldStyle"
+                android:id="@+id/Password"
+                android:hint="Password" />
+            <EditText
+                style="@style/textFieldStyle"
+                android:id="@+id/Email"
+                android:hint="Email" />
+            <CheckBox
+                android:text="Allow Location Services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/allowLocationServices"
+                android:layout_marginTop="10px"
+                android:layout_marginBottom="10px" />
+            <TextView
+                android:text="Laundry Frequency"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2" />
+            <Spinner
+                android:entries="@array/laundryFrequencyArray"
+                android:backgroundTint="#64badd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/laundryFrequency_Spinner"
+                android:layout_marginBottom="20px" />
+            <TextView
+                android:text="When do you do your laundry?"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1" />
+            <ListView
+                style="@style/timingListViewStyle" />
+            <Button
+                android:layout_marginTop="50px"
+                android:text="Create Account"
+                style="@style/greenButtonStyle"
+                android:id="@+id/CreateAccountButton" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

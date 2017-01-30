@@ -46,7 +46,6 @@ namespace WashnDry
 			mListView.Adapter = adaptor;
 			mListView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
 			updatedLaundryTimes = mListView.CheckedItemPositions;
-			Toast.MakeText(this, "hi", ToastLength.Long).Show();
 			// initializing the laundry time checkboxes as false
 			for (int i = 0; i < laundryTime_Keys.Count; i++) { mListView.SetItemChecked(laundryTime_Keys[i], false); }
 

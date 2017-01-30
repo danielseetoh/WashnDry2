@@ -24,22 +24,21 @@ namespace WashnDry
 	{
 		public System.Threading.Timer toNextDryTimer;
 		public System.Threading.Timer dryingTimer;
-
 		static int timeLeftInSeconds;
 		int initialTimeInSeconds;
-		TextView nextLaundryTV, timeToNextLaundryTV;
-		TextView timerTextView, timeTakenTextView;
-		Button startDryingButton, restartDryingButton, stopDryingButton;
-	
+
 		enum State { ready, notReady, dryingInProgress, laundryFinished };
 		static State state = State.notReady;
 
+		TextView nextLaundryTV, timeToNextLaundryTV;
+		TextView timerTextView, estTextView, timeTakenTextView;
+		Button startDryingButton, restartDryingButton, stopDryingButton;
+
 		DateTime nextLaundryDate;
 		DateTime currentDate;
-		DataTransformers.DateDifference laundryDateDiff;
 
-		private DateCalculator dc = new DateCalculator();
-		private DateCalculator nextLaundryDc = new DateCalculator();
+		DateCalculator dc = new DateCalculator();
+		DateCalculator nextLaundryDc = new DateCalculator();
 
 		TextView descriptionText;
 
@@ -67,6 +66,7 @@ namespace WashnDry
 		{
 			rootView = inflater.Inflate(Resource.Layout.Home, container, false);
 
+			estTextView 			= rootView.FindViewById<TextView>(Resource.Id.estTime);
 			nextLaundryTV 			= rootView.FindViewById<TextView>(Resource.Id.nextLaundryTextView);
 			timeToNextLaundryTV 	= rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
 			startDryingButton 		= rootView.FindViewById<Button>(Resource.Id.startDryingButton);
@@ -78,12 +78,16 @@ namespace WashnDry
 			nextLaundryDate 		= new DateTime(2016, 1, 29, 21, 56, 59);
 			currentDate 			= DateTime.Now;
 			nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
+			initialTimeInSeconds = 17; // should retrieve this value from the app's calculations
+			dc.formatSeconds(initialTimeInSeconds);
+			//uiOnDateDifference();
+			//uiEventsOnReadyToStartDrying();
 
-			initialTimeInSeconds 	= 17; // should retrieve this value from the app's calculations
 
-			startDryingButton.Click 	+= startDryingHandler;
-			restartDryingButton.Click 	+= restartDryingHandler;
-			stopDryingButton.Click 		+= stopDryingHandler;
+
+			//startDryingButton.Click 	+= startDryingHandler;
+			//restartDryingButton.Click 	+= restartDryingHandler;
+			//stopDryingButton.Click 		+= stopDryingHandler;
 			//RegisterBroadcastReceiver();
 
 			// should save state in a store. Various events should trigger a change in the state
@@ -91,13 +95,10 @@ namespace WashnDry
 			if (state == State.ready) { uiEventsOnReadyToStartDrying();}
 			if (state == State.dryingInProgress) { uiEventsOnStartDrying();}
 			if (state == State.laundryFinished) { uiEventsOnFinishedDrying(); }
+
 			nextLaundryTV.Text = nextLaundryDate.ToString();
+			estTextView.Text = dc.verbose.All;
 
-
-
-
-
-			dc.formatSeconds(initialTimeInSeconds);
 
 
 			locationTrigger();
@@ -127,14 +128,15 @@ namespace WashnDry
 		public override void OnResume()
 		{
 			base.OnResume();
+
 			if (state == State.dryingInProgress){ dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
 			if (nextLaundryDc.Hours <= 4 && nextLaundryDc.Seconds >= 0 )
 			{
 				int toNextDryTimerInterval;
 				if (nextLaundryDc.Hours >= 3) { toNextDryTimerInterval = 300000; Console.WriteLine("3 hours");} // update UI every 5 minutes
-				else if (nextLaundryDc.Minutes >= 60) { toNextDryTimerInterval = 4000; Console.WriteLine("hour");} // update UI every minute
+				else if (nextLaundryDc.Minutes >= 60) { toNextDryTimerInterval = 60000; Console.WriteLine("hour");} // update UI every minute
 				else if (nextLaundryDc.Seconds >= 60) { toNextDryTimerInterval = 1000; Console.WriteLine("minute");} //update UI every second
-				else { toNextDryTimerInterval = 1000; Console.WriteLine("second"); }
+				else { toNextDryTimerInterval = 1000; }
 				toNextDryTimer = new System.Threading.Timer(ToNextDryTimer_Elapsed, null, 0, toNextDryTimerInterval);
 			}
 		}
@@ -149,10 +151,9 @@ namespace WashnDry
 				toNextDryTimer = null;
 			}
 
-			//laundryDateDiff = DataTransformers.diffBetweenDates(nextLaundryDate, currentDate);
 			Activity.RunOnUiThread(() =>
 			{
-
+				
 				uiOnDateDifference();
 			});
 		}
@@ -171,7 +172,7 @@ namespace WashnDry
 				});
 
 				// create push notification
-				Notification.Builder builder = new Notification.Builder(Activity).SetContentTitle("Finished Drying").SetContentText("Time finished is").SetSmallIcon(Resource.Drawable.splash);
+				Notification.Builder builder = new Notification.Builder(Activity).SetContentTitle("Finished Drying").SetContentText("Time finished is").SetSmallIcon(Resource.Drawable.i_splash);
 				Notification notification = builder.Build();
 				NotificationManager notificationManager = Activity.GetSystemService(Context.NotificationService) as NotificationManager;
 				const int notificationId = 0;
@@ -272,7 +273,7 @@ namespace WashnDry
 
 		void uiEventsOnReadyToStartDrying()
 		{
-			
+			dc.formatSeconds(initialTimeInSeconds);
 			startDryingButton.Visibility 	= ViewStates.Visible;
 			stopDryingButton.Visibility 	= ViewStates.Gone;
 			restartDryingButton.Visibility 	= ViewStates.Gone;
@@ -296,7 +297,7 @@ namespace WashnDry
 
 		void uiEventsOnFinishedDrying()
 		{
-			
+			dc.formatSeconds(initialTimeInSeconds);
 			startDryingButton.Visibility 	= ViewStates.Invisible;
 			stopDryingButton.Visibility 	= ViewStates.Gone;
 			restartDryingButton.Visibility 	= ViewStates.Gone;
@@ -309,7 +310,7 @@ namespace WashnDry
 
 		void uiEventsOnStoppedDrying()
 		{
-			
+			dc.formatSeconds(initialTimeInSeconds);
 			startDryingButton.Visibility = ViewStates.Visible;
 			stopDryingButton.Visibility = ViewStates.Gone;
 			restartDryingButton.Visibility = ViewStates.Gone;

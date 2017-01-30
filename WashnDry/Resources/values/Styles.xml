@@ -10,4 +10,74 @@
     <item name="android:windowBackground">@drawable/splash_screen</item>
     <item name="android:windowNoTitle">true</item>  
   </style>
+
+	<style name="greenButtonStyle">
+    	<item name="android:layout_width" >match_parent</item>
+		<item name="android:layout_height" >wrap_content</item>
+		<item name="android:background">@drawable/buttonBgGreen</item>
+	    <item name="android:textColor" >@drawable/textColor</item>
+	    <item name="android:gravity" >center</item>
+	    <item name="android:layout_margin" >3dp</item>
+		<item name="android:layout_marginTop">20px</item>
+		<item name="android:layout_marginBottom">20px</item>
+	    <item name="android:textSize" >15dp</item>
+  	</style>
+
+	<style name="drawerStyle" parent="@android:style/Theme.Holo.Light">
+        <item name="android:activatedBackgroundIndicator">@color/OrangeLight</item>
+    </style>
+
+	<style name="textFieldStyle">
+		<item name="android:minHeight">25px</item>
+		<item name="android:background">@drawable/bg_textField</item>
+		<item name="android:paddingTop">20px</item>
+		<item name="android:paddingBottom">20px</item>
+		<item name="android:paddingLeft">30px</item>
+		<item name="android:paddingRight">30px</item>
+		<item name="android:textSize">50px</item>
+
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColorHint" >@drawable/textColor</item>
+		<item name="android:layout_marginTop">10px</item>
+		<item name="android:layout_marginBottom">10px</item>
+    </style>
+
+<!--	Page wrapper-->
+	<style name="pageWrapperStyle">
+        <item name="android:orientation">vertical</item>
+		<item name="android:paddingLeft">80px</item>
+		<item name="android:paddingRight">80px</item>
+		<item name="android:weightSum">100</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:id">@+id/pageWrapper</item>
+    </style>
+
+<!--    Page Scroll View-->
+	<style name="scrollWrapperStyle">
+        <item name="android:orientation">vertical</item>
+		<item name="android:fillViewport">true</item>
+		<item name="android:minHeight">25px</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:id">@+id/scrollView1</item>
+    </style>
+
+<!--	List View style-->
+
+	<style name="timingListViewStyle">
+        <item name="android:orientation">vertical</item>
+		<item name="android:fillViewport">true</item>
+		<item name="android:minHeight">25px</item>
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textAlignment">gravity</item>
+		<item name="android:layout_gravity">top</item>
+		<item name="android:layout_marginTop">10px</item>
+		<item name="android:layout_marginBottom">50px</item>
+		<item name="android:id">@+id/laundryTime_ListView</item>
+    </style>
+
 </resources>

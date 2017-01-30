@@ -76,11 +76,6 @@ namespace WashnDry
 			resetSettings 			= rootView.FindViewById<Button>(Resource.Id.resetSettings);
 			saveChangesButton 		= rootView.FindViewById<Button>(Resource.Id.saveChanges);
 
-
-
-			pageWrapper.SetPadding(80,0,80,0);
-
-
 			enableUIElements(false);
 
 			// Array adaptors for the list view
