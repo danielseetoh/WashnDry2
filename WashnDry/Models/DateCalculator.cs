@@ -32,7 +32,7 @@ namespace WashnDry
 
 		public void formatSeconds(long sec)
 		{
-			long _months = 5;
+			long _months = sec/ 2592000;
 			long _days = sec / 86400;
 			long _hours = sec / 3600;
 			long _minutes = (sec % 3600) / 60;
@@ -46,8 +46,8 @@ namespace WashnDry
 			if (_months != 0) { _monthStr = _months.ToString() + " " + "Month(s)" + " "; }
 			if (_days != 0) { _dayStr = _days.ToString() + " " + "Day(s)" + " "; }
 			if (_hours != 0) { _hourStr = _hours.ToString() + " " + "Hour(s)" + " "; }
-			if (_minutes != 0) { _minuteStr = timeInMinutes.ToString() + " " + "Minute(s)" + " "; }
-			if (_seconds != 0) { _secondStr = timeInSeconds.ToString() + " " + "Second(s)" + " "; }
+			if (_minutes != 0) { _minuteStr = _minutes.ToString() + " " + "Minute(s)" + " "; }
+			if (_seconds != 0) { _secondStr = _seconds.ToString() + " " + "Second(s)" + " "; }
 
 			verbose.all = _monthStr + _dayStr + _hourStr + _minuteStr + _secondStr;
 			verbose.monthDay = _monthStr + _dayStr;

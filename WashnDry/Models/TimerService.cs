@@ -59,7 +59,7 @@ namespace WashnDry
 
 		private void BroadcastStarted(bool isLaundryDone)
 		{
-			Intent BroadcastIntent = new Intent(this, typeof(HomeFragment.HomeBroadcastReceiver));
+			Intent BroadcastIntent = new Intent(this, typeof(StatusFragment.HomeBroadcastReceiver));
 			string action = "SendCountDownTimerData";
 			BroadcastIntent.SetAction(action);
 			BroadcastIntent.AddCategory(Intent.CategoryDefault);

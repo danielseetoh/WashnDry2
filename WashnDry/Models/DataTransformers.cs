@@ -111,6 +111,22 @@ namespace WashnDry
 			return dateDiff;
 		}
 
+		private static int UNBOUNDED = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+
+		// To calculate the total height of all items in ListView call with items = adapter.getCount()
+		public static int getItemHeightofListView(ListView listView, int items)
+		{
+			IListAdapter adapter = listView.Adapter;
+
+			int grossElementHeight = 0;
+			for (int i = 0; i < items; i++)
+			{
+				View childView = adapter.GetView(i, null, listView);
+				childView.Measure(UNBOUNDED, UNBOUNDED);
+				grossElementHeight += childView.MeasuredHeight(;
+			}
+			return grossElementHeight;
+		}
 
 
 		// case A2: before the drying time
