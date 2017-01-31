@@ -1619,27 +1619,26 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0069
 			public const int AddressText = 2131427433;
 			
-			// aapt resource value: 0x7f0b0089
-			public const int CreateAccountButton = 2131427465;
+			// aapt resource value: 0x7f0b008a
+			public const int CreateAccountButton = 2131427466;
 			
 			// aapt resource value: 0x7f0b0068
 			public const int CurrentLocationText = 2131427432;
 			
-			// aapt resource value: 0x7f0b0088
-			public const int Email = 2131427464;
-
+			// aapt resource value: 0x7f0b0089
+			public const int Email = 2131427465;
 			
 			// aapt resource value: 0x7f0b0067
 			public const int HumidityText = 2131427431;
 			
-			// aapt resource value: 0x7f0b0087
-			public const int Password = 2131427463;
+			// aapt resource value: 0x7f0b0088
+			public const int Password = 2131427464;
 			
 			// aapt resource value: 0x7f0b0065
 			public const int TemperatureText = 2131427429;
 			
-			// aapt resource value: 0x7f0b0086
-			public const int Username = 2131427462;
+			// aapt resource value: 0x7f0b0087
+			public const int Username = 2131427463;
 			
 			// aapt resource value: 0x7f0b0064
 			public const int WeatherText = 2131427428;
@@ -1785,8 +1784,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b003b
 			public const int expanded_menu = 2131427387;
 			
-			// aapt resource value: 0x7f0b007b
-			public const int gridview = 2131427451;
+			// aapt resource value: 0x7f0b0086
+			public const int gridview = 2131427462;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int home = 2131427332;
@@ -1827,8 +1826,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0082
 			public const int line3 = 2131427458;
 			
-			// aapt resource value: 0x7f0b008a
-			public const int linearLayout1 = 2131427466;
+			// aapt resource value: 0x7f0b008b
+			public const int linearLayout1 = 2131427467;
 			
 			// aapt resource value: 0x7f0b0009
 			public const int listMode = 2131427337;
@@ -1872,8 +1871,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0030
 			public const int parentPanel = 2131427376;
 			
-			// aapt resource value: 0x7f0b008b
-			public const int progressBar1 = 2131427467;
+			// aapt resource value: 0x7f0b008c
+			public const int progressBar1 = 2131427468;
 			
 			// aapt resource value: 0x7f0b0005
 			public const int progress_circular = 2131427333;

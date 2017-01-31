@@ -104,6 +104,8 @@
     <Compile Include="Models\DateCalculator.cs" />
     <Compile Include="Models\TimerService.cs" />
     <Compile Include="Models\RetrieveLocationService.cs" />
+    <Compile Include="ImageAdapter.cs" />
+    <Compile Include="Models\RetrieveWeatherData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

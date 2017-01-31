@@ -163,6 +163,7 @@ namespace WashnDry
 			for (int i = 0; i < timings.Count; i = i + 2)
 			{
 				string title = titles[i / 2];
+				Console.WriteLine("Timings: " + timings[i]);
 				DateTime event_start_time = start_of_time.AddMilliseconds(long.Parse(timings[i]));
 				int start_hours = (int)(event_start_time - DateTime.Today.ToUniversalTime()).TotalHours;
 				int start_position = getPosition(start_hours);

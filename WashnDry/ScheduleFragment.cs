@@ -127,7 +127,7 @@ namespace WashnDry
 				double _dtstart = cursor2.GetDouble(2);
 				double _dtend = cursor2.GetDouble(3);
 				string _availability = cursor2.GetString(4);
-				if (events_titles == "")
+				if (events_titles == "" || events_timings == "")
 				{
 					events_titles = _name;
 					events_timings = _dtstart.ToString() + "," + _dtend.ToString();
