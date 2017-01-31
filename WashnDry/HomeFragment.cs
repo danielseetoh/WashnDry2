@@ -16,11 +16,11 @@ using Plugin.Geolocator;
 using System.Net;
 using System.Json;
 using System.IO;
-using System.Timers;
+using System.Threading;
 
 namespace WashnDry
 {
-	public class HomeFragment : Fragment, ILocationListener
+	public class HomeFragment : Fragment
 	{
 		public System.Threading.Timer toNextDryTimer;
 		public System.Threading.Timer dryingTimer;
@@ -48,11 +48,20 @@ namespace WashnDry
 		TextView _windText;
 		TextView _humidityText;
 		TextView _weatherText;
-		Location _currentLocation;
-		LocationManager _locationManager;
-		string _locationProvider;
+		JsonValue weatherData;
+		static readonly int TimerWait = 2000;
+		Timer timer;
+		DateTime startTime;
 
-		Context context;
+		static string _longitude;
+		static string _latitude;
+		static string _address;
+		static string _currentWeather;
+		static string _currentTemperature;
+		static string _currentWind;
+		static string _currentHumidity;
+		//RetrieveWeatherData retrieveWeatherData = new RetrieveWeatherData();
+
 		View rootView;
 
 		public override void OnCreate(Bundle savedInstanceState)
@@ -98,10 +107,8 @@ namespace WashnDry
 
 			nextLaundryTV.Text = nextLaundryDate.ToString();
 			estTextView.Text = dc.verbose.All;
+			getUIElements();
 
-
-
-			locationTrigger();
 			return rootView;
 		}
 
@@ -139,11 +146,14 @@ namespace WashnDry
 				else { toNextDryTimerInterval = 1000; }
 				toNextDryTimer = new System.Threading.Timer(ToNextDryTimer_Elapsed, null, 0, toNextDryTimerInterval);
 			}
+			updateDisplays();
+			startTime = DateTime.UtcNow;
+			timer = new Timer(HandleTimerCallback, startTime, 0, TimerWait);
+
 		}
 
 		void ToNextDryTimer_Elapsed(object sender)
-		{
-			
+		{			
 			Console.WriteLine("to next drying event timer ticking");
 			if (nextLaundryDc.Seconds <= 0)
 			{
@@ -366,7 +376,59 @@ namespace WashnDry
 
 		// Other Code that is not mine
 
-		public void locationTrigger()
+		// public void locationTrigger()
+		// 	base.OnPause();
+		// }
+
+		void HandleTimerCallback(object state)
+		{
+			if (_latitude != "none" && _latitude != null)
+			{
+				getWeatherData();
+				Activity.RunOnUiThread(updateDisplays);
+			}
+			else {
+				Activity.RunOnUiThread(displayGettingLocation);
+			}
+		}
+
+		void displayGettingLocation()
+		{
+			Toast.MakeText(this.Activity, "Getting Location", ToastLength.Short).Show();
+		}
+
+		public override void OnStop()
+		{
+			base.OnStop();
+			timer.Dispose();
+		}
+
+		void updateDisplays()
+		{
+			_locationText.Text = _latitude + " " + _longitude;
+			_addressText.Text = _address;
+			_weatherText.Text = "Weather: " + _currentWeather;
+			_temperatureText.Text = "Temperature: " + _currentTemperature;
+			_windText.Text = "Wind Speed: " + _currentWind;
+			_humidityText.Text = "Humidity: " + _currentHumidity;
+		}
+
+		async void getWeatherData()
+		{
+			weatherData = await RetrieveWeatherData.FetchWeatherAsync(_latitude, _longitude);
+			if (weatherData != null)
+				parseWeatherData(weatherData);
+		}
+
+		private void parseWeatherData(JsonValue json)
+		{
+			_currentWeather = json["weather"][0]["description"].ToString();
+			_currentTemperature = json["main"]["temp"].ToString();
+			_currentWind = json["wind"]["speed"].ToString();
+			_currentHumidity = json["main"]["humidity"].ToString();
+		}
+
+		public void getUIElements()
 		{
 			_locationText = rootView.FindViewById<TextView>(Resource.Id.CurrentLocationText);
 			_addressText = rootView.FindViewById<TextView>(Resource.Id.AddressText);
@@ -374,135 +436,43 @@ namespace WashnDry
 			_temperatureText = rootView.FindViewById<TextView>(Resource.Id.TemperatureText);
 			_windText = rootView.FindViewById<TextView>(Resource.Id.WindText);
 			_humidityText = rootView.FindViewById<TextView>(Resource.Id.HumidityText);
-			context = this.Activity;
-			InitializeLocationManager();
-			getLocation();
 		}
 
-		void InitializeLocationManager()
+		[BroadcastReceiver]
+		public class LocationBroadcastReceiver : BroadcastReceiver
 		{
-			
-			_locationManager = (LocationManager)context.GetSystemService(Context.LocationService);
-			Criteria criteriaForLocationService = new Criteria
+			public static readonly string GRID_STARTED = "GRID_STARTED";
+			public override void OnReceive(Context context, Intent intent)
 			{
-				Accuracy = Accuracy.Fine
-			};
-			IList<string> acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
-
-			if (acceptableLocationProviders.Any())
-			{
-				_locationProvider = acceptableLocationProviders.First();
-			}
-			else
-			{
-				_locationProvider = string.Empty;
-			}
-			//Log.Debug(TAG, "Using " + _locationProvider + ".");
-			//Toast.MakeText(this.Activity, _locationProvider, ToastLength.Long).Show();
-		}
-
-		async void getLocation()
-		{
-			if (_currentLocation == null)
-			{
-				_addressText.Text = "Can't determine the current address. Try again in a few minutes.";
-				return;
-			}
-
-			Address address = await ReverseGeocodeCurrentLocation();
-			DisplayAddress(address);
-		}
-
-		async Task<Address> ReverseGeocodeCurrentLocation()
-		{
-			Geocoder geocoder = new Geocoder(this.Activity);
-			IList<Address> addressList =
-				await geocoder.GetFromLocationAsync(_currentLocation.Latitude, _currentLocation.Longitude, 10);
-
-			Address address = addressList.FirstOrDefault();
-			return address;
-		}
-
-		void DisplayAddress(Address address)
-		{
-			if (address != null)
-			{
-				StringBuilder deviceAddress = new StringBuilder();
-				for (int i = 0; i < address.MaxAddressLineIndex; i++)
+				if (intent.Action == GRID_STARTED)
 				{
-					deviceAddress.AppendLine(address.GetAddressLine(i));
+					Toast.MakeText(context, "Grid Started", ToastLength.Short).Show();
 				}
-				// Remove the last comma from the end of the address.
-				_addressText.Text = deviceAddress.ToString();
-			}
-			else
-			{
-				_addressText.Text = "Unable to determine the address. Try again in a few minutes.";
-			}
-		}
-
-		public async void OnLocationChanged(Location location) {
-		    _currentLocation = location;
-			if (_currentLocation == null)
-			{
-				_locationText.Text = "Unable to determine your location. Try again in a short while.";
-			}
-			else
-			{
-				_locationText.Text = string.Format("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude);
-				Address address = await ReverseGeocodeCurrentLocation();
-				DisplayAddress(address);
-				JsonValue json = await FetchWeatherAsync(_currentLocation);
-				ParseAndDisplay(json);
-				Task delay = new Task(() =>
-				{
-					Task.Delay(10000);  // Increase refresh time to 10 seconds
-				});
-			}
-
-
-		}
-
-		public void OnProviderDisabled(string provider) { }
-
-		public void OnProviderEnabled(string provider) { }
-
-		public void OnStatusChanged(string provider, Availability status, Bundle extras) { }
-
-		public async Task<JsonValue> FetchWeatherAsync(Location location)
-		{
-			string url = "http://api.openweathermap.org/data/2.5/weather?appid=f30fd8bd2d1f9f1bbdfbd627f9faa54b&lat=" + location.Latitude.ToString() + "&lon=" + location.Longitude.ToString()+ "&units=metric";
-			HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-			request.ContentType = "application/json";
-			request.Method = "GET";
-
-			// Send the request to the server and wait for the response:
-			using (WebResponse response = await request.GetResponseAsync())
-			{
-				// Get a stream representation of the HTTP web response:
-				using (Stream stream = response.GetResponseStream())
-				{
-					// Use this stream to build a JSON document object:
-					JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-					Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
-					//Toast.MakeText(this.Activity, jsonDoc.ToString(), ToastLength.Long).Show();
-					//_temperatureText.Text = string.Format("Response: {0}", jsonDoc.ToString());
-					// Return the JSON document:
-					return jsonDoc;
+				else {
+					
+					Bundle extras = intent.Extras;
+					_longitude = extras.GetString("Longitude");
+					_latitude = extras.GetString("Latitude");
+					_address = extras.GetString("Address");
+					//Toast.MakeText(context, _latitude + " " + _longitude + " " + _address, ToastLength.Short).Show();
 				}
 			}
-			//_temperatureText.Text = string.Format("Response: {0}", jsonDoc.ToString());
-			//_windText.Text = string.Format("{0:f6},{1:f6}", location.Latitude, location.Longitude);
-			//_humidityText.Text = string.Format("{0:f6},{1:f6}", location.Latitude, location.Longitude);
 		}
 
-		private void ParseAndDisplay(JsonValue json)
+		private LocationBroadcastReceiver _receiver;
+
+		private void RegisterBroadcastReceiver()
 		{
-			// Extract the array of name/value results for the field name "weatherObservation". 
-			_weatherText.Text = "Weather: " + json["weather"][0]["description"].ToString();
-			_temperatureText.Text = "Temperature: " + json["main"]["temp"].ToString() + " Celsius";
-			_windText.Text = "Wind Speed: " + json["wind"]["speed"].ToString() + "m/s";
-			_humidityText.Text = "Humidity: " + json["main"]["humidity"].ToString() + "%";
+			IntentFilter filter = new IntentFilter(LocationBroadcastReceiver.GRID_STARTED);
+			filter.AddCategory(Intent.CategoryDefault);
+			_receiver = new LocationBroadcastReceiver();
+			this.Activity.RegisterReceiver(_receiver, filter);
 		}
+
+		private void UnRegisterBroadcastReceiver()
+		{
+			this.Activity.UnregisterReceiver(_receiver);
+		}
+
 	}
 }

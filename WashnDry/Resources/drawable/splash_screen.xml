@@ -7,10 +7,10 @@
 		android:weightSum="100"
 			>
     <bitmap
-        android:src="@drawable/i_splash"
-		android:layout_weight="10"
-		android:layout_height="wrap_content"
-        android:tileMode="disabled"
-        android:gravity="center"/>
+      android:src="@drawable/i_splash"
+	    android:layout_weight="10"
+	    android:layout_height="wrap_content"
+      android:tileMode="disabled"
+      android:gravity="center"/>
   </item>
 </layer-list>

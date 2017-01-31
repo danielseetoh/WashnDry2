@@ -1627,6 +1627,7 @@ namespace WashnDry
 			
 			// aapt resource value: 0x7f0b0088
 			public const int Email = 2131427464;
+
 			
 			// aapt resource value: 0x7f0b0067
 			public const int HumidityText = 2131427431;
@@ -1783,6 +1784,9 @@ namespace WashnDry
 			
 			// aapt resource value: 0x7f0b003b
 			public const int expanded_menu = 2131427387;
+			
+			// aapt resource value: 0x7f0b007b
+			public const int gridview = 2131427451;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int home = 2131427332;
@@ -2388,9 +2392,6 @@ namespace WashnDry
 			
 			// aapt resource value: 0x7f060026
 			public const int setup = 2131099686;
-			
-			// aapt resource value: 0x7f06002c
-			public const int sliding_pane_layout_summary = 2131099692;
 			
 			// aapt resource value: 0x7f060014
 			public const int status_bar_notification_info_overflow = 2131099668;

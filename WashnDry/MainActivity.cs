@@ -8,7 +8,7 @@ using Android.OS;
 
 namespace WashnDry
 {
-	[Activity(Label = "Wash & Dry", Icon = "@mipmap/icon", Theme = "@android:style/Theme.DeviceDefault.Light")]
+	[Activity(Label = "Wash & Dry", Icon = "@android:color/transparent", Theme = "@android:style/Theme.DeviceDefault.Light")] 
 	public class MainActivity : Activity
 	{
 		//int count = 1;
@@ -68,6 +68,9 @@ namespace WashnDry
 
 			if (null == savedInstanceState)
 				SelectItem(0);
+			
+
+
 		}
 
 		private void SelectItem(int position)
@@ -159,6 +162,8 @@ namespace WashnDry
 				return true;
 			return base.OnOptionsItemSelected(item);
 		}
+
+
 
 	}
 }

@@ -26,15 +26,23 @@ namespace WashnDry
 		{
 			base.OnCreate(savedInstanceState, persistentState);
 			Log.Debug(TAG, "SplashActivity.OnCreate");
+
+			//var retrieveLocationServiceIntent = new Intent(this, typeof(RetrieveLocationService));
+			//var retrieveLocationServiceConnection = new RetrieveLocationServiceConnection(this);
+			//BindService(retrieveLocationServiceIntent, retrieveLocationServiceConnection, Bind.AutoCreate);
+
+
+			//StartService(new Intent(this, typeof(SimpleStartedService)));
+			//RegisterBroadcastReceiver();
 		}
 
 		protected override void OnResume()
 		{
 			base.OnResume();
-
+			StartService(new Intent(this, typeof(RetrieveLocationService)));
 			Task startupWork = new Task(() =>
 			{
-				Task.Delay(1500);  // Simulate a bit of startup work.
+				Task.Delay(3000);  // Simulate a bit of startup work.
 			});
 
 			// if user has not setup account, let user set up account here, else go straight to main
@@ -64,5 +72,6 @@ namespace WashnDry
 
 			startupWork.Start();
 		}
+
 	}
 }
