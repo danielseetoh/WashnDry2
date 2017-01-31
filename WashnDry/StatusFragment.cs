@@ -63,7 +63,7 @@ namespace WashnDry
 			descriptionText = rootView.FindViewById<TextView>(Resource.Id.laundryDoneAlert);
 			timerTextView = rootView.FindViewById<TextView>(Resource.Id.timerTextView);
 			timeTakenTextView = rootView.FindViewById<TextView>(Resource.Id.timeTaken);
-			nextLaundryDate = new DateTime(2016, 1, 29, 21, 56, 59);
+			nextLaundryDate = new DateTime(2016, 1, 31, 23, 15, 22);
 			currentDate = DateTime.Now;
 			nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
 			initialTimeInSeconds = 17; // should retrieve this value from the app's calculations

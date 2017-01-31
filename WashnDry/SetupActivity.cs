@@ -20,6 +20,7 @@ namespace WashnDry
 		private ListView mListView;
 		private Dictionary<int, string> laundryTime;
 		private SparseBooleanArray updatedLaundryTimes;
+		private LinearLayout mLayout;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -33,6 +34,8 @@ namespace WashnDry
 			laundryTime = data.getLaundryTimeSlots();
 			List<int> laundryTime_Keys = laundryTime.Keys.ToList();
 			List<string> laundryTime_Values = laundryTime.Values.ToList();
+			mLayout = FindViewById<LinearLayout>(Resource.Id.pageWrapper);
+
 
 			EditText username = FindViewById<EditText>(Resource.Id.Username);
 			EditText password = FindViewById<EditText>(Resource.Id.Password);
@@ -40,6 +43,8 @@ namespace WashnDry
 			Button createAccountButton = FindViewById<Button>(Resource.Id.CreateAccountButton);
 
 			mListView = FindViewById<ListView>(Resource.Id.laundryTime_ListView);
+			//mLayout.AddView(mListView);
+
 
 
 			ArrayAdapter<string> adaptor = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItemMultipleChoice, laundryTime_Values);
@@ -49,6 +54,11 @@ namespace WashnDry
 			// initializing the laundry time checkboxes as false
 			for (int i = 0; i < laundryTime_Keys.Count; i++) { mListView.SetItemChecked(laundryTime_Keys[i], false); }
 
+			int lv_height = DataTransformers.getItemHeightofListView(mListView, laundryTime.Count);
+			Console.WriteLine("set height of list view:" + lv_height.ToString());
+
+			mListView.SetMinimumHeight(lv_height);
+			mListView.RequestLayout();
 
 			createAccountButton.Enabled = true;
 

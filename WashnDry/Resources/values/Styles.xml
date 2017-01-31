@@ -72,7 +72,7 @@
 		<item name="android:minHeight">25px</item>
 		<item name="android:background">#FFFFFF</item>
 		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_height">200px</item>
 		<item name="android:textAlignment">gravity</item>
 		<item name="android:layout_gravity">top</item>
 		<item name="android:layout_marginTop">10px</item>

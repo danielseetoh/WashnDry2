@@ -42,25 +42,25 @@ namespace WashnDry
 			AppPreferences ap = new AppPreferences(mContext);
 			string username = ap.getUsername();
 
-			startupWork.ContinueWith(t =>
-				{
-					StartActivity(new Intent(Application.Context, typeof(SetupActivity)));
-				}, TaskScheduler.FromCurrentSynchronizationContext());
-
-			//if (username == "")
-			//{
-			//	startupWork.ContinueWith(t =>
+			//startupWork.ContinueWith(t =>
 			//	{
 			//		StartActivity(new Intent(Application.Context, typeof(SetupActivity)));
 			//	}, TaskScheduler.FromCurrentSynchronizationContext());
-			//}
-			//else 
-			//{
-			//	startupWork.ContinueWith(t =>
-			//	{
-			//		StartActivity(new Intent(Application.Context, typeof(MainActivity)));
-			//	}, TaskScheduler.FromCurrentSynchronizationContext());
-			//}
+
+			if (username == "")
+			{
+				startupWork.ContinueWith(t =>
+				{
+					StartActivity(new Intent(Application.Context, typeof(SetupActivity)));
+				}, TaskScheduler.FromCurrentSynchronizationContext());
+			}
+			else 
+			{
+				startupWork.ContinueWith(t =>
+				{
+					StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+				}, TaskScheduler.FromCurrentSynchronizationContext());
+			}
 
 			startupWork.Start();
 		}

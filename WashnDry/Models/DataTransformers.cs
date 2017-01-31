@@ -123,7 +123,7 @@ namespace WashnDry
 			{
 				View childView = adapter.GetView(i, null, listView);
 				childView.Measure(UNBOUNDED, UNBOUNDED);
-				grossElementHeight += childView.MeasuredHeight(;
+				grossElementHeight += childView.MeasuredHeight;
 			}
 			return grossElementHeight;
 		}
