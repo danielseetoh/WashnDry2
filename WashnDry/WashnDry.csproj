@@ -84,6 +84,9 @@
       <HintPath>..\packages\Xam.Plugin.Geolocator.3.0.4\lib\MonoAndroid10\Plugin.Geolocator.dll</HintPath>
     </Reference>
     <Reference Include="System.Json" />
+    <Reference Include="LinearTimer">
+      <HintPath>..\packages\LinearTimer.1.0.0\lib\LinearTimer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -145,8 +148,10 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\logo.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\logo.png" />
     <AndroidResource Include="Resources\mipmap-hdpi\logo.png" />
-    <AndroidResource Include="Resources\drawable\i_splash.png" />
     <AndroidResource Include="Resources\drawable\bg_textField.xml" />
+    <AndroidResource Include="Resources\drawable\i_timer.png" />
+    <AndroidResource Include="Resources\drawable\i_splash.png" />
+    <AndroidResource Include="Resources\drawable\i_menu.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

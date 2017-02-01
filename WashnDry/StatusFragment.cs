@@ -17,6 +17,7 @@ using System.Net;
 using System.Json;
 using System.IO;
 using System.Timers;
+using IO.Github.Krtkush.Lineartimer;
 
 namespace WashnDry
 {
@@ -34,6 +35,11 @@ namespace WashnDry
 		TextView timerTextView, estTextView, timeTakenTextView;
 		TextView descriptionText;
 		Button startDryingButton, restartDryingButton, stopDryingButton;
+
+		RelativeLayout timerLayoutWrapper;
+		LinearTimer linearTimer;
+		LinearTimerView linearTimerView;
+		ImageView timerImage;
 
 		DateTime nextLaundryDate;
 		DateTime currentDate;
@@ -61,9 +67,13 @@ namespace WashnDry
 			stopDryingButton = rootView.FindViewById<Button>(Resource.Id.stopDryingButton);
 			restartDryingButton = rootView.FindViewById<Button>(Resource.Id.restartDryingButton);
 			descriptionText = rootView.FindViewById<TextView>(Resource.Id.laundryDoneAlert);
+			timerLayoutWrapper = rootView.FindViewById<RelativeLayout>(Resource.Id.timerLayoutWrapper);
 			timerTextView = rootView.FindViewById<TextView>(Resource.Id.timerTextView);
 			timeTakenTextView = rootView.FindViewById<TextView>(Resource.Id.timeTaken);
-			nextLaundryDate = new DateTime(2016, 1, 31, 23, 15, 22);
+			timerImage = rootView.FindViewById<ImageView>(Resource.Id.timerImage);
+			linearTimerView = rootView.FindViewById<LinearTimerView>(Resource.Id.linearTimerView);
+			linearTimer = new LinearTimer(linearTimerView);
+			nextLaundryDate = new DateTime(2016, 2, 1, 08, 58, 28);
 			currentDate = DateTime.Now;
 			nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
 			initialTimeInSeconds = 17; // should retrieve this value from the app's calculations
@@ -151,6 +161,7 @@ namespace WashnDry
 			{
 				Console.WriteLine("laundry finished timer message liao");
 				stopTimerBroadcast();
+				linearTimer.ResetTimer();
 				Activity.RunOnUiThread(() =>
 				{
 					Toast.MakeText(Activity, "Finished Drying", ToastLength.Short).Show();
@@ -184,8 +195,9 @@ namespace WashnDry
 		{
 			Toast.MakeText(Activity, "Started Drying now!", ToastLength.Short).Show();
 			state = State.dryingInProgress;
-			dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
 			uiEventsOnStartDrying();
+			dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
+			linearTimer.StartTimer(360, initialTimeInSeconds*1000);
 			startTimerBroadcast(initialTimeInSeconds);
 
 		}
@@ -193,8 +205,11 @@ namespace WashnDry
 		void stopDryingHandler(object sender, EventArgs e)
 		{
 			state = State.ready;
-			Toast.MakeText(Activity, "Stopped Drying.", ToastLength.Short).Show();
+			Toast.MakeText(Activity, "Stopped Drying", ToastLength.Short).Show();
+			//linearTimer.RestartTimer();
+			linearTimer.ResetTimer();
 			uiEventsOnStoppedDrying();
+
 			stopTimerBroadcast();
 		}
 
@@ -203,6 +218,7 @@ namespace WashnDry
 			state = State.dryingInProgress;
 			Toast.MakeText(Activity, "Restarted Drying.", ToastLength.Short).Show();
 			Activity.StopService(new Intent(Activity, typeof(TimerService)));
+			linearTimer.RestartTimer();
 			startTimerBroadcast(initialTimeInSeconds);
 
 		}
@@ -252,7 +268,7 @@ namespace WashnDry
 			startDryingButton.Visibility = ViewStates.Gone;
 			stopDryingButton.Visibility = ViewStates.Gone;
 			restartDryingButton.Visibility = ViewStates.Gone;
-			timerTextView.Visibility = ViewStates.Gone;
+			timerLayoutWrapper.Visibility = ViewStates.Gone;
 			descriptionText.Visibility = ViewStates.Gone;
 			timeTakenTextView.Visibility = ViewStates.Gone;
 		}
@@ -263,7 +279,7 @@ namespace WashnDry
 			startDryingButton.Visibility = ViewStates.Visible;
 			stopDryingButton.Visibility = ViewStates.Gone;
 			restartDryingButton.Visibility = ViewStates.Gone;
-			timerTextView.Visibility = ViewStates.Gone;
+			timerLayoutWrapper.Visibility = ViewStates.Gone;
 			descriptionText.Text = "Press start to start drying";
 			descriptionText.Visibility = ViewStates.Visible;
 			timeTakenTextView.Text = "Time to dry: \n" + dc.verbose.All; //DataTransformers.formatSecondsToTime(initialTimeInSeconds, DataTransformers.TimeFormat.verbose);
@@ -272,10 +288,13 @@ namespace WashnDry
 
 		void uiEventsOnStartDrying()
 		{
+			dc.formatSeconds(initialTimeInSeconds);
 			startDryingButton.Visibility = ViewStates.Gone;
 			restartDryingButton.Visibility = ViewStates.Visible;
 			stopDryingButton.Visibility = ViewStates.Visible;
-			timerTextView.Visibility = ViewStates.Visible;
+			timerTextView.Text = dc.Digital;
+			timerLayoutWrapper.Visibility = ViewStates.Visible;
+			linearTimerView.PreFillAngle = 0;
 			descriptionText.Visibility = ViewStates.Gone;
 			timeTakenTextView.Visibility = ViewStates.Gone;
 
@@ -287,7 +306,7 @@ namespace WashnDry
 			startDryingButton.Visibility = ViewStates.Invisible;
 			stopDryingButton.Visibility = ViewStates.Gone;
 			restartDryingButton.Visibility = ViewStates.Gone;
-			timerTextView.Visibility = ViewStates.Gone;
+			timerLayoutWrapper.Visibility = ViewStates.Gone;
 			descriptionText.Text = "Laundry Completed. Based on your personal schedule, the app will suggest the next suitable date to start your laundry again :)";
 			descriptionText.Visibility = ViewStates.Visible;
 			timeTakenTextView.Text = "Time taken to dry: \n" + dc.verbose.All;
@@ -300,7 +319,8 @@ namespace WashnDry
 			startDryingButton.Visibility = ViewStates.Visible;
 			stopDryingButton.Visibility = ViewStates.Gone;
 			restartDryingButton.Visibility = ViewStates.Gone;
-			timerTextView.Visibility = ViewStates.Gone;
+			timerLayoutWrapper.Visibility = ViewStates.Invisible;
+
 			descriptionText.Text = "Stopped. Press start to start drying \n";
 			descriptionText.Visibility = ViewStates.Visible;
 			timeTakenTextView.Text = "Time to dry: \n" + dc.verbose.All;
