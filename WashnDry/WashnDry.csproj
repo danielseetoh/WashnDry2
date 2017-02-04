@@ -102,13 +102,13 @@
     <Compile Include="AppPreferences.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Data\ListData.cs" />
-    <Compile Include="Models\DataTransformers.cs" />
+    <Compile Include="Helpers\DataTransformers.cs" />
     <Compile Include="ProgressFragment.cs" />
-    <Compile Include="Models\DateCalculator.cs" />
-    <Compile Include="Models\TimerService.cs" />
-    <Compile Include="Models\RetrieveLocationService.cs" />
+    <Compile Include="Helpers\DateCalculator.cs" />
+    <Compile Include="Helpers\TimerService.cs" />
+    <Compile Include="Helpers\RetrieveLocationService.cs" />
     <Compile Include="ImageAdapter.cs" />
-    <Compile Include="Models\RetrieveWeatherData.cs" />
+    <Compile Include="Helpers\RetrieveWeatherData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -157,7 +157,7 @@
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\menu\" />
     <Folder Include="Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Components\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
