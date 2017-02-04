@@ -79,7 +79,7 @@ namespace WashnDry
 			{
 				case 0:{
 						// Home
-						var fragment = new HomeFragment();
+						var fragment = new StatusFragment();
 						var arguments = new Bundle();
 						fragment.Arguments = arguments;
 
@@ -88,7 +88,7 @@ namespace WashnDry
 				}
 				case 1:{
 						// Status
-						var fragment = new StatusFragment();
+						var fragment = new WeatherFragment();
 						var arguments = new Bundle();
 						fragment.Arguments = arguments;
 
@@ -115,7 +115,7 @@ namespace WashnDry
 				}
 				default:
 					{
-						var fragment = new HomeFragment();
+						var fragment = new StatusFragment();
 						var arguments = new Bundle();
 						fragment.Arguments = arguments;
 

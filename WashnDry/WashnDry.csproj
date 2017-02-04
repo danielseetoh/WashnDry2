@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>WashnDry</RootNamespace>
     <AssemblyName>WashnDry</AssemblyName>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -96,7 +96,7 @@
     <Compile Include="MyActionBarDrawerToggle.cs" />
     <Compile Include="ScheduleFragment.cs" />
     <Compile Include="AccountFragment.cs" />
-    <Compile Include="HomeFragment.cs" />
+    <Compile Include="WeatherFragment.cs" />
     <Compile Include="StatusFragment.cs" />
     <Compile Include="SetupActivity.cs" />
     <Compile Include="AppPreferences.cs" />

@@ -20,7 +20,7 @@ using System.Threading;
 
 namespace WashnDry
 {
-	public class HomeFragment : Fragment
+	public class WeatherFragment : Fragment
 	{
 		public System.Threading.Timer toNextDryTimer;
 		public System.Threading.Timer dryingTimer;

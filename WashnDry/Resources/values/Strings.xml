@@ -9,8 +9,8 @@
 	<string name="DrawerOpen">Open</string>
 	<string name="DrawerClose">Close</string>
   	<string-array name="PagesArray">
-  		<item>Home</item>
-		<item>Status</item>
+  		<item>Status</item>
+		<item>Weather</item>
 		<item>Schedule</item>
 		<item>Account</item>
 	</string-array>

@@ -69,7 +69,7 @@ namespace WashnDry
 		{
 			InitializeLocationManager();
 			getLocation();
-			Intent BroadcastIntent = new Intent(this, typeof(HomeFragment.LocationBroadcastReceiver));
+			Intent BroadcastIntent = new Intent(this, typeof(WeatherFragment.LocationBroadcastReceiver));
 			string action = "Send Location Data";
 			BroadcastIntent.SetAction(action);
 			BroadcastIntent.AddCategory(Intent.CategoryDefault);

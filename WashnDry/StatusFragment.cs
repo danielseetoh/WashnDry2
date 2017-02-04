@@ -60,6 +60,8 @@ namespace WashnDry
 		{
 			rootView = inflater.Inflate(Resource.Layout.Status, container, false);
 
+
+
 			estTextView = rootView.FindViewById<TextView>(Resource.Id.estTime);
 			nextLaundryTV = rootView.FindViewById<TextView>(Resource.Id.nextLaundryTextView);
 			timeToNextLaundryTV = rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
@@ -81,8 +83,6 @@ namespace WashnDry
 			uiOnDateDifference();
 			uiEventsOnReadyToStartDrying();
 
-
-
 			startDryingButton.Click += startDryingHandler;
 			restartDryingButton.Click += restartDryingHandler;
 			stopDryingButton.Click += stopDryingHandler;
@@ -100,8 +100,6 @@ namespace WashnDry
 
 			return rootView;
 		}
-
-
 
 		public override void OnPause()
 		{
@@ -162,6 +160,7 @@ namespace WashnDry
 				Console.WriteLine("laundry finished timer message liao");
 				stopTimerBroadcast();
 				linearTimer.ResetTimer();
+
 				Activity.RunOnUiThread(() =>
 				{
 					Toast.MakeText(Activity, "Finished Drying", ToastLength.Short).Show();
