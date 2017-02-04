@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 
@@ -148,5 +149,44 @@ namespace WashnDry
 		// dry time: 8:35:30
 		// hourDiff = -1, minute Diff = -10
 		// correction: none
+
+		public static List<string[]> parseFiveDayWeatherData(JsonValue weatherData)
+		{
+			List<string[]> result = new List<string[]>();
+			string precipitation;
+			for (int i = 0; i < weatherData["list"].Count; i++)
+			{
+
+				JsonValue threeHourPeriod = weatherData["list"][i];
+				//Console.Out.WriteLine(threeHourPeriod["rain"].ToString());
+				//string precipitation = threeHourPeriod["rain"]["3h"].ToString();
+				if (threeHourPeriod["rain"].Count == 0)
+				{
+					precipitation = "0";
+				}
+				else {
+					precipitation = threeHourPeriod["rain"]["3h"].ToString();
+				}
+
+				//{ "Profile", "Temperature", "Humidity", "Precipitation(%)", "Irradiation", "Windspeed", "Indoors/outdoors", "Drying-time"},
+				string[] val = new string[]{"profileValue", threeHourPeriod["main"]["temp"].ToString(),
+					threeHourPeriod["main"]["humidity"].ToString(), precipitation, "0", threeHourPeriod["wind"]["speed"].ToString(),
+					"outdoors", "30"};
+				//Console.Out.WriteLine(val);
+				result.Add(val);
+			}
+			//foreach (JsonValue threeHourPeriod in weatherData["list"])
+			//{
+			//	Console.Out.WriteLine(threeHourPeriod.ToString());
+			//	string val = new string[threeHourPeriod["main"]["temp"], threeHourPeriod["main"]["humidity"], threeHourPeriod["wind"]["speed"]].ToString();
+			//	result.Add(val);
+			//}
+			//Console.Out.WriteLine("close parseFiveDayWeatherData");
+			return result;
+		}
+
+
+
+
 	}
 }	

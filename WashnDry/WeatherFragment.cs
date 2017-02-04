@@ -73,22 +73,22 @@ namespace WashnDry
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			rootView = inflater.Inflate(Resource.Layout.Home, container, false);
+			rootView = inflater.Inflate(Resource.Layout.Weather, container, false);
 
 			estTextView 			= rootView.FindViewById<TextView>(Resource.Id.estTime);
-			nextLaundryTV 			= rootView.FindViewById<TextView>(Resource.Id.nextLaundryTextView);
-			timeToNextLaundryTV 	= rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
-			startDryingButton 		= rootView.FindViewById<Button>(Resource.Id.startDryingButton);
-			stopDryingButton 		= rootView.FindViewById<Button>(Resource.Id.stopDryingButton);
-			restartDryingButton 	= rootView.FindViewById<Button>(Resource.Id.restartDryingButton);
-			descriptionText 		= rootView.FindViewById<TextView>(Resource.Id.laundryDoneAlert);
-			timerTextView 			= rootView.FindViewById<TextView>(Resource.Id.timerTextView);
-			timeTakenTextView	 	= rootView.FindViewById<TextView>(Resource.Id.timeTaken);
-			nextLaundryDate 		= new DateTime(2016, 1, 29, 21, 56, 59);
-			currentDate 			= DateTime.Now;
-			nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
-			initialTimeInSeconds = 17; // should retrieve this value from the app's calculations
-			dc.formatSeconds(initialTimeInSeconds);
+			//nextLaundryTV 			= rootView.FindViewById<TextView>(Resource.Id.nextLaundryTextView);
+			//timeToNextLaundryTV 	= rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
+			//startDryingButton 		= rootView.FindViewById<Button>(Resource.Id.startDryingButton);
+			//stopDryingButton 		= rootView.FindViewById<Button>(Resource.Id.stopDryingButton);
+			//restartDryingButton 	= rootView.FindViewById<Button>(Resource.Id.restartDryingButton);
+			//descriptionText 		= rootView.FindViewById<TextView>(Resource.Id.laundryDoneAlert);
+			//timerTextView 			= rootView.FindViewById<TextView>(Resource.Id.timerTextView);
+			//timeTakenTextView	 	= rootView.FindViewById<TextView>(Resource.Id.timeTaken);
+			//nextLaundryDate 		= new DateTime(2016, 1, 29, 21, 56, 59);
+			//currentDate 			= DateTime.Now;
+			//nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
+			//initialTimeInSeconds = 17; // should retrieve this value from the app's calculations
+			//dc.formatSeconds(initialTimeInSeconds);
 			//uiOnDateDifference();
 			//uiEventsOnReadyToStartDrying();
 
@@ -100,13 +100,13 @@ namespace WashnDry
 			//RegisterBroadcastReceiver();
 
 			// should save state in a store. Various events should trigger a change in the state
-			if (state == State.notReady) { }
-			if (state == State.ready) { uiEventsOnReadyToStartDrying();}
-			if (state == State.dryingInProgress) { uiEventsOnStartDrying();}
-			if (state == State.laundryFinished) { uiEventsOnFinishedDrying(); }
+			//if (state == State.notReady) { }
+			//if (state == State.ready) { uiEventsOnReadyToStartDrying();}
+			//if (state == State.dryingInProgress) { uiEventsOnStartDrying();}
+			//if (state == State.laundryFinished) { uiEventsOnFinishedDrying(); }
 
-			nextLaundryTV.Text = nextLaundryDate.ToString();
-			estTextView.Text = dc.verbose.All;
+			//nextLaundryTV.Text = nextLaundryDate.ToString();
+			//estTextView.Text = dc.verbose.All;
 			getUIElements();
 
 			return rootView;
@@ -136,200 +136,200 @@ namespace WashnDry
 		{
 			base.OnResume();
 
-			if (state == State.dryingInProgress){ dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
-			if (nextLaundryDc.Hours <= 4 && nextLaundryDc.Seconds >= 0 )
-			{
-				int toNextDryTimerInterval;
-				if (nextLaundryDc.Hours >= 3) { toNextDryTimerInterval = 300000; Console.WriteLine("3 hours");} // update UI every 5 minutes
-				else if (nextLaundryDc.Minutes >= 60) { toNextDryTimerInterval = 60000; Console.WriteLine("hour");} // update UI every minute
-				else if (nextLaundryDc.Seconds >= 60) { toNextDryTimerInterval = 1000; Console.WriteLine("minute");} //update UI every second
-				else { toNextDryTimerInterval = 1000; }
-				toNextDryTimer = new System.Threading.Timer(ToNextDryTimer_Elapsed, null, 0, toNextDryTimerInterval);
-			}
+			//if (state == State.dryingInProgress){ dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
+			//if (nextLaundryDc.Hours <= 4 && nextLaundryDc.Seconds >= 0 )
+			//{
+			//	int toNextDryTimerInterval;
+			//	if (nextLaundryDc.Hours >= 3) { toNextDryTimerInterval = 300000; Console.WriteLine("3 hours");} // update UI every 5 minutes
+			//	else if (nextLaundryDc.Minutes >= 60) { toNextDryTimerInterval = 60000; Console.WriteLine("hour");} // update UI every minute
+			//	else if (nextLaundryDc.Seconds >= 60) { toNextDryTimerInterval = 1000; Console.WriteLine("minute");} //update UI every second
+			//	else { toNextDryTimerInterval = 1000; }
+			//	toNextDryTimer = new System.Threading.Timer(ToNextDryTimer_Elapsed, null, 0, toNextDryTimerInterval);
+			//}
 			updateDisplays();
 			startTime = DateTime.UtcNow;
 			timer = new Timer(HandleTimerCallback, startTime, 0, TimerWait);
 
 		}
 
-		void ToNextDryTimer_Elapsed(object sender)
-		{			
-			Console.WriteLine("to next drying event timer ticking");
-			if (nextLaundryDc.Seconds <= 0)
-			{
-				toNextDryTimer.Dispose(); 
-				toNextDryTimer = null;
-			}
+		//void ToNextDryTimer_Elapsed(object sender)
+		//{			
+		//	Console.WriteLine("to next drying event timer ticking");
+		//	if (nextLaundryDc.Seconds <= 0)
+		//	{
+		//		toNextDryTimer.Dispose(); 
+		//		toNextDryTimer = null;
+		//	}
 
-			Activity.RunOnUiThread(() =>
-			{
+		//	Activity.RunOnUiThread(() =>
+		//	{
 				
-				uiOnDateDifference();
-			});
-		}
+		//		uiOnDateDifference();
+		//	});
+		//}
 
-		void dryTimer_Elapsed(object objState)
-		{
-			Console.WriteLine("dry timer elapsed ticking");
-			if (state == State.laundryFinished)
-			{
-				Console.WriteLine("laundry finished timer message liao");
-				stopTimerBroadcast();
-				Activity.RunOnUiThread(() =>
-				{
-					Toast.MakeText(Activity, "Finished Drying", ToastLength.Short).Show();
-					uiEventsOnFinishedDrying();
-				});
+		//void dryTimer_Elapsed(object objState)
+		//{
+		//	Console.WriteLine("dry timer elapsed ticking");
+		//	if (state == State.laundryFinished)
+		//	{
+		//		Console.WriteLine("laundry finished timer message liao");
+		//		stopTimerBroadcast();
+		//		Activity.RunOnUiThread(() =>
+		//		{
+		//			Toast.MakeText(Activity, "Finished Drying", ToastLength.Short).Show();
+		//			uiEventsOnFinishedDrying();
+		//		});
 
-				// create push notification
-				Notification.Builder builder = new Notification.Builder(Activity).SetContentTitle("Finished Drying").SetContentText("Time finished is").SetSmallIcon(Resource.Drawable.i_splash);
-				Notification notification = builder.Build();
-				NotificationManager notificationManager = Activity.GetSystemService(Context.NotificationService) as NotificationManager;
-				const int notificationId = 0;
-				notificationManager.Notify(notificationId, notification);
-				return;
+		//		// create push notification
+		//		Notification.Builder builder = new Notification.Builder(Activity).SetContentTitle("Finished Drying").SetContentText("Time finished is").SetSmallIcon(Resource.Drawable.i_splash);
+		//		Notification notification = builder.Build();
+		//		NotificationManager notificationManager = Activity.GetSystemService(Context.NotificationService) as NotificationManager;
+		//		const int notificationId = 0;
+		//		notificationManager.Notify(notificationId, notification);
+		//		return;
 
-			}
-			else if (state == State.dryingInProgress)
-			{
-				if (dryingTimer != null) // context guard against null reference exception
-				{
-					dc.formatSeconds(timeLeftInSeconds);
-					Activity.RunOnUiThread(() =>
-					{
-						timerTextView.Text = dc.Digital; // DataTransformers.formatSecondsToTime(timeLeftInSeconds, DataTransformers.TimeFormat.digital);
-					});
-				}
-			}
+		//	}
+		//	else if (state == State.dryingInProgress)
+		//	{
+		//		if (dryingTimer != null) // context guard against null reference exception
+		//		{
+		//			dc.formatSeconds(timeLeftInSeconds);
+		//			Activity.RunOnUiThread(() =>
+		//			{
+		//				timerTextView.Text = dc.Digital; // DataTransformers.formatSecondsToTime(timeLeftInSeconds, DataTransformers.TimeFormat.digital);
+		//			});
+		//		}
+		//	}
 
-		}
+		//}
 
-		void startDryingHandler(object sender, EventArgs e)
-		{
-			Toast.MakeText(Activity, "Started Drying now!", ToastLength.Short).Show();
-			state = State.dryingInProgress;
-			dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
-			uiEventsOnStartDrying();
-			startTimerBroadcast(initialTimeInSeconds);
+		//void startDryingHandler(object sender, EventArgs e)
+		//{
+		//	Toast.MakeText(Activity, "Started Drying now!", ToastLength.Short).Show();
+		//	state = State.dryingInProgress;
+		//	dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
+		//	uiEventsOnStartDrying();
+		//	startTimerBroadcast(initialTimeInSeconds);
 
-		}
+		//}
 
-		void stopDryingHandler(object sender, EventArgs e)
-		{
-			state = State.ready;
-			Toast.MakeText(Activity, "Stopped Drying.", ToastLength.Short).Show();
-			uiEventsOnStoppedDrying();
-			stopTimerBroadcast();
-		}
+		//void stopDryingHandler(object sender, EventArgs e)
+		//{
+		//	state = State.ready;
+		//	Toast.MakeText(Activity, "Stopped Drying.", ToastLength.Short).Show();
+		//	uiEventsOnStoppedDrying();
+		//	stopTimerBroadcast();
+		//}
 
-		void restartDryingHandler(object sender, EventArgs e)
-		{
-			state = State.dryingInProgress;
-			Toast.MakeText(Activity, "Restarted Drying.", ToastLength.Short).Show();
-			Activity.StopService(new Intent(Activity, typeof(TimerService)));
-			startTimerBroadcast(initialTimeInSeconds);
+		//void restartDryingHandler(object sender, EventArgs e)
+		//{
+		//	state = State.dryingInProgress;
+		//	Toast.MakeText(Activity, "Restarted Drying.", ToastLength.Short).Show();
+		//	Activity.StopService(new Intent(Activity, typeof(TimerService)));
+		//	startTimerBroadcast(initialTimeInSeconds);
 
-		}
+		//}
 
-		void stopTimerBroadcast()
-		{
-			Activity.StopService(new Intent(Activity, typeof(TimerService)));
-			if (dryingTimer != null)
-			{
-				Console.WriteLine("timer destroyed");
-				dryingTimer.Dispose();
-				dryingTimer = null;
-			}
-		}
+		//void stopTimerBroadcast()
+		//{
+		//	Activity.StopService(new Intent(Activity, typeof(TimerService)));
+		//	if (dryingTimer != null)
+		//	{
+		//		Console.WriteLine("timer destroyed");
+		//		dryingTimer.Dispose();
+		//		dryingTimer = null;
+		//	}
+		//}
 
-		void startTimerBroadcast(int initialTime)
-		{
-			Intent BroadcastIntent = new Intent(Activity, typeof(TimerService.TimerBroadcastReceiver));
-			string action = "sendInitialTimeInSeconds";
-			BroadcastIntent.SetAction(action);
-			BroadcastIntent.AddCategory(Intent.CategoryDefault);
-			BroadcastIntent.PutExtra("initialTimeInSeconds", initialTime);
-			Activity.SendBroadcast(BroadcastIntent); //when this broadcast is received, it triggers the start of the TimerService
-		}
+		//void startTimerBroadcast(int initialTime)
+		//{
+		//	Intent BroadcastIntent = new Intent(Activity, typeof(TimerService.TimerBroadcastReceiver));
+		//	string action = "sendInitialTimeInSeconds";
+		//	BroadcastIntent.SetAction(action);
+		//	BroadcastIntent.AddCategory(Intent.CategoryDefault);
+		//	BroadcastIntent.PutExtra("initialTimeInSeconds", initialTime);
+		//	Activity.SendBroadcast(BroadcastIntent); //when this broadcast is received, it triggers the start of the TimerService
+		//}
 
-		void uiOnDateDifference()
-		{
-			currentDate = DateTime.Now;
-			nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
-			nextLaundryDc.formatSeconds(nextLaundryDc.Seconds);
-			if (nextLaundryDc.Days >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.MonthDay;  }
-			else if (nextLaundryDc.Minutes >= 180) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.DayHour; }
-			else if (nextLaundryDc.Minutes >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.HourMin; }
-			else if (nextLaundryDc.Seconds >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.Sec; }
-			else if (nextLaundryDc.Minutes >= -60)
-			{
-				timeToNextLaundryTV.Text = "Begin drying now for optimal results!";
-				uiEventsOnReadyToStartDrying();
-			}
-			else { timeToNextLaundryTV.Text = "You have missed the recommended timing by over an hour."; }
+		//void uiOnDateDifference()
+		//{
+		//	currentDate = DateTime.Now;
+		//	nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
+		//	nextLaundryDc.formatSeconds(nextLaundryDc.Seconds);
+		//	if (nextLaundryDc.Days >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.MonthDay;  }
+		//	else if (nextLaundryDc.Minutes >= 180) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.DayHour; }
+		//	else if (nextLaundryDc.Minutes >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.HourMin; }
+		//	else if (nextLaundryDc.Seconds >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.Sec; }
+		//	else if (nextLaundryDc.Minutes >= -60)
+		//	{
+		//		timeToNextLaundryTV.Text = "Begin drying now for optimal results!";
+		//		uiEventsOnReadyToStartDrying();
+		//	}
+		//	else { timeToNextLaundryTV.Text = "You have missed the recommended timing by over an hour."; }
 
-		}
+		//}
 
 
-		void uiEventsNotReadyToStartDrying()
-		{
-			startDryingButton.Visibility = ViewStates.Gone;
-			stopDryingButton.Visibility = ViewStates.Gone;
-			restartDryingButton.Visibility = ViewStates.Gone;
-			timerTextView.Visibility = ViewStates.Gone;
-			descriptionText.Visibility = ViewStates.Gone;
-			timeTakenTextView.Visibility = ViewStates.Gone;
-		}
+		//void uiEventsNotReadyToStartDrying()
+		//{
+		//	startDryingButton.Visibility = ViewStates.Gone;
+		//	stopDryingButton.Visibility = ViewStates.Gone;
+		//	restartDryingButton.Visibility = ViewStates.Gone;
+		//	timerTextView.Visibility = ViewStates.Gone;
+		//	descriptionText.Visibility = ViewStates.Gone;
+		//	timeTakenTextView.Visibility = ViewStates.Gone;
+		//}
 
-		void uiEventsOnReadyToStartDrying()
-		{
-			dc.formatSeconds(initialTimeInSeconds);
-			startDryingButton.Visibility 	= ViewStates.Visible;
-			stopDryingButton.Visibility 	= ViewStates.Gone;
-			restartDryingButton.Visibility 	= ViewStates.Gone;
-			timerTextView.Visibility 		= ViewStates.Gone;
-			descriptionText.Text 			= "Press start to start drying";
-			descriptionText.Visibility 		= ViewStates.Visible;
-			timeTakenTextView.Text = "Time to dry: \n" + dc.verbose.All; //DataTransformers.formatSecondsToTime(initialTimeInSeconds, DataTransformers.TimeFormat.verbose);
-			timeTakenTextView.Visibility 	= ViewStates.Gone;
-		}
+		//void uiEventsOnReadyToStartDrying()
+		//{
+		//	dc.formatSeconds(initialTimeInSeconds);
+		//	startDryingButton.Visibility 	= ViewStates.Visible;
+		//	stopDryingButton.Visibility 	= ViewStates.Gone;
+		//	restartDryingButton.Visibility 	= ViewStates.Gone;
+		//	timerTextView.Visibility 		= ViewStates.Gone;
+		//	descriptionText.Text 			= "Press start to start drying";
+		//	descriptionText.Visibility 		= ViewStates.Visible;
+		//	timeTakenTextView.Text = "Time to dry: \n" + dc.verbose.All; //DataTransformers.formatSecondsToTime(initialTimeInSeconds, DataTransformers.TimeFormat.verbose);
+		//	timeTakenTextView.Visibility 	= ViewStates.Gone;
+		//}
 
-		void uiEventsOnStartDrying()
-		{
-			startDryingButton.Visibility 	= ViewStates.Gone;
-			restartDryingButton.Visibility 	= ViewStates.Visible;
-			stopDryingButton.Visibility 	= ViewStates.Visible;
-			timerTextView.Visibility 		= ViewStates.Visible;
-			descriptionText.Visibility 		= ViewStates.Gone;
-			timeTakenTextView.Visibility 	= ViewStates.Gone;
+		//void uiEventsOnStartDrying()
+		//{
+		//	startDryingButton.Visibility 	= ViewStates.Gone;
+		//	restartDryingButton.Visibility 	= ViewStates.Visible;
+		//	stopDryingButton.Visibility 	= ViewStates.Visible;
+		//	timerTextView.Visibility 		= ViewStates.Visible;
+		//	descriptionText.Visibility 		= ViewStates.Gone;
+		//	timeTakenTextView.Visibility 	= ViewStates.Gone;
 
-		}
+		//}
 
-		void uiEventsOnFinishedDrying()
-		{
-			dc.formatSeconds(initialTimeInSeconds);
-			startDryingButton.Visibility 	= ViewStates.Invisible;
-			stopDryingButton.Visibility 	= ViewStates.Gone;
-			restartDryingButton.Visibility 	= ViewStates.Gone;
-			timerTextView.Visibility 		= ViewStates.Gone;
-			descriptionText.Text 			= "Laundry Completed. Based on your personal schedule, the app will suggest the next suitable date to start your laundry again :)";
-			descriptionText.Visibility 		= ViewStates.Visible;
-			timeTakenTextView.Text 			= "Time taken to dry: \n" + dc.verbose.All;
-			timeTakenTextView.Visibility 	= ViewStates.Visible;
-		}
+		//void uiEventsOnFinishedDrying()
+		//{
+		//	dc.formatSeconds(initialTimeInSeconds);
+		//	startDryingButton.Visibility 	= ViewStates.Invisible;
+		//	stopDryingButton.Visibility 	= ViewStates.Gone;
+		//	restartDryingButton.Visibility 	= ViewStates.Gone;
+		//	timerTextView.Visibility 		= ViewStates.Gone;
+		//	descriptionText.Text 			= "Laundry Completed. Based on your personal schedule, the app will suggest the next suitable date to start your laundry again :)";
+		//	descriptionText.Visibility 		= ViewStates.Visible;
+		//	timeTakenTextView.Text 			= "Time taken to dry: \n" + dc.verbose.All;
+		//	timeTakenTextView.Visibility 	= ViewStates.Visible;
+		//}
 
-		void uiEventsOnStoppedDrying()
-		{
-			dc.formatSeconds(initialTimeInSeconds);
-			startDryingButton.Visibility = ViewStates.Visible;
-			stopDryingButton.Visibility = ViewStates.Gone;
-			restartDryingButton.Visibility = ViewStates.Gone;
-			timerTextView.Visibility = ViewStates.Gone;
-			descriptionText.Text = "Stopped. Press start to start drying \n";
-			descriptionText.Visibility = ViewStates.Visible;
-			timeTakenTextView.Text = "Time to dry: \n" + dc.verbose.All;
-			timeTakenTextView.Visibility = ViewStates.Visible;
-		}
+		//void uiEventsOnStoppedDrying()
+		//{
+		//	dc.formatSeconds(initialTimeInSeconds);
+		//	startDryingButton.Visibility = ViewStates.Visible;
+		//	stopDryingButton.Visibility = ViewStates.Gone;
+		//	restartDryingButton.Visibility = ViewStates.Gone;
+		//	timerTextView.Visibility = ViewStates.Gone;
+		//	descriptionText.Text = "Stopped. Press start to start drying \n";
+		//	descriptionText.Visibility = ViewStates.Visible;
+		//	timeTakenTextView.Text = "Time to dry: \n" + dc.verbose.All;
+		//	timeTakenTextView.Visibility = ViewStates.Visible;
+		//}
 
 		[BroadcastReceiver]
 		public class HomeBroadcastReceiver : BroadcastReceiver
@@ -385,6 +385,7 @@ namespace WashnDry
 			if (_latitude != "none" && _latitude != null)
 			{
 				getWeatherData();
+				getFiveDayWeatherData();
 				Activity.RunOnUiThread(updateDisplays);
 			}
 			else {
@@ -405,12 +406,12 @@ namespace WashnDry
 
 		void updateDisplays()
 		{
-			_locationText.Text = _latitude + " " + _longitude;
-			_addressText.Text = _address;
-			_weatherText.Text = "Weather: " + _currentWeather;
-			_temperatureText.Text = "Temperature: " + _currentTemperature;
-			_windText.Text = "Wind Speed: " + _currentWind;
-			_humidityText.Text = "Humidity: " + _currentHumidity;
+			//_locationText.Text = _latitude + " " + _longitude;
+			//_addressText.Text = _address;
+			_weatherText.Text = _currentWeather;
+			_temperatureText.Text = _currentTemperature;
+			_windText.Text = _currentWind;
+			_humidityText.Text = _currentHumidity;
 		}
 
 		async void getWeatherData()
@@ -420,18 +421,32 @@ namespace WashnDry
 				parseWeatherData(weatherData);
 		}
 
+		async void getFiveDayWeatherData()
+		{
+			//Console.Out.WriteLine("Inside getFiveDayWeatherData()");
+			JsonValue weatherData5Day = await RetrieveWeatherData.FetchFiveDayWeatherForecastAsync(_latitude, _longitude);
+			//Console.Out.WriteLine(weatherData5Day.ToString());
+			List<string[]> dataString = new List<string[]>();
+			if (weatherData5Day != null)
+			{
+				dataString = DataTransformers.parseFiveDayWeatherData(weatherData5Day);
+				JsonValue result = await RetrieveServerData.fetchFiveDayWashDates(dataString);
+			}
+		}
+
 		private void parseWeatherData(JsonValue json)
 		{
-			_currentWeather = json["weather"][0]["description"].ToString();
-			_currentTemperature = json["main"]["temp"].ToString();
-			_currentWind = json["wind"]["speed"].ToString();
-			_currentHumidity = json["main"]["humidity"].ToString();
+			_currentWeather = json["weather"][0]["description"].ToString().Replace("\"","");
+			_currentWeather = _currentWeather.First().ToString().ToUpper() + _currentWeather.Substring(1);
+			_currentTemperature = json["main"]["temp"].ToString() + " Celsius";
+			_currentWind = json["wind"]["speed"].ToString() + " m/s";
+			_currentHumidity = json["main"]["humidity"].ToString() + "%";
 		}
 
 		public void getUIElements()
 		{
-			_locationText = rootView.FindViewById<TextView>(Resource.Id.CurrentLocationText);
-			_addressText = rootView.FindViewById<TextView>(Resource.Id.AddressText);
+			//_locationText = rootView.FindViewById<TextView>(Resource.Id.CurrentLocationText);
+			//_addressText = rootView.FindViewById<TextView>(Resource.Id.AddressText);
 			_weatherText = rootView.FindViewById<TextView>(Resource.Id.WeatherText);
 			_temperatureText = rootView.FindViewById<TextView>(Resource.Id.TemperatureText);
 			_windText = rootView.FindViewById<TextView>(Resource.Id.WindText);

@@ -161,8 +161,11 @@ namespace WashnDry
 				_locationText = string.Format("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude);
 				Address address = await ReverseGeocodeCurrentLocation();
 				getAddress(address);
-				//JsonValue json = await FetchWeatherAsync(_currentLocation);
-				//ParseAndDisplay(json);
+				// store location
+				Context mContext = Application.Context;
+				AppPreferences ap = new AppPreferences(mContext);
+				ap.saveCurrentLatitude(_currentLocation.Latitude.ToString());
+				ap.saveCurrentLongitude(_currentLocation.Longitude.ToString());
 			}
 		}
 

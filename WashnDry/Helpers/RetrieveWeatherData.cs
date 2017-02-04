@@ -12,7 +12,7 @@ namespace WashnDry
 		public static async Task<JsonValue> FetchWeatherAsync(string latitude, string longitude)
 		{
 			string url = "http://api.openweathermap.org/data/2.5/weather?appid=f30fd8bd2d1f9f1bbdfbd627f9faa54b&lat=" + latitude + "&lon=" + longitude + "&units=metric";
-			HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
 			request.ContentType = "application/json";
 			request.Method = "GET";
 
@@ -23,8 +23,8 @@ namespace WashnDry
 				using (Stream stream = response.GetResponseStream())
 				{
 					// Use this stream to build a JSON document object:
-					JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-					Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
+					JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
+					//Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
 					// Return the JSON document:
 					return jsonDoc;
 				}
@@ -34,7 +34,7 @@ namespace WashnDry
 		public static async Task<JsonValue> FetchFiveDayWeatherForecastAsync(string latitude, string longitude)
 		{
 			string url = "http://api.openweathermap.org/data/2.5/forecast?appid=f30fd8bd2d1f9f1bbdfbd627f9faa54b&lat=" + latitude + "&lon=" + longitude + "&units=metric";
-			HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
 			request.ContentType = "application/json";
 			request.Method = "GET";
 
@@ -45,12 +45,15 @@ namespace WashnDry
 				using (Stream stream = response.GetResponseStream())
 				{
 					// Use this stream to build a JSON document object:
-					JsonValue jsonDoc = await Task.Run(() => JsonObject.Load(stream));
-					Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
+					JsonValue jsonDoc = await Task.Run(() => JsonValue.Load(stream));
+					//Console.Out.WriteLine("Response: {0}", jsonDoc.ToString());
 					// Return the JSON document:
 					return jsonDoc;
 				}
 			}
 		}
+
+
+
 	}
 }

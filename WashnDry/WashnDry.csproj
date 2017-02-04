@@ -109,6 +109,7 @@
     <Compile Include="Helpers\RetrieveLocationService.cs" />
     <Compile Include="ImageAdapter.cs" />
     <Compile Include="Helpers\RetrieveWeatherData.cs" />
+    <Compile Include="Helpers\RetrieveServerData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -138,7 +139,7 @@
     <AndroidResource Include="Resources\drawable\ic_drawer_dark.png" />
     <AndroidResource Include="Resources\drawable\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\drawable\drawer_shadow_dark.9.png" />
-    <AndroidResource Include="Resources\layout\Home.axml" />
+    <AndroidResource Include="Resources\layout\Weather.axml" />
     <AndroidResource Include="Resources\drawable\buttonBgGreen.xml" />
     <AndroidResource Include="Resources\layout\Timer.axml" />
     <AndroidResource Include="Resources\drawable\textColor.xml" />
@@ -152,6 +153,7 @@
     <AndroidResource Include="Resources\drawable\i_timer.png" />
     <AndroidResource Include="Resources\drawable\i_splash.png" />
     <AndroidResource Include="Resources\drawable\i_menu.png" />
+    <AndroidResource Include="Resources\drawable\i_weather.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

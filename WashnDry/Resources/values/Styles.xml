@@ -80,4 +80,10 @@
 		<item name="android:id">@+id/laundryTime_ListView</item>
     </style>
 
+<!--Text View Style for Weather Data-->
+
+	<style name="weatherDataStyle">
+		<item name="android:textColor">#777777</item>
+	</style>
+
 </resources>

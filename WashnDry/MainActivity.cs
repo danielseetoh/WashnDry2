@@ -78,7 +78,7 @@ namespace WashnDry
 			switch (position)
 			{
 				case 0:{
-						// Home
+						// Status
 						var fragment = new StatusFragment();
 						var arguments = new Bundle();
 						fragment.Arguments = arguments;
@@ -87,7 +87,7 @@ namespace WashnDry
 						break;
 				}
 				case 1:{
-						// Status
+						// Weather
 						var fragment = new WeatherFragment();
 						var arguments = new Bundle();
 						fragment.Arguments = arguments;

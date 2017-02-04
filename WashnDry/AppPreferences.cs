@@ -25,6 +25,8 @@ namespace WashnDry
 		private static String PREFERENCE_LATEST_VERY_GOOD_POSITIONS = "PREFERENCE_LATEST_VERY_GOOD_POSITIONS";
 		private static String PREFERENCE_LATEST_GOOD_POSITIONS = "PREFERENCE_LATEST_GOOD_POSITIONS";
 		private static String PREFERENCE_LATEST_OK_POSITIONS = "PREFERENCE_LATEST_OK_POSITIONS";
+		private static String PREFERENCE_CURRENT_LATITUDE = "PREFERENCE_CURRENT_LATITUDE";
+		private static String PREFERENCE_CURRENT_LONGITUDE = "PREFERENCE_CURRENT_LONGITUDE";
 
 		public AppPreferences(Context context)
 		{
@@ -122,6 +124,28 @@ namespace WashnDry
 		public string getLatestOkPositions()
 		{
 			return prefs.GetString(PREFERENCE_LATEST_OK_POSITIONS, "");
+		}
+
+		public void saveCurrentLatitude(string latitude)
+		{
+			editor.PutString(PREFERENCE_CURRENT_LATITUDE, latitude);
+			editor.Commit();
+		}
+
+		public string getCurrentLatitude()
+		{
+			return prefs.GetString(PREFERENCE_CURRENT_LATITUDE, "");
+		}
+
+		public void saveCurrentLongitude(string longitude)
+		{
+			editor.PutString(PREFERENCE_CURRENT_LONGITUDE, longitude);
+			editor.Commit();
+		}
+
+		public string getCurrentLongitude()
+		{
+			return prefs.GetString(PREFERENCE_CURRENT_LONGITUDE, "");
 		}
 	}
 }
