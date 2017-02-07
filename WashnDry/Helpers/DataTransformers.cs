@@ -150,7 +150,24 @@ namespace WashnDry
 		// hourDiff = -1, minute Diff = -10
 		// correction: none
 
-		public static List<string[]> parseFiveDayWeatherData(JsonValue weatherData)
+		public static string[,] parseWeatherData(JsonValue weatherData)
+		{
+			string precipitation;
+			if (weatherData["rain"].Count == 0)
+			{
+				precipitation = "0";
+			}
+			else {
+				precipitation = weatherData["rain"]["3h"].ToString();
+			}
+
+			string[,] parsedDataArray = new string[,] {{weatherData["main"]["temp"].ToString(),
+					weatherData["main"]["humidity"].ToString(), precipitation, weatherData["wind"]["speed"].ToString(), "3000"}};
+			Console.Out.WriteLine("parsedDataArray: " + parsedDataArray);
+			return parsedDataArray;
+		}
+
+		public static string[,] parseFiveDayWeatherData(JsonValue weatherData)
 		{
 			List<string[]> result = new List<string[]>();
 			string precipitation;
@@ -168,12 +185,20 @@ namespace WashnDry
 					precipitation = threeHourPeriod["rain"]["3h"].ToString();
 				}
 
-				//{ "Profile", "Temperature", "Humidity", "Precipitation(%)", "Irradiation", "Windspeed", "Indoors/outdoors", "Drying-time"},
-				string[] val = new string[]{"profileValue", threeHourPeriod["main"]["temp"].ToString(),
-					threeHourPeriod["main"]["humidity"].ToString(), precipitation, "0", threeHourPeriod["wind"]["speed"].ToString(),
-					"outdoors", "30"};
+				//{ "Temperature", "Humidity", "Precipitation", "Windspeed", "Drying-time"},
+				string[] val = new string[]{threeHourPeriod["main"]["temp"].ToString(),
+					threeHourPeriod["main"]["humidity"].ToString(), precipitation, threeHourPeriod["wind"]["speed"].ToString(),
+					"3000"};
 				//Console.Out.WriteLine(val);
 				result.Add(val);
+			}
+			string[,] parsedDataArray = new String[result.Count, result[0].Length];
+			for (int j = 0; j < result.Count; j++)
+			{
+				for (int k = 0; k < result[j].Length; k++)
+				{
+					parsedDataArray[j, k] = result[j][k];
+				}
 			}
 			//foreach (JsonValue threeHourPeriod in weatherData["list"])
 			//{
@@ -182,7 +207,7 @@ namespace WashnDry
 			//	result.Add(val);
 			//}
 			//Console.Out.WriteLine("close parseFiveDayWeatherData");
-			return result;
+			return parsedDataArray;
 		}
 
 

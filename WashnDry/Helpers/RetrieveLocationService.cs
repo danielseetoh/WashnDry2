@@ -62,6 +62,7 @@ namespace WashnDry
 		void HandleTimerCallback(object state)
 		{
 			BroadcastStarted();
+			//getFiveDayWeatherData();
 			count = count + 1;
 		}
 
@@ -174,5 +175,111 @@ namespace WashnDry
 		public void OnProviderEnabled(string provider) { }
 
 		public void OnStatusChanged(string provider, Availability status, Bundle extras) { }
+
+		public static async void getCurrentDryingTime(string[,] parsedWeatherData)
+		{
+			JsonValue serverData = await RetrieveServerData.InvokeRequestResponseService(parsedWeatherData);
+			//Console.Out.WriteLine("serverData: " + serverData.ToString());
+			double dryingTimeInSeconds = double.Parse(serverData["Results"]["output1"]["value"]["Values"][0][5]);
+			//Console.Out.WriteLine("dryingTimeInSeconds: " + dryingTimeInSeconds.ToString());
+			TimeSpan time = TimeSpan.FromSeconds(dryingTimeInSeconds);
+			//Console.Out.WriteLine("time.ToString(): " + time.ToString());
+			Context mContext = Android.App.Application.Context;
+			AppPreferences ap = new AppPreferences(mContext);
+			string currentDryingTime = string.Format("{0}hr {1}min", time.Hours, time.Minutes);// time.ToString(@"hh\:mm\:ss");
+			//Console.Out.WriteLine("Current Drying Time: " + currentDryingTime);
+			ap.saveCurrentDryingtime(currentDryingTime);
+		}
+
+		public static async void updateFiveDayWashDates()
+		{
+			Console.Out.WriteLine("Inside getFiveDayWeatherData()");
+			Context mContext = Android.App.Application.Context;
+			AppPreferences ap = new AppPreferences(mContext);
+			string _latitude = ap.getCurrentLatitude();
+			string _longitude = ap.getCurrentLongitude();
+			JsonValue weatherData5Day = await RetrieveWeatherData.FetchFiveDayWeatherForecastAsync(_latitude, _longitude);
+			if (weatherData5Day != null)
+			{
+				string[,] dataString = DataTransformers.parseFiveDayWeatherData(weatherData5Day);
+				JsonValue response = await RetrieveServerData.InvokeRequestResponseService(dataString);
+				if (response != null)
+				{
+					//parse and store data 
+					float veryGoodThreshold = 2500;
+					float goodThreshold = 2800;
+					float okThreshold = 3100;
+					string veryGoodList = "";
+					string goodList = "";
+					string okList = "";
+					string threeBestTimings = "";
+					int hoursOffset = DateTime.Now.Hour;
+					var data = response["Results"]["output1"]["value"]["Values"];
+					List<string[]> dataWithOrder = new List<string[]>();
+					for (int i = 0; i < data.Count; i++)
+					{
+						dataWithOrder.Add(new string[] { i.ToString(), data[i][5] });
+					}
+					var dataList = dataWithOrder.OrderBy(arr => arr[1]).ToList();
+
+					for (int i = 0; i < dataList.Count; i++)
+					{
+						var timing = dataList[i][1];
+						var hoursLater = int.Parse(dataList[i][0]) * 3 + hoursOffset;
+						if (i < 3)
+						{
+							if (i == 0)
+							{
+								threeBestTimings = DateTime.Now.AddHours(hoursLater).ToString();
+							}
+							else {
+								threeBestTimings = threeBestTimings + "," + DateTime.Now.AddHours(hoursLater);
+							}
+						}
+						if (float.Parse(timing) <= veryGoodThreshold)
+						{
+							if (veryGoodList == "")
+							{
+								veryGoodList = hoursLater.ToString();
+							}
+							else {
+								veryGoodList = veryGoodList + "," + hoursLater.ToString();
+							}
+						}
+						else if (float.Parse(timing) <= goodThreshold)
+						{
+							if (goodList == "")
+							{
+								goodList = hoursLater.ToString();
+							}
+							else {
+								goodList = goodList + "," + hoursLater.ToString();
+							}
+						}
+						else if (float.Parse(timing) <= okThreshold)
+						{
+							if (okList == "")
+							{
+								okList = hoursLater.ToString();
+							}
+							else {
+								okList = okList + "," + hoursLater.ToString();
+							}
+						}
+
+					}
+					string latestScheduleDate = DateTime.Now.ToString("dd MMM");
+					//Console.Out.WriteLine(veryGoodList);
+					//Console.Out.WriteLine(goodList);
+					//Console.Out.WriteLine(okList);
+					//Console.Out.WriteLine(threeBestTimings);
+					ap.saveLatestVeryGoodPositions(veryGoodList);
+					ap.saveLatestGoodPositions(goodList);
+					ap.saveLatestOkPositions(okList);
+					ap.saveThreeBestTimings(threeBestTimings);
+					ap.saveLatestScheduleDate(latestScheduleDate);
+				}
+			}
+		}
 	}
 }

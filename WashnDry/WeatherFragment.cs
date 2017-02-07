@@ -39,6 +39,8 @@ namespace WashnDry
 
 		DateCalculator dc = new DateCalculator();
 		DateCalculator nextLaundryDc = new DateCalculator();
+		Context mContext = Android.App.Application.Context;
+		AppPreferences ap;
 
 		TextView descriptionText;
 
@@ -48,6 +50,7 @@ namespace WashnDry
 		TextView _windText;
 		TextView _humidityText;
 		TextView _weatherText;
+		TextView _estDryingTimeText;
 		JsonValue weatherData;
 		static readonly int TimerWait = 2000;
 		Timer timer;
@@ -60,7 +63,7 @@ namespace WashnDry
 		static string _currentTemperature;
 		static string _currentWind;
 		static string _currentHumidity;
-		//RetrieveWeatherData retrieveWeatherData = new RetrieveWeatherData();
+		static string _estimatedDryingTime;
 
 		View rootView;
 
@@ -74,7 +77,7 @@ namespace WashnDry
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			rootView = inflater.Inflate(Resource.Layout.Weather, container, false);
-
+			ap = new AppPreferences(mContext);
 			estTextView 			= rootView.FindViewById<TextView>(Resource.Id.estTime);
 			//nextLaundryTV 			= rootView.FindViewById<TextView>(Resource.Id.nextLaundryTextView);
 			//timeToNextLaundryTV 	= rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
@@ -385,7 +388,6 @@ namespace WashnDry
 			if (_latitude != "none" && _latitude != null)
 			{
 				getWeatherData();
-				getFiveDayWeatherData();
 				Activity.RunOnUiThread(updateDisplays);
 			}
 			else {
@@ -406,41 +408,36 @@ namespace WashnDry
 
 		void updateDisplays()
 		{
-			//_locationText.Text = _latitude + " " + _longitude;
-			//_addressText.Text = _address;
 			_weatherText.Text = _currentWeather;
 			_temperatureText.Text = _currentTemperature;
 			_windText.Text = _currentWind;
 			_humidityText.Text = _currentHumidity;
+			if (_estimatedDryingTime != null)
+			{
+				_estDryingTimeText.Text = _estimatedDryingTime;
+			}
 		}
 
 		async void getWeatherData()
 		{
 			weatherData = await RetrieveWeatherData.FetchWeatherAsync(_latitude, _longitude);
 			if (weatherData != null)
-				parseWeatherData(weatherData);
-		}
-
-		async void getFiveDayWeatherData()
-		{
-			//Console.Out.WriteLine("Inside getFiveDayWeatherData()");
-			JsonValue weatherData5Day = await RetrieveWeatherData.FetchFiveDayWeatherForecastAsync(_latitude, _longitude);
-			//Console.Out.WriteLine(weatherData5Day.ToString());
-			List<string[]> dataString = new List<string[]>();
-			if (weatherData5Day != null)
 			{
-				dataString = DataTransformers.parseFiveDayWeatherData(weatherData5Day);
-				JsonValue result = await RetrieveServerData.fetchFiveDayWashDates(dataString);
+				updateWeatherData(weatherData);
+				string[,] parsedWeatherData = DataTransformers.parseWeatherData(weatherData);
+				Console.Out.WriteLine("parsedWeatherData: " + parsedWeatherData);
+				RetrieveLocationService.getCurrentDryingTime(parsedWeatherData);
 			}
 		}
 
-		private void parseWeatherData(JsonValue json)
+		private void updateWeatherData(JsonValue json)
 		{
-			_currentWeather = json["weather"][0]["description"].ToString().Replace("\"","");
+			_currentWeather = json["weather"][0]["main"].ToString().Replace("\"","");
 			_currentWeather = _currentWeather.First().ToString().ToUpper() + _currentWeather.Substring(1);
 			_currentTemperature = json["main"]["temp"].ToString() + " Celsius";
 			_currentWind = json["wind"]["speed"].ToString() + " m/s";
 			_currentHumidity = json["main"]["humidity"].ToString() + "%";
+			_estimatedDryingTime = ap.getCurrentDryingTime();
 		}
 
 		public void getUIElements()
@@ -451,7 +448,10 @@ namespace WashnDry
 			_temperatureText = rootView.FindViewById<TextView>(Resource.Id.TemperatureText);
 			_windText = rootView.FindViewById<TextView>(Resource.Id.WindText);
 			_humidityText = rootView.FindViewById<TextView>(Resource.Id.HumidityText);
+			_estDryingTimeText = rootView.FindViewById<TextView>(Resource.Id.EstDryingText);
 		}
+
+
 
 		[BroadcastReceiver]
 		public class LocationBroadcastReceiver : BroadcastReceiver

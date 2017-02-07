@@ -187,9 +187,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/EstDryingText"
-                    android:layout_below="@+id/Humidity"
-                    android:layout_marginTop="30px"
-                    android:layout_alignParentRight="true" />
+                    android:layout_below="@+id/estHeader"
+                    android:layout_marginTop="20px"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="100px" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

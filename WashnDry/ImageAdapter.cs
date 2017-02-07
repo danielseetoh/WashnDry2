@@ -195,70 +195,91 @@ namespace WashnDry
 		{
 			wash_title_blocks = new List<string>();
 			wash_timing_blocks = new List<int>();
-			//string currentDate = DateTime.Now.ToString("dd MMM");
-			//Context mContext = Android.App.Application.Context;
-			//AppPreferences ap = new AppPreferences(mContext);
-			//string latestScheduleDate = ap.getUsername();
+			string currentDate = DateTime.Now.ToString("dd MMM");
+			Context mContext = Android.App.Application.Context;
+			AppPreferences ap = new AppPreferences(mContext);
+			string latestScheduleDate = ap.getLatestScheduleDate();
 
-			//if (latestScheduleDate == currentDate)
-			//{
-			//	Toast.MakeText(context, "Forecast up to date", ToastLength.Long);
-			//	string[] very_good_blocks = ap.getLatestVeryGoodPositions().Split(',');
-			//	string[] good_blocks = ap.getLatestGoodPositions().Split(',');
-			//	string[] ok_blocks = ap.getLatestOkPositions().Split(',');
-			//	for (int i = 0; i < very_good_blocks.Count(); i++)
-			//	{
-			//		wash_title_blocks.Add("VeryGood");
-			//		wash_timing_blocks.Add(int.Parse(very_good_blocks[i]));
-			//	}
-			//	for (int i = 0; i < good_blocks.Count(); i++)
-			//	{
-			//		wash_title_blocks.Add("Good");
-			//		wash_timing_blocks.Add(int.Parse(good_blocks[i]));
-			//	}
-			//	for (int i = 0; i < ok_blocks.Count(); i++)
-			//	{
-			//		wash_title_blocks.Add("Ok");
-			//		wash_timing_blocks.Add(int.Parse(ok_blocks[i]));
-			//	}
-			//	//string combined_blocks = very_good_blocks + "," + good_blocks + "," + ok_blocks;
-			//	//string[] arr = combined_blocks.Split(',');
-			//	//wash_timing_blocks = Array.ConvertAll(arr, s=>int.Parse(s)).ToList();
-			//}
-			//else {
-			//	Toast.MakeText(context, "Forecast outdated, updating now", ToastLength.Long);
-			//	// get latest forecast, using location. perhaps requires a service
-
-			//	// pass latest forecast and username to server, get values back and parse it
-			//	//string very_good_blocks;
-			//	//string good_blocks;
-			//	//string ok_blocks;
-			//	//ap.saveLatestVeryGoodPositions(very_good_blocks);
-			//	//ap.saveLatestVeryGoodPositions(good_blocks);
-			//	//ap.saveLatestVeryGoodPositions(ok_blocks);
-
-			//	// update latestScheduleDate to current date
-			//	latestScheduleDate = currentDate;
-			//}
+			if (latestScheduleDate == currentDate)
+			{
+				Toast.MakeText(context, "Forecast up to date", ToastLength.Long).Show();
+			} else {
+				Toast.MakeText(context, "Forecast outdated, updating now", ToastLength.Long).Show();
+				// get latest forecast, using location
+				RetrieveLocationService.updateFiveDayWashDates();
+			}
+				
+			string[] very_good_blocks = ap.getLatestVeryGoodPositions().Split(',');
+			string[] good_blocks = ap.getLatestGoodPositions().Split(',');
+			string[] ok_blocks = ap.getLatestOkPositions().Split(',');
+			for (int i = 0; i < very_good_blocks.Count(); i++)
+			{
+				
+				int startHour = int.Parse(very_good_blocks[i]);
+				for (int j = 0; j < 3; j++)
+				{
+					int hour = startHour + j;
+					int position = getPosition(hour);
+					if (position < 150)
+					{
+						wash_title_blocks.Add("VeryGood");
+						wash_timing_blocks.Add(position);
+					}
+				}
+			}
+			for (int i = 0; i < good_blocks.Count(); i++)
+			{
+				
+				int startHour = int.Parse(good_blocks[i]);
+				for (int j = 0; j < 3; j++)
+				{
+					int hour = startHour + j;
+					int position = getPosition(hour);
+					if (position < 150)
+					{
+						wash_title_blocks.Add("Good");
+						wash_timing_blocks.Add(position);
+					}
+				}
+			}
+			for (int i = 0; i < ok_blocks.Count(); i++)
+			{
+				
+				int startHour = int.Parse(ok_blocks[i]);
+				for (int j = 0; j < 3; j++)
+				{
+					int hour = startHour + j;
+					int position = getPosition(hour);
+					if (position < 150)
+					{
+						wash_title_blocks.Add("Ok");
+						wash_timing_blocks.Add(position);
+					}
+				}
+			}
+			//string combined_blocks = very_good_blocks + "," + good_blocks + "," + ok_blocks;
+			//string[] arr = combined_blocks.Split(',');
+			//wash_timing_blocks = Array.ConvertAll(arr, s=>int.Parse(s)).ToList();
+			
 
 			// get dummy data
-			wash_title_blocks.Add("Ok");
-			wash_title_blocks.Add("Ok");
-			wash_title_blocks.Add("Ok");
-			wash_title_blocks.Add("VeryGood");
-			wash_title_blocks.Add("Good");
-			wash_title_blocks.Add("Good");
-			wash_title_blocks.Add("VeryGood");
-			wash_title_blocks.Add("Ok");
+			//wash_title_blocks.Add("Ok");
+			//wash_title_blocks.Add("Ok");
+			//wash_title_blocks.Add("Ok");
+			//wash_title_blocks.Add("VeryGood");
+			//wash_title_blocks.Add("Good");
+			//wash_title_blocks.Add("Good");
+			//wash_title_blocks.Add("VeryGood");
+			//wash_title_blocks.Add("Ok");
 
-			wash_timing_blocks.Add(67);
-			wash_timing_blocks.Add(73);
-			wash_timing_blocks.Add(79);
-			wash_timing_blocks.Add(92);
-			wash_timing_blocks.Add(114);
-			wash_timing_blocks.Add(128);
-			wash_timing_blocks.Add(129);
-			wash_timing_blocks.Add(134);
+			//wash_timing_blocks.Add(67);
+			//wash_timing_blocks.Add(73);
+			//wash_timing_blocks.Add(79);
+			//wash_timing_blocks.Add(92);
+			//wash_timing_blocks.Add(114);
+			//wash_timing_blocks.Add(128);
+			//wash_timing_blocks.Add(129);
+			//wash_timing_blocks.Add(134);
 		}
 
 	}

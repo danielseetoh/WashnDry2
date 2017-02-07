@@ -27,6 +27,8 @@ namespace WashnDry
 		private static String PREFERENCE_LATEST_OK_POSITIONS = "PREFERENCE_LATEST_OK_POSITIONS";
 		private static String PREFERENCE_CURRENT_LATITUDE = "PREFERENCE_CURRENT_LATITUDE";
 		private static String PREFERENCE_CURRENT_LONGITUDE = "PREFERENCE_CURRENT_LONGITUDE";
+		private static String PREFERENCE_THREE_BEST_TIMINGS = "PREFERENCE_THREE_BEST_TIMINGS";
+		private static String PREFERENCE_CURRENT_DRYING_TIME = "PREFERENCE_CURRENT_DRYING_TIME";
 
 		public AppPreferences(Context context)
 		{
@@ -146,6 +148,28 @@ namespace WashnDry
 		public string getCurrentLongitude()
 		{
 			return prefs.GetString(PREFERENCE_CURRENT_LONGITUDE, "");
+		}
+
+		public void saveThreeBestTimings(string threeBestTimings)
+		{
+			editor.PutString(PREFERENCE_THREE_BEST_TIMINGS, threeBestTimings);
+			editor.Commit();
+		}
+
+		public string getThreeBestTimings()
+		{
+			return prefs.GetString(PREFERENCE_THREE_BEST_TIMINGS, "");
+		}
+
+		public void saveCurrentDryingtime(string currentDryingTime)
+		{
+			editor.PutString(PREFERENCE_CURRENT_DRYING_TIME, currentDryingTime);
+			editor.Commit();
+		}
+
+		public string getCurrentDryingTime()
+		{
+			return prefs.GetString(PREFERENCE_CURRENT_DRYING_TIME, "");
 		}
 	}
 }

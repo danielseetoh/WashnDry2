@@ -40,6 +40,7 @@ namespace WashnDry
 		{
 			base.OnResume();
 			StartService(new Intent(this, typeof(RetrieveLocationService)));
+			RetrieveLocationService.updateFiveDayWashDates();
 			Task startupWork = new Task(() =>
 			{
 				Task.Delay(3000);  // Simulate a bit of startup work.

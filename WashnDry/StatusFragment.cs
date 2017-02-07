@@ -59,7 +59,7 @@ namespace WashnDry
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			rootView = inflater.Inflate(Resource.Layout.Status, container, false);
-
+			RetrieveLocationService.updateFiveDayWashDates();
 
 
 			estTextView = rootView.FindViewById<TextView>(Resource.Id.estTime);
