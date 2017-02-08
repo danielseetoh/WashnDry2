@@ -210,8 +210,8 @@ namespace WashnDry
 				{
 					//parse and store data 
 					float veryGoodThreshold = 2500;
-					float goodThreshold = 2800;
-					float okThreshold = 3100;
+					float goodThreshold = 2750;
+					float okThreshold = 3000;
 					string veryGoodList = "";
 					string goodList = "";
 					string okList = "";
@@ -220,6 +220,7 @@ namespace WashnDry
 					int hoursOffset = DateTime.Now.Hour - 3;
 					var data = response["Results"]["output1"]["value"]["Values"];
 					List<string[]> dataWithOrder = new List<string[]>();
+					Console.Out.WriteLine("dataCount: " + data.Count);
 					for (int i = 0; i < data.Count; i++)
 					{
 						dataWithOrder.Add(new string[] { i.ToString(), data[i][5] });

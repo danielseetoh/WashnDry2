@@ -156,26 +156,33 @@ namespace WashnDry
 
 			string events_titles = events_data[0];
 			string events_timings = events_data[1];
-			List<string> titles = events_titles.Split(',').ToList();
-			List<string> timings = events_timings.Split(',').ToList();
-			// parse milliseconds into a block
-
-			for (int i = 0; i < timings.Count; i = i + 2)
+			Console.Out.WriteLine("events_titles: " + events_titles);
+			Console.Out.WriteLine("events_timings: " + events_timings);
+			if (events_titles.Length > 0 && events_timings.Length > 0)
 			{
-				string title = titles[i / 2];
-				Console.WriteLine("Timings: " + timings[i]);
-				DateTime event_start_time = start_of_time.AddMilliseconds(long.Parse(timings[i]));
-				int start_hours = (int)(event_start_time - DateTime.Today.ToUniversalTime()).TotalHours;
-				int start_position = getPosition(start_hours);
-				DateTime event_end_time = start_of_time.AddMilliseconds(long.Parse(timings[i + 1]));
-				int end_hours = (int)(event_end_time - DateTime.Today.ToUniversalTime()).TotalHours;
-				int end_position = getPosition(end_hours);
-				for (int j = start_position; j <= end_position; j = j + 6)
-				{
-					event_timing_blocks.Add(j);
-					event_title_blocks.Add(title);
-				}
+				List<string> titles = events_titles.Split(',').ToList();
+				List<string> timings = events_timings.Split(',').ToList();
+				// parse milliseconds into a block
 
+				for (int i = 0; i < timings.Count; i = i + 2)
+				{
+					string title = titles[i / 2];
+					Console.WriteLine("Timings: " + timings[i]);
+					Console.Out.WriteLine(i);
+					Console.Out.WriteLine(timings[i]);
+					DateTime event_start_time = start_of_time.AddMilliseconds(long.Parse(timings[i]));
+					int start_hours = (int)(event_start_time - DateTime.Today.ToUniversalTime()).TotalHours;
+					int start_position = getPosition(start_hours);
+					DateTime event_end_time = start_of_time.AddMilliseconds(long.Parse(timings[i + 1]));
+					int end_hours = (int)(event_end_time - DateTime.Today.ToUniversalTime()).TotalHours;
+					int end_position = getPosition(end_hours);
+					for (int j = start_position; j <= end_position; j = j + 6)
+					{
+						event_timing_blocks.Add(j);
+						event_title_blocks.Add(title);
+					}
+
+				}
 			}
 		}
 
