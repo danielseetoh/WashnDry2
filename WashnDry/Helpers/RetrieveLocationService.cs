@@ -213,7 +213,7 @@ namespace WashnDry
 					string goodList = "";
 					string okList = "";
 					string threeBestTimings = "";
-					int hoursOffset = DateTime.Now.Hour;
+					int hoursOffset = DateTime.Now.Hour - 3;
 					var data = response["Results"]["output1"]["value"]["Values"];
 					List<string[]> dataWithOrder = new List<string[]>();
 					for (int i = 0; i < data.Count; i++)

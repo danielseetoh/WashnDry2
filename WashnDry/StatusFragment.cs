@@ -61,7 +61,6 @@ namespace WashnDry
 			rootView = inflater.Inflate(Resource.Layout.Status, container, false);
 			RetrieveLocationService.updateFiveDayWashDates();
 
-
 			estTextView = rootView.FindViewById<TextView>(Resource.Id.estTime);
 			nextLaundryTV = rootView.FindViewById<TextView>(Resource.Id.nextLaundryTextView);
 			timeToNextLaundryTV = rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
