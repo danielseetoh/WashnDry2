@@ -39,8 +39,7 @@ namespace WashnDry
 
 		DateCalculator dc = new DateCalculator();
 		DateCalculator nextLaundryDc = new DateCalculator();
-		Context mContext = Android.App.Application.Context;
-		AppPreferences ap;
+
 
 		TextView descriptionText;
 
@@ -77,7 +76,7 @@ namespace WashnDry
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			rootView = inflater.Inflate(Resource.Layout.Weather, container, false);
-			ap = new AppPreferences(mContext);
+
 			estTextView 			= rootView.FindViewById<TextView>(Resource.Id.estTime);
 			//nextLaundryTV 			= rootView.FindViewById<TextView>(Resource.Id.nextLaundryTextView);
 			//timeToNextLaundryTV 	= rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
@@ -424,6 +423,7 @@ namespace WashnDry
 			if (weatherData != null)
 			{
 				updateWeatherData(weatherData);
+				Console.Out.WriteLine("Just before DataTransformers.parseWeatherData");
 				string[,] parsedWeatherData = DataTransformers.parseWeatherData(weatherData);
 				Console.Out.WriteLine("parsedWeatherData: " + parsedWeatherData);
 				RetrieveLocationService.getCurrentDryingTime(parsedWeatherData);
@@ -437,6 +437,8 @@ namespace WashnDry
 			_currentTemperature = json["main"]["temp"].ToString() + " Celsius";
 			_currentWind = json["wind"]["speed"].ToString() + " m/s";
 			_currentHumidity = json["main"]["humidity"].ToString() + "%";
+			Context mContext = Android.App.Application.Context;
+			AppPreferences ap = new AppPreferences(mContext);
 			_estimatedDryingTime = ap.getCurrentDryingTime();
 		}
 

@@ -153,17 +153,18 @@ namespace WashnDry
 		public static string[,] parseWeatherData(JsonValue weatherData)
 		{
 			string precipitation;
-			if (weatherData["rain"].Count == 0)
+			//Console.Out.WriteLine("weatherData: " + weatherData.ToString());
+			//Console.Out.WriteLine("Inside parseWeatherData");
+			if (weatherData.ContainsKey("rain"))
 			{
+				precipitation = weatherData["rain"]["3h"].ToString();
+			} else {
 				precipitation = "0";
 			}
-			else {
-				precipitation = weatherData["rain"]["3h"].ToString();
-			}
-
+			//Console.Out.WriteLine("before parsedDataArray");
 			string[,] parsedDataArray = new string[,] {{weatherData["main"]["temp"].ToString(),
 					weatherData["main"]["humidity"].ToString(), precipitation, weatherData["wind"]["speed"].ToString(), "3000"}};
-			Console.Out.WriteLine("parsedDataArray: " + parsedDataArray);
+			//Console.Out.WriteLine("parsedDataArray: " + parsedDataArray);
 			return parsedDataArray;
 		}
 

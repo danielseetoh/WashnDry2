@@ -186,12 +186,15 @@ namespace WashnDry
 			//Console.Out.WriteLine("time.ToString(): " + time.ToString());
 			Context mContext = Android.App.Application.Context;
 			AppPreferences ap = new AppPreferences(mContext);
-			string currentDryingTime = string.Format("{0}hr {1}min", time.Hours, time.Minutes);// time.ToString(@"hh\:mm\:ss");
+			string currentDryingTime = string.Format("{0}hr {1}min", time.Hours, time.Minutes);
+			if (time.Hours == 0){
+				currentDryingTime = string.Format("{0}min", time.Minutes);
+			}
 			//Console.Out.WriteLine("Current Drying Time: " + currentDryingTime);
 			ap.saveCurrentDryingtime(currentDryingTime);
 		}
 
-		public static async void updateFiveDayWashDates()
+		public static async void updateFiveDayWashDatesAndThreeBestTimings()
 		{
 			Console.Out.WriteLine("Inside getFiveDayWeatherData()");
 			Context mContext = Android.App.Application.Context;
@@ -212,7 +215,8 @@ namespace WashnDry
 					string veryGoodList = "";
 					string goodList = "";
 					string okList = "";
-					string threeBestTimings = "";
+					string threeBestTimingsDates = "";
+					string threeBestTimingsTimes = "";
 					int hoursOffset = DateTime.Now.Hour - 3;
 					var data = response["Results"]["output1"]["value"]["Values"];
 					List<string[]> dataWithOrder = new List<string[]>();
@@ -230,10 +234,12 @@ namespace WashnDry
 						{
 							if (i == 0)
 							{
-								threeBestTimings = DateTime.Now.AddHours(hoursLater).ToString();
+								threeBestTimingsDates = DateTime.Now.AddHours(hoursLater).ToString();
+								threeBestTimingsTimes = timing;
 							}
 							else {
-								threeBestTimings = threeBestTimings + "," + DateTime.Now.AddHours(hoursLater);
+								threeBestTimingsDates = threeBestTimingsDates + "," + DateTime.Now.AddHours(hoursLater);
+								threeBestTimingsTimes = threeBestTimingsTimes + ", " + timing;
 							}
 						}
 						if (float.Parse(timing) <= veryGoodThreshold)
@@ -276,7 +282,7 @@ namespace WashnDry
 					ap.saveLatestVeryGoodPositions(veryGoodList);
 					ap.saveLatestGoodPositions(goodList);
 					ap.saveLatestOkPositions(okList);
-					ap.saveThreeBestTimings(threeBestTimings);
+					ap.saveThreeBestTimings(threeBestTimingsDates+"_"+threeBestTimingsTimes);
 					ap.saveLatestScheduleDate(latestScheduleDate);
 				}
 			}

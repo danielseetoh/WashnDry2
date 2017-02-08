@@ -205,8 +205,7 @@ namespace WashnDry
 				Toast.MakeText(context, "Forecast up to date", ToastLength.Long).Show();
 			} else {
 				Toast.MakeText(context, "Forecast outdated, updating now", ToastLength.Long).Show();
-				// get latest forecast, using location
-				RetrieveLocationService.updateFiveDayWashDates();
+				RetrieveLocationService.updateFiveDayWashDatesAndThreeBestTimings();
 			}
 				
 			string[] very_good_blocks = ap.getLatestVeryGoodPositions().Split(',');
@@ -220,7 +219,7 @@ namespace WashnDry
 				{
 					int hour = startHour + j;
 					int position = getPosition(hour);
-					if (position < 150)
+					if (position >= 6 && position <= 150)
 					{
 						wash_title_blocks.Add("VeryGood");
 						wash_timing_blocks.Add(position);
@@ -235,7 +234,7 @@ namespace WashnDry
 				{
 					int hour = startHour + j;
 					int position = getPosition(hour);
-					if (position < 150)
+					if (position >= 6 && position < 150)
 					{
 						wash_title_blocks.Add("Good");
 						wash_timing_blocks.Add(position);
@@ -250,7 +249,7 @@ namespace WashnDry
 				{
 					int hour = startHour + j;
 					int position = getPosition(hour);
-					if (position < 150)
+					if (position >= 6 && position < 150)
 					{
 						wash_title_blocks.Add("Ok");
 						wash_timing_blocks.Add(position);
