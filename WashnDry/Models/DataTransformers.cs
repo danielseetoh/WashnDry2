@@ -68,6 +68,24 @@ namespace WashnDry
 			return formattedTime;
 		}
 
+
+		public static string DateTimeToString(DateTime dt)
+		{
+			return dt.Year + "," + dt.Month + "," + dt.Day + "," + dt.Hour + "," + dt.Minute + "," + dt.Second;
+		}
+
+		public static DateTime StringToDateTime(string s)
+		{
+			int[] i = Array.ConvertAll(s.Split(','), int.Parse);
+			var dt = new DateTime(i[0],i[1],i[2],i[3],i[4],i[5]);
+			return dt;
+		}
+
+
+
+
+
+
 		public struct DateDifference {
 			public long months;
 			public long monthDiff;

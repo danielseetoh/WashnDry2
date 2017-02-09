@@ -109,6 +109,7 @@
     <Compile Include="Models\RetrieveLocationService.cs" />
     <Compile Include="ImageAdapter.cs" />
     <Compile Include="Models\RetrieveWeatherData.cs" />
+    <Compile Include="LaundrySelectActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -152,6 +153,10 @@
     <AndroidResource Include="Resources\drawable\i_timer.png" />
     <AndroidResource Include="Resources\drawable\i_splash.png" />
     <AndroidResource Include="Resources\drawable\i_menu.png" />
+    <AndroidResource Include="Resources\layout\LaundrySelect.xml" />
+    <AndroidResource Include="Resources\layout\Dialog_ReadyToStartDrying.xml" />
+    <AndroidResource Include="Resources\drawable\bg_dialogWrapper.xml" />
+    <AndroidResource Include="Resources\layout\Dialog_FinishDrying.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

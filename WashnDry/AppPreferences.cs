@@ -21,6 +21,9 @@ namespace WashnDry
 		private static String PREFERENCE_PASSWORD_KEY = "PREFERENCE_PASSWORD_KEY";
 		private static String PREFERENCE_EMAIL_KEY = "PREFERENCE_EMAIL_KEY";
 		private static String PREFERENCE_LAUNDRY_TIME_KEY = "PREFERENCE_LAUNDRY_TIME_KEY";
+		private static String PREFERENCE_SEL_NEXT_LAUNDRY_TIME_KEY = "PREFERENCE_SEL_NEXT_LAUNDRY_TIME_KEY";
+		private static String PREFERENCE_EST_LAUNDRY_TIME_KEY = "PREFERENCE_EST_LAUNDRY_TIME_KEY";
+		private static String PREFERENCE_NEXT_LAUNDRY_DATE_KEY = "PREFERENCE_NEXT_LAUNDRY_DATE_KEY";
 		private static String PREFERENCE_LATEST_SCHEDULE_DATE = "PREFERENCE_LATEST_SCHEDULE_DATE";
 		private static String PREFERENCE_LATEST_VERY_GOOD_POSITIONS = "PREFERENCE_LATEST_VERY_GOOD_POSITIONS";
 		private static String PREFERENCE_LATEST_GOOD_POSITIONS = "PREFERENCE_LATEST_GOOD_POSITIONS";
@@ -79,6 +82,40 @@ namespace WashnDry
 		{
 			return prefs.GetString(PREFERENCE_LAUNDRY_TIME_KEY, "");
 		}
+
+		public void saveSelectedNextLaundryTime(string laundryTime)
+		{
+			editor.PutString(PREFERENCE_SEL_NEXT_LAUNDRY_TIME_KEY, laundryTime);
+			editor.Commit();
+		}
+
+		public string getSelectedNextLaundryTime()
+		{
+			return prefs.GetString(PREFERENCE_SEL_NEXT_LAUNDRY_TIME_KEY, "");
+		}
+
+		public void saveEstimatedTime(int estimatedTime)
+		{
+			editor.PutInt(PREFERENCE_EST_LAUNDRY_TIME_KEY, estimatedTime);
+			editor.Commit();
+		}
+
+		public int getEstimatedTime()
+		{
+			return prefs.GetInt(PREFERENCE_EST_LAUNDRY_TIME_KEY, 0);
+		}
+
+		public string getNextLaundryDate()
+		{
+			return prefs.GetString(PREFERENCE_NEXT_LAUNDRY_DATE_KEY, "");
+		}
+
+		public void saveNextLaundryDate(string s)
+		{
+			editor.PutString(PREFERENCE_NEXT_LAUNDRY_DATE_KEY, s);
+			editor.Commit();
+		}
+
 
 		public void saveLatestScheduleDate(string date)
 		{

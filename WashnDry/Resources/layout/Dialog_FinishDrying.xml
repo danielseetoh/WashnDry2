@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="100"
+    style="@style/dialogWrapperStyle">
+    <TextView
+        android:id="@+id/titleLogin"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Improve your experience!"
+        android:textSize="25dp"
+        android:textColor="#6acccb"
+        android:paddingTop="4dp"
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/titleLogin"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Our app has predicted that your laundry should be dry by now. We welcome feedback to improve our predictions!"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:paddingTop="4dp"
+        android:typeface="sans"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/titleLogin"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="How dry were your clothes?"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:paddingTop="4dp"
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:gravity="center" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+        <TextView
+            style="@style/ratingTextStyle"
+            android:text="Slightly Dry"
+            android:layout_weight="30" />
+        <TextView
+            style="@style/ratingTextStyle"
+            android:text="Damp"
+            android:layout_weight="30" />
+    </LinearLayout>
+    <RatingBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:id="@+id/ratingBar1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
+        <TextView
+            style="@style/ratingTextStyle"
+            android:text="Too Dry"
+            android:layout_weight="30" />
+        <TextView
+            style="@style/ratingTextStyle"
+            android:text="Just right"
+            android:layout_weight="40" />
+        <TextView
+            style="@style/ratingTextStyle"
+            android:text="Wet"
+            android:layout_weight="30" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            style="@style/greenButtonStyle"
+            android:id="@+id/cancel"
+            android:layout_width="125dp"
+            android:text="No thanks"
+            android:textColor="#ffffffff" />
+        <Button
+            style="@style/greenButtonStyle"
+            android:id="@+id/submit"
+            android:layout_width="125dp"
+            android:text="Submit!"
+            android:textColor="#ffffffff" />
+    </LinearLayout>
+</LinearLayout>
