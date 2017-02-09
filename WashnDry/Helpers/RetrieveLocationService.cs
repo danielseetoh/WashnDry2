@@ -201,6 +201,10 @@ namespace WashnDry
 			AppPreferences ap = new AppPreferences(mContext);
 			string _latitude = ap.getCurrentLatitude();
 			string _longitude = ap.getCurrentLongitude();
+			if (_latitude == "" || _longitude == "")
+			{
+				return;
+			}
 			JsonValue weatherData5Day = await RetrieveWeatherData.FetchFiveDayWeatherForecastAsync(_latitude, _longitude);
 			if (weatherData5Day != null)
 			{
