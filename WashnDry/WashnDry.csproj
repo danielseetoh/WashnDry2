@@ -123,6 +123,7 @@
     <Compile Include="ImageAdapter.cs" />
     <Compile Include="Helpers\RetrieveWeatherData.cs" />
     <Compile Include="Helpers\RetrieveServerData.cs" />
+    <Compile Include="LaundrySelectActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -167,6 +168,10 @@
     <AndroidResource Include="Resources\drawable\i_splash.png" />
     <AndroidResource Include="Resources\drawable\i_menu.png" />
     <AndroidResource Include="Resources\drawable\i_weather.png" />
+    <AndroidResource Include="Resources\layout\LaundrySelect.xml" />
+    <AndroidResource Include="Resources\layout\Dialog_ReadyToStartDrying.xml" />
+    <AndroidResource Include="Resources\drawable\bg_dialogWrapper.xml" />
+    <AndroidResource Include="Resources\layout\Dialog_FinishDrying.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

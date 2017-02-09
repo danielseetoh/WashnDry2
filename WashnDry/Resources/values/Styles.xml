@@ -21,7 +21,9 @@
 		<item name="android:layout_marginTop">20px</item>
 		<item name="android:layout_marginBottom">20px</item>
 	    <item name="android:textSize" >15dp</item>
-  	</style>
+		<item name="android:textStyle" >bold</item>
+		<item name="android:gravity" >center</item>
+	</style>
 
 	<style name="drawerStyle" parent="@android:style/Theme.Holo.Light">
         <item name="android:activatedBackgroundIndicator">@color/OrangeLight</item>
@@ -43,6 +45,26 @@
 		<item name="android:layout_marginBottom">10px</item>
     </style>
 
+<!--    Rating text style-->
+	<style name="ratingTextStyle">
+		<item name="android:id">@+id/rate</item>
+		<item name="android:gravity">center</item>
+		<item name="android:textSize">15dp</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor" >#000000</item>
+    </style>
+
+<!--    overall page wrapper-->
+
+	<style name="overallPageWrapperStyle">
+        <item name="android:orientation">vertical</item>
+		<item name="android:background">#fff</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:id">@+id/overallPageWrapper</item>
+    </style>
+	
 <!--	Page wrapper-->
 	<style name="pageWrapperStyle">
         <item name="android:orientation">vertical</item>
@@ -53,6 +75,23 @@
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:id">@+id/pageWrapper</item>
     </style>
+
+<!--	Dialog Wrapper-->
+	<style name="dialogWrapperStyle">
+		<item name="android:background">@drawable/bg_dialogWrapper</item>
+        <item name="android:orientation">vertical</item>
+		<item name="android:paddingLeft">20px</item>
+		<item name="android:paddingRight">20px</item>
+		<item name="android:paddingTop">80px</item>
+		<item name="android:paddingBottom">80px</item>
+		<item name="android:weightSum">100</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginLeft">80px</item>
+		<item name="android:layout_marginRight">80px</item>
+		<item name="android:id">@+id/pageWrapper</item>
+    </style>
+	
 
 <!--    Page Scroll View-->
 	<style name="scrollWrapperStyle">

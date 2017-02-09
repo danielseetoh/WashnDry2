@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/overallPageWrapperStyle">
     <ScrollView
         android:minWidth="25px"
         android:minHeight="25px"
@@ -12,103 +10,97 @@
         android:id="@+id/scrollView1">
         <LinearLayout
             style="@style/pageWrapperStyle">
-            <TextView
-                android:text="Next Laundry Date"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/nextLaundryHeader" />
-            <TextView
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nextLaundryTextView" />
-            <TextView
-                android:text="Countdown to next laundry date:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/timeToNextLaundryHeader" />
-            <TextView
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/timeToNextLaundryTextView" />
-            <TextView
-                android:text="Estimated Time For Drying:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/estHeader" />
-            <TextView
-                android:text="Estimated Time For Drying:"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/estTime" />
-            <Button
-                android:text="Start Drying"
-                android:visibility="gone"
-                android:textStyle="bold"
-                style="@style/greenButtonStyle"
-                android:textSize="20dp"
-                android:id="@+id/startDryingButton" />
-            <Button
-                android:text="Restart Timer"
-                android:visibility="gone"
-                style="@style/greenButtonStyle"
-                android:id="@+id/restartDryingButton" />
-            <Button
-                android:text="Stop Drying"
-                android:visibility="gone"
-                style="@style/greenButtonStyle"
-                android:id="@+id/stopDryingButton" />
-            <TextView
-                android:text="Laundry Completed"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/laundryDoneAlert"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/timeTaken"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <RelativeLayout
-                android:id="@+id/timerLayoutWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:id="@+id/beforeStartDryingWrapper">
                 <TextView
                     android:text=""
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:id="@+id/timerTextView" />
-                <ImageView
-                    android:src="@drawable/i_timer"
-                    android:layout_height="100dp"
-                    android:layout_centerInParent="true"
-                    android:layout_width="100dp"
-                    android:id="@+id/timerImage" />
-                <io.github.krtkush.lineartimer.LinearTimerView
-                    android:id="@+id/linearTimerView"
-                    android:layout_centerInParent="true"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    app:radius="25dp"
-                    app:initialColor="#90E8E8"
-                    app:progressColor="#eaeaea"
-                    app:strokeWidth="5dp"
-                    app:startingPoint="270"
-                    app:preFillPoint="0" />
-            </RelativeLayout>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timeToNextLaundryTextView" />
+                <TextView
+                    android:text="To next laundry date on:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timeToNextLaundryHeader" />
+                <Button
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nextLaundryButton" />
+                <TextView
+                    android:text="Time:"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/estTime" />
+                <Button
+                    android:text="Start Drying"
+                    android:textStyle="bold"
+                    style="@style/greenButtonStyle"
+                    android:textSize="20dp"
+                    android:id="@+id/startDryingButton" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/afterStartDryingWrapper">
+                <Button
+                    android:text="Restart Timer"
+                    style="@style/greenButtonStyle"
+                    android:id="@+id/restartDryingButton" />
+                <Button
+                    android:text="Stop Drying"
+                    style="@style/greenButtonStyle"
+                    android:id="@+id/stopDryingButton" />
+                <TextView
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/timeTaken"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:id="@+id/timerLayoutWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+                    <TextView
+                        android:text=""
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:id="@+id/timerTextView" />
+                    <ImageView
+                        android:src="@drawable/i_timer"
+                        android:layout_height="100dp"
+                        android:layout_centerInParent="true"
+                        android:layout_width="100dp"
+                        android:id="@+id/timerImage" />
+                    <io.github.krtkush.lineartimer.LinearTimerView
+                        android:id="@+id/linearTimerView"
+                        android:layout_centerInParent="true"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        app:radius="25dp"
+                        app:initialColor="#90E8E8"
+                        app:progressColor="#eaeaea"
+                        app:strokeWidth="5dp"
+                        app:startingPoint="270"
+                        app:preFillPoint="0" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
