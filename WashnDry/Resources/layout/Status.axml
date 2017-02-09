@@ -90,9 +90,10 @@
                         android:id="@+id/timerImage" />
                     <io.github.krtkush.lineartimer.LinearTimerView
                         android:id="@+id/linearTimerView"
-                        android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_width="180dp"
                         android:layout_height="180dp"
+                        android:background="#ff0000"
                         app:radius="25dp"
                         app:initialColor="#90E8E8"
                         app:progressColor="#eaeaea"

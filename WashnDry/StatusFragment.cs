@@ -21,9 +21,16 @@ using System.Json;
 using System.IO;
 using System.Timers;
 using IO.Github.Krtkush.Lineartimer;
+using DT = System.Data;
+using QC = System.Data.SqlClient;
+
+
+
 
 namespace WashnDry
 {
+	
+
 	public class StatusFragment : Fragment
 	{
 		public System.Threading.Timer toNextDryTimer;
@@ -59,8 +66,46 @@ namespace WashnDry
 			base.OnCreate(savedInstanceState);
 		}
 
+		public void connectToSql()
+		{
+			// Connecting to SQL stuff
+			using (var connection = new QC.SqlConnection("Server=tcp:mmpl4w8m2p.database.windows.net;Database=seconddb;User ID=seconddb@mmpl4w8m2p;Password=Wash&dry123;Integrated Security=False;"))
+			{	
+				Console.WriteLine("First b down!");
+				connection.Open();
+				Console.WriteLine("Connected successfully.");
+
+				Console.WriteLine("Press any key to finish...");
+				Console.ReadKey(true);
+			}
+		}
+
+
+        public void SelectRows(QC.SqlConnection connection)
+		{
+			using (var command = new QC.SqlCommand())
+			{
+				command.Connection = connection;
+				command.CommandType = DT.CommandType.Text;
+				command.CommandText = @"  
+				    SELECT * FROM WASHNDRYCUSTOMER1";
+
+				QC.SqlDataReader reader = command.ExecuteReader();
+
+				while (reader.Read())
+				{
+					Console.WriteLine("{0}\t{1}\t{2}",
+						reader.GetInt32(0),
+						reader.GetInt32(1),
+						reader.GetString(2));
+				}
+			}
+		}
+
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
+			connectToSql();
+
 			rootView = inflater.Inflate(Resource.Layout.Status, container, false);
 			RetrieveLocationService.updateFiveDayWashDatesAndThreeBestTimings();
 
@@ -384,11 +429,17 @@ namespace WashnDry
 			AlertDialog builder = new AlertDialog.Builder(Activity).Create();
 			builder.SetView(view);
 			builder.SetCanceledOnTouchOutside(false);
-			Button button = view.FindViewById<Button>(Resource.Id.cancel);
-			button.Click += delegate
+			Button cancelButton = view.FindViewById<Button>(Resource.Id.cancel);
+			Button submitButton = view.FindViewById<Button>(Resource.Id.submit);
+			cancelButton.Click += delegate
 			{
+				state = State.notReady;
 				builder.Dismiss();
 			};
+			submitButton.Click += delegate {
+				
+			};
+
 			builder.Show();
 		}
 
@@ -416,6 +467,9 @@ namespace WashnDry
 
 			}
 		}
+
+  
+
 
 	}
 }
