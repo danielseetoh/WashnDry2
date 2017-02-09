@@ -220,47 +220,53 @@ namespace WashnDry
 			string[] ok_blocks = ap.getLatestOkPositions().Split(',');
 			for (int i = 0; i < very_good_blocks.Count(); i++)
 			{
-				
-				int startHour = int.Parse(very_good_blocks[i]);
-				for (int j = 0; j < 3; j++)
+				if (very_good_blocks.Count() > 0)
 				{
-					int hour = startHour + j;
-					int position = getPosition(hour);
-					if (position >= 6 && position <= 150)
+					int startHour = int.Parse(very_good_blocks[i]);
+					for (int j = 0; j < 3; j++)
 					{
-						wash_title_blocks.Add("VeryGood");
-						wash_timing_blocks.Add(position);
+						int hour = startHour + j;
+						int position = getPosition(hour);
+						if (position >= 6 && position <= 150)
+						{
+							wash_title_blocks.Add("VeryGood");
+							wash_timing_blocks.Add(position);
+						}
 					}
 				}
 			}
 			for (int i = 0; i < good_blocks.Count(); i++)
 			{
-				
-				int startHour = int.Parse(good_blocks[i]);
-				for (int j = 0; j < 3; j++)
+				if (good_blocks.Count() > 0)
 				{
-					int hour = startHour + j;
-					int position = getPosition(hour);
-					if (position >= 6 && position < 150)
+					int startHour = int.Parse(good_blocks[i]);
+					for (int j = 0; j < 3; j++)
 					{
-						wash_title_blocks.Add("Good");
-						wash_timing_blocks.Add(position);
+						int hour = startHour + j;
+						int position = getPosition(hour);
+						if (position >= 6 && position < 150)
+						{
+							wash_title_blocks.Add("Good");
+							wash_timing_blocks.Add(position);
+						}
 					}
 				}
 			}
 			for (int i = 0; i < ok_blocks.Count(); i++)
 			{
-				
-				int startHour = int.Parse(ok_blocks[i]);
-				for (int j = 0; j < 3; j++)
+				if (ok_blocks.Count() > 0)
 				{
-					int hour = startHour + j;
-					int position = getPosition(hour);
-					if (position >= 6 && position < 150)
+					int startHour = int.Parse(ok_blocks[i]);
+					for (int j = 0; j < 3; j++)
 					{
-						wash_title_blocks.Add("Ok");
-						wash_timing_blocks.Add(position);
+						int hour = startHour + j;
+						int position = getPosition(hour);
+						if (position >= 6 && position < 150)
+						{
+							wash_title_blocks.Add("Ok");
+							wash_timing_blocks.Add(position);
 					}
+				}
 				}
 			}
 			//string combined_blocks = very_good_blocks + "," + good_blocks + "," + ok_blocks;
