@@ -24,27 +24,6 @@ namespace WashnDry
 	{
 		public System.Threading.Timer toNextDryTimer;
 		public System.Threading.Timer dryingTimer;
-		//static int timeLeftInSeconds;
-		//int initialTimeInSeconds;
-
-		//enum State { ready, notReady, dryingInProgress, laundryFinished };
-		//static State state = State.notReady;
-
-		//TextView nextLaundryTV, timeToNextLaundryTV;
-		//TextView timerTextView, estTextView, timeTakenTextView;
-		//Button startDryingButton, restartDryingButton, stopDryingButton;
-
-		//DateTime nextLaundryDate;
-		//DateTime currentDate;
-
-		//DateCalculator dc = new DateCalculator();
-		//DateCalculator nextLaundryDc = new DateCalculator();
-
-
-		//TextView descriptionText;
-
-		//TextView _addressText;
-		//TextView _locationText;
 		TextView _temperatureText;
 		TextView _windText;
 		TextView _humidityText;
@@ -57,7 +36,6 @@ namespace WashnDry
 
 		static string _longitude;
 		static string _latitude;
-		//static string _address;
 		static string _currentWeather;
 		static string _currentTemperature;
 		static string _currentWind;
@@ -77,7 +55,6 @@ namespace WashnDry
 		{
 			rootView = inflater.Inflate(Resource.Layout.Weather, container, false);
 
-			//estTextView = rootView.FindViewById<TextView>(Resource.Id.estTime);
 			getUIElements();
 
 			return rootView;

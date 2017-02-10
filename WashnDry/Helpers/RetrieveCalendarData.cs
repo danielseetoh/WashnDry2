@@ -20,7 +20,6 @@ namespace WashnDry
 				CalendarContract.Calendars.InterfaceConsts.AccountName,
 				CalendarContract.Calendars.InterfaceConsts.OwnerAccount
 			};
-			MainActivity activity = new MainActivity();
 			int _calId = 1;
 			DateTime today = DateTime.Today.ToUniversalTime();
 			long currentDayMilliseconds = (long)(today - Jan1st1970).TotalMilliseconds;
@@ -58,11 +57,11 @@ namespace WashnDry
 			string events_timings = "";
 			for (cursor2.MoveToFirst(); !cursor2.IsAfterLast; cursor2.MoveToNext())
 			{
-				string _calendarId = cursor2.GetString(0);
+				//string _calendarId = cursor2.GetString(0);
 				string _name = cursor2.GetString(1);
 				double _dtstart = cursor2.GetDouble(2);
 				double _dtend = cursor2.GetDouble(3);
-				string _availability = cursor2.GetString(4);
+				//string _availability = cursor2.GetString(4);
 				if (events_titles == "" || events_timings == "")
 				{
 					events_titles = _name;

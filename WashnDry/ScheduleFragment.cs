@@ -52,5 +52,7 @@ namespace WashnDry
 			gridview.Adapter = new ImageAdapter(this.Activity);
 		}
 
+
+
 	}
 }

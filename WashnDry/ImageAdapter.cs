@@ -5,6 +5,7 @@ using Android.Widget;
 using Android.Graphics;
 using System.Collections.Generic;
 using System.Linq;
+using Android.App;
 
 namespace WashnDry
 {
@@ -13,12 +14,12 @@ namespace WashnDry
 		Context context;
 		string backgroundColor = "#F2F2F2";
 		string emptyColor = "#FFFFFF";
-		string veryGoodColor = "#009900";
-		string goodColor = "#66ff66";
-		string okColor = "#ccffcc";
-		string busyColor = "#b6b6b6";
+		string veryGoodColor = "#6dfd30";
+		string goodColor = "#6aca6b";
+		string okColor = "#679868";
+		string busyColor = "#cccccc";
 		//string[] events_data;
-		List<string> event_title_blocks;
+		//List<string> event_title_blocks;
 		List<int> event_timing_blocks;
 		List<string> wash_title_blocks;
 		List<int> wash_timing_blocks;
@@ -53,8 +54,6 @@ namespace WashnDry
 			var time = 0;
 			TextView view;
 			DateTime now = DateTime.Now;
-
-
 
 
 			if (convertView == null)
@@ -143,7 +142,7 @@ namespace WashnDry
 		private void parseEventsData()
 		{
 			event_timing_blocks = new List<int>();
-			event_title_blocks = new List<string>();
+			//event_title_blocks = new List<string>();
 			// return strings of titles and start block and end block positions
 			//DateTime start_of_time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 			Context mContext = Android.App.Application.Context;
@@ -256,7 +255,12 @@ namespace WashnDry
 				}
 			}
 			// if there aren't any very good dates or good dates, suggest laundry service here (max once a day)
-			// (use a public static function from somewhere)
+			if (!wash_title_blocks.Contains("VeryGood") && !wash_title_blocks.Contains("Good"))
+			{
+				Dialogs.onDemandLaundry((Activity)context);
+			}
+
+
 		}
 
 	}

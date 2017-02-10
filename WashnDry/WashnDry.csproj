@@ -125,6 +125,7 @@
     <Compile Include="Helpers\RetrieveServerData.cs" />
     <Compile Include="LaundrySelectActivity.cs" />
     <Compile Include="Helpers\RetrieveCalendarData.cs" />
+    <Compile Include="Helpers\Dialogs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -173,6 +174,7 @@
     <AndroidResource Include="Resources\layout\Dialog_ReadyToStartDrying.xml" />
     <AndroidResource Include="Resources\drawable\bg_dialogWrapper.xml" />
     <AndroidResource Include="Resources\layout\Dialog_FinishDrying.xml" />
+    <AndroidResource Include="Resources\layout\Dialog_OnDemandLaundry.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

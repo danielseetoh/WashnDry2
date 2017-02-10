@@ -81,8 +81,8 @@ namespace WashnDry
 				{
 					//parse and store data 
 					float veryGoodThreshold = 2500;
-					float goodThreshold = 2800;
-					float okThreshold = 3200;
+					float goodThreshold = 2900;
+					float okThreshold = 3300;
 					string veryGoodList = "";
 					string goodList = "";
 					string okList = "";
