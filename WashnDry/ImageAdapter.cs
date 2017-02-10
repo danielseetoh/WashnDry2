@@ -17,16 +17,16 @@ namespace WashnDry
 		string goodColor = "#66ff66";
 		string okColor = "#ccffcc";
 		string busyColor = "#b6b6b6";
-		string[] events_data;
+		//string[] events_data;
 		List<string> event_title_blocks;
 		List<int> event_timing_blocks;
 		List<string> wash_title_blocks;
 		List<int> wash_timing_blocks;
 
-		public ImageAdapter(Context c, string[] ed)
+		public ImageAdapter(Context c)//, string[] ed)
 		{
 			context = c;
-			events_data = ed;
+			//events_data = ed;
 			parseEventsData(); 
 			getWashDates();
 		}
@@ -145,43 +145,19 @@ namespace WashnDry
 			event_timing_blocks = new List<int>();
 			event_title_blocks = new List<string>();
 			// return strings of titles and start block and end block positions
-			DateTime start_of_time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-			//DateTime today = DateTime.Today.ToUniversalTime();
-			//long currentDayMilliseconds = (long)(today - Jan1st1970).TotalMilliseconds;
-			//DateTime today = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(currentDayMilliseconds);
-			//today = testtoday.ToLocalTime();
-
-			if (events_data == null)
-				return;
-
-			string events_titles = events_data[0];
-			string events_timings = events_data[1];
-			Console.Out.WriteLine("events_titles: " + events_titles);
-			Console.Out.WriteLine("events_timings: " + events_timings);
-			if (events_titles.Length > 0 && events_timings.Length > 0)
+			//DateTime start_of_time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+			Context mContext = Android.App.Application.Context;
+			AppPreferences ap = new AppPreferences(mContext);
+			if (ap.getCalendarEventsDates() != "")
 			{
-				List<string> titles = events_titles.Split(',').ToList();
-				List<string> timings = events_timings.Split(',').ToList();
-				// parse milliseconds into a block
+				string[] all_event_dates = ap.getCalendarEventsDates().Split(',');
 
-				for (int i = 0; i < timings.Count; i = i + 2)
+				for (int i = 0; i < all_event_dates.Count(); i++)
 				{
-					string title = titles[i / 2];
-					Console.WriteLine("Timings: " + timings[i]);
-					Console.Out.WriteLine(i);
-					Console.Out.WriteLine(timings[i]);
-					DateTime event_start_time = start_of_time.AddMilliseconds(long.Parse(timings[i]));
-					int start_hours = (int)(event_start_time - DateTime.Today.ToUniversalTime()).TotalHours;
-					int start_position = getPosition(start_hours);
-					DateTime event_end_time = start_of_time.AddMilliseconds(long.Parse(timings[i + 1]));
-					int end_hours = (int)(event_end_time - DateTime.Today.ToUniversalTime()).TotalHours;
-					int end_position = getPosition(end_hours);
-					for (int j = start_position; j <= end_position; j = j + 6)
-					{
-						event_timing_blocks.Add(j);
-						event_title_blocks.Add(title);
-					}
-
+					DateTime eventDate = DateTime.Parse(all_event_dates[i]);
+					int hour = (int)(eventDate - DateTime.Today.ToLocalTime()).TotalHours;
+					int position = getPosition(hour);
+					event_timing_blocks.Add(position);
 				}
 			}
 		}
@@ -212,7 +188,8 @@ namespace WashnDry
 				Toast.MakeText(context, "Forecast up to date", ToastLength.Long).Show();
 			} else {
 				Toast.MakeText(context, "Forecast outdated, updating now", ToastLength.Long).Show();
-				RetrieveLocationService.updateFiveDayWashDatesAndThreeBestTimings();
+				RetrieveWeatherData.updateFiveDayWashDatesAndThreeBestTimings();
+				Toast.MakeText(context, "Please refresh the page", ToastLength.Long).Show();
 			}
 				
 			string[] very_good_blocks = ap.getLatestVeryGoodPositions().Split(',');
@@ -220,78 +197,66 @@ namespace WashnDry
 			string[] ok_blocks = ap.getLatestOkPositions().Split(',');
 			for (int i = 0; i < very_good_blocks.Count(); i++)
 			{
-				if (very_good_blocks.Count() > 0)
+				if (very_good_blocks.Count() > 0 && very_good_blocks[i] != "")
 				{
 					int startHour = int.Parse(very_good_blocks[i]);
 					for (int j = 0; j < 3; j++)
 					{
 						int hour = startHour + j;
 						int position = getPosition(hour);
-						if (position >= 6 && position <= 150)
+						if (!event_timing_blocks.Contains(position))
 						{
-							wash_title_blocks.Add("VeryGood");
-							wash_timing_blocks.Add(position);
+							if (position >= 6 && position <= 150)
+							{
+								wash_title_blocks.Add("VeryGood");
+								wash_timing_blocks.Add(position);
+							}
 						}
 					}
 				}
 			}
 			for (int i = 0; i < good_blocks.Count(); i++)
 			{
-				if (good_blocks.Count() > 0)
+				if (good_blocks.Count() > 0 && good_blocks[i] != "")
 				{
 					int startHour = int.Parse(good_blocks[i]);
 					for (int j = 0; j < 3; j++)
 					{
 						int hour = startHour + j;
 						int position = getPosition(hour);
-						if (position >= 6 && position < 150)
+						if (!event_timing_blocks.Contains(position))
 						{
-							wash_title_blocks.Add("Good");
-							wash_timing_blocks.Add(position);
+							if (position >= 6 && position < 150)
+							{
+								wash_title_blocks.Add("Good");
+								wash_timing_blocks.Add(position);
+							}
 						}
 					}
 				}
 			}
 			for (int i = 0; i < ok_blocks.Count(); i++)
 			{
-				if (ok_blocks.Count() > 0)
+				if (ok_blocks.Count() > 0 && ok_blocks[i] != "")
 				{
 					int startHour = int.Parse(ok_blocks[i]);
 					for (int j = 0; j < 3; j++)
 					{
 						int hour = startHour + j;
 						int position = getPosition(hour);
-						if (position >= 6 && position < 150)
+						if (!event_timing_blocks.Contains(position))
 						{
-							wash_title_blocks.Add("Ok");
-							wash_timing_blocks.Add(position);
+							if (position >= 6 && position < 150)
+							{
+								wash_title_blocks.Add("Ok");
+								wash_timing_blocks.Add(position);
+							}
+						}
 					}
 				}
-				}
 			}
-			//string combined_blocks = very_good_blocks + "," + good_blocks + "," + ok_blocks;
-			//string[] arr = combined_blocks.Split(',');
-			//wash_timing_blocks = Array.ConvertAll(arr, s=>int.Parse(s)).ToList();
-			
-
-			// get dummy data
-			//wash_title_blocks.Add("Ok");
-			//wash_title_blocks.Add("Ok");
-			//wash_title_blocks.Add("Ok");
-			//wash_title_blocks.Add("VeryGood");
-			//wash_title_blocks.Add("Good");
-			//wash_title_blocks.Add("Good");
-			//wash_title_blocks.Add("VeryGood");
-			//wash_title_blocks.Add("Ok");
-
-			//wash_timing_blocks.Add(67);
-			//wash_timing_blocks.Add(73);
-			//wash_timing_blocks.Add(79);
-			//wash_timing_blocks.Add(92);
-			//wash_timing_blocks.Add(114);
-			//wash_timing_blocks.Add(128);
-			//wash_timing_blocks.Add(129);
-			//wash_timing_blocks.Add(134);
+			// if there aren't any very good dates or good dates, suggest laundry service here (max once a day)
+			// (use a public static function from somewhere)
 		}
 
 	}

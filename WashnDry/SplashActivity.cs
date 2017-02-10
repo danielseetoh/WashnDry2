@@ -27,20 +27,14 @@ namespace WashnDry
 			base.OnCreate(savedInstanceState, persistentState);
 			Log.Debug(TAG, "SplashActivity.OnCreate");
 
-			//var retrieveLocationServiceIntent = new Intent(this, typeof(RetrieveLocationService));
-			//var retrieveLocationServiceConnection = new RetrieveLocationServiceConnection(this);
-			//BindService(retrieveLocationServiceIntent, retrieveLocationServiceConnection, Bind.AutoCreate);
-
-
-			//StartService(new Intent(this, typeof(SimpleStartedService)));
-			//RegisterBroadcastReceiver();
 		}
 
 		protected override void OnResume()
 		{
 			base.OnResume();
 			StartService(new Intent(this, typeof(RetrieveLocationService)));
-			RetrieveLocationService.updateFiveDayWashDatesAndThreeBestTimings();
+			RetrieveWeatherData.updateFiveDayWashDatesAndThreeBestTimings();
+			RetrieveCalendarData.getAndroidCalendarData(this);
 			Task startupWork = new Task(() =>
 			{
 				Task.Delay(3000);  // Simulate a bit of startup work.

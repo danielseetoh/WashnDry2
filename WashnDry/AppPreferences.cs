@@ -32,6 +32,7 @@ namespace WashnDry
 		private static String PREFERENCE_CURRENT_LONGITUDE = "PREFERENCE_CURRENT_LONGITUDE";
 		private static String PREFERENCE_THREE_BEST_TIMINGS = "PREFERENCE_THREE_BEST_TIMINGS";
 		private static String PREFERENCE_CURRENT_DRYING_TIME = "PREFERENCE_CURRENT_DRYING_TIME";
+		private static String PREFERENCE_CALENDAR_EVENTS_DATES = "PREFERENCE_CALENDAR_EVENTS_DATES";
 
 		public AppPreferences(Context context)
 		{
@@ -207,6 +208,17 @@ namespace WashnDry
 		public string getCurrentDryingTime()
 		{
 			return prefs.GetString(PREFERENCE_CURRENT_DRYING_TIME, "");
+		}
+
+		public void saveCalendarEventsDates(string calendarEventsDates)
+		{
+			editor.PutString(PREFERENCE_CALENDAR_EVENTS_DATES, calendarEventsDates);
+			editor.Commit();
+		}
+
+		public string getCalendarEventsDates()
+		{
+			return prefs.GetString(PREFERENCE_CALENDAR_EVENTS_DATES, "");
 		}
 	}
 }

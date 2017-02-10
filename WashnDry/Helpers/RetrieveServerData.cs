@@ -17,7 +17,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
-
+using Android.Content;
 
 namespace WashnDry
 {
@@ -103,6 +103,25 @@ namespace WashnDry
 					return null;
 				}
 			}
+		}
+
+		public static async void getCurrentDryingTime(string[,] parsedWeatherData)
+		{
+			JsonValue serverData = await RetrieveServerData.InvokeRequestResponseService(parsedWeatherData);
+			//Console.Out.WriteLine("serverData: " + serverData.ToString());
+			double dryingTimeInSeconds = double.Parse(serverData["Results"]["output1"]["value"]["Values"][0][5]);
+			//Console.Out.WriteLine("dryingTimeInSeconds: " + dryingTimeInSeconds.ToString());
+			TimeSpan time = TimeSpan.FromSeconds(dryingTimeInSeconds);
+			//Console.Out.WriteLine("time.ToString(): " + time.ToString());
+			Context mContext = Android.App.Application.Context;
+			AppPreferences ap = new AppPreferences(mContext);
+			string currentDryingTime = string.Format("{0}hr {1}min", time.Hours, time.Minutes);
+			if (time.Hours == 0)
+			{
+				currentDryingTime = string.Format("{0}min", time.Minutes);
+			}
+			//Console.Out.WriteLine("Current Drying Time: " + currentDryingTime);
+			ap.saveCurrentDryingtime(currentDryingTime);
 		}
 
 	}

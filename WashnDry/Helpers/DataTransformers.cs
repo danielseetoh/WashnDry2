@@ -196,12 +196,19 @@ namespace WashnDry
 				JsonValue threeHourPeriod = weatherData["list"][i];
 				//Console.Out.WriteLine(threeHourPeriod["rain"].ToString());
 				//string precipitation = threeHourPeriod["rain"]["3h"].ToString();
-				if (threeHourPeriod["rain"].Count == 0)
-				{
-					precipitation = "0";
+
+				if (threeHourPeriod.ContainsKey("rain")){
+					if (threeHourPeriod["rain"].ContainsKey("3h"))
+					{
+						precipitation = threeHourPeriod["rain"]["3h"].ToString();
+					}
+					else {
+						precipitation = "0";
+					}
 				}
 				else {
-					precipitation = threeHourPeriod["rain"]["3h"].ToString();
+					Console.Out.WriteLine("threeHourPeriod: " + threeHourPeriod.ToString());
+					precipitation = "0";
 				}
 
 				//{ "Temperature", "Humidity", "Precipitation", "Windspeed", "Drying-time"},
@@ -229,7 +236,10 @@ namespace WashnDry
 			return parsedDataArray;
 		}
 
-
+		public static DateTime roundOffToPastHour(DateTime date)
+		{
+			return new DateTime(date.Year, date.Month, date.Day, date.Hour, 0, 0);
+		}
 
 
 	}

@@ -62,8 +62,8 @@ namespace WashnDry
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			rootView = inflater.Inflate(Resource.Layout.Status, container, false);
-			RetrieveLocationService.updateFiveDayWashDatesAndThreeBestTimings();
-
+			RetrieveWeatherData.updateFiveDayWashDatesAndThreeBestTimings();
+			RetrieveCalendarData.getAndroidCalendarData(this.Activity);
 			ap = new AppPreferences(Activity);
 			initialTimeInSeconds = ap.getEstimatedTime();
 
