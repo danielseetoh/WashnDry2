@@ -12,12 +12,12 @@ namespace WashnDry
 	public class ImageAdapter : BaseAdapter
 	{
 		Context context;
-		string backgroundColor = "#F2F2F2";
-		string emptyColor = "#FFFFFF";
-		string veryGoodColor = "#6dfd30";
-		string goodColor = "#6aca6b";
-		string okColor = "#679868";
-		string busyColor = "#cccccc";
+		string backgroundColor;
+		string emptyColor;
+		string veryGoodColor;
+		string goodColor;
+		string okColor;
+		string busyColor;
 		//string[] events_data;
 		//List<string> event_title_blocks;
 		List<int> event_timing_blocks;
@@ -30,6 +30,12 @@ namespace WashnDry
 			//events_data = ed;
 			parseEventsData(); 
 			getWashDates();
+			backgroundColor = context.Resources.GetString(Resource.Color.scheduleBackground);
+			emptyColor = context.Resources.GetString(Resource.Color.scheduleEmpty);
+			veryGoodColor = context.Resources.GetString(Resource.Color.scheduleVeryGood);
+			goodColor = context.Resources.GetString(Resource.Color.scheduleGood);
+			okColor = context.Resources.GetString(Resource.Color.scheduleOk);
+			busyColor = context.Resources.GetString(Resource.Color.scheduleBusy);
 		}
 
 		public override int Count

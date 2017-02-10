@@ -3,5 +3,10 @@
 	<color name="splash_background">#ffffff</color>
 	<color name="OrangeLight">#FCB1B1</color>
 	<color name="OrangeDark">#B1FCFC</color>
-
+	<color name="scheduleBackground">#F2F2F2</color>
+	<color name="scheduleEmpty">#FFFFFF</color>
+	<color name="scheduleVeryGood">#6dfd30</color>
+	<color name="scheduleGood">#6aca6b</color>
+	<color name="scheduleOk">#679868</color>
+	<color name="scheduleBusy">#cccccc</color>
 </resources>

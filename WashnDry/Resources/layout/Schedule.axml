@@ -1,11 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/gridview"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:numColumns="6"
-    android:verticalSpacing="1dp"
-    android:horizontalSpacing="1dp"
-    android:stretchMode="columnWidth"
-    android:scrollbarStyle="outsideOverlay"
-    android:background="#F2F2F2" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
+    <TextView
+        android:textSize="80px"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Schedule"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="italic"
+        android:id="@+id/Title" />
+    <TextView
+        android:text="Drying Condition: "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="60px"
+        android:gravity="center"
+        android:layout_below="@+id/Title"
+        android:paddingLeft="15px"
+        style="@style/textStyle"
+        android:id="@+id/Legend" />
+    <View
+        android:id="@+id/View1"
+        android:layout_below="@+id/Title"
+        android:layout_toRightOf="@+id/Legend"
+        android:layout_width="8px"
+        android:layout_height="60px" />
+    <TextView
+        android:text="Best"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="100px"
+        android:layout_height="60px"
+        android:gravity="center"
+        android:id="@+id/Best"
+        android:layout_toRightOf="@+id/View1"
+        android:layout_below="@+id/Title"
+        style="@style/textStyle"
+        android:background="@color/scheduleVeryGood" />
+    <View
+        android:id="@+id/View2"
+        android:layout_below="@+id/Title"
+        android:layout_toRightOf="@+id/Best"
+        android:layout_width="8px"
+        android:layout_height="60px" />
+    <TextView
+        android:text="Good"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="100px"
+        android:layout_height="60px"
+        android:id="@+id/Good"
+        android:layout_toRightOf="@+id/View2"
+        android:layout_below="@+id/Title"
+        android:gravity="center"
+        style="@style/textStyle"
+        android:background="@color/scheduleGood" />
+    <View
+        android:id="@+id/View3"
+        android:layout_below="@+id/Title"
+        android:layout_toRightOf="@+id/Good"
+        android:layout_width="8px"
+        android:layout_height="60px" />
+    <TextView
+        android:text="Okay"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="100px"
+        android:layout_height="60px"
+        android:id="@+id/Okay"
+        android:layout_toRightOf="@+id/View3"
+        android:layout_below="@+id/Title"
+        android:gravity="center"
+        style="@style/textStyle"
+        android:background="@color/scheduleOk" />
+    <View
+        android:id="@+id/View4"
+        android:layout_below="@+id/Title"
+        android:layout_toRightOf="@+id/Okay"
+        android:layout_width="40px"
+        android:layout_height="60px" />
+    <TextView
+        android:text="Busy"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="100px"
+        android:layout_height="60px"
+        android:id="@+id/Busy"
+        android:layout_toRightOf="@+id/View4"
+        android:layout_below="@+id/Title"
+        android:gravity="center"
+        style="@style/textStyle"
+        android:background="@color/scheduleBusy" />
+    <View
+        android:id="@+id/View5"
+        android:layout_below="@+id/Legend"
+        android:layout_width="match_parent"
+        android:layout_height="15px" />
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_below="@+id/View5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="6"
+        android:verticalSpacing="1dp"
+        android:horizontalSpacing="1dp"
+        android:stretchMode="columnWidth"
+        android:scrollbarStyle="outsideOverlay"
+        android:background="#F2F2F2" />
+</RelativeLayout>
