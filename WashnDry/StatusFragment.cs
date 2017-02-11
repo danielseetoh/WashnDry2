@@ -21,6 +21,8 @@ using System.Json;
 using System.IO;
 using System.Timers;
 using IO.Github.Krtkush.Lineartimer;
+using DT = System.Data;            // System.Data.dll  
+using QC = System.Data.SqlClient;
 
 namespace WashnDry
 {
@@ -57,6 +59,9 @@ namespace WashnDry
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+			var r = DB.DBOperation(DB.sql.selectq, "SELECT * FROM WASHNDRYCUSTOMER1");
+
+
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -345,7 +350,8 @@ namespace WashnDry
 		}
 
 		void uiEventsOnFinishedDrying()
-		{	
+		{
+			state = State.notReady;
 			dc.formatSeconds(initialTimeInSeconds);
 			ap.saveSelectedNextLaundryTime("");
 			uiSelectLaundryDateButton();
@@ -384,12 +390,24 @@ namespace WashnDry
 			AlertDialog builder = new AlertDialog.Builder(Activity).Create();
 			builder.SetView(view);
 			builder.SetCanceledOnTouchOutside(false);
-			Button button = view.FindViewById<Button>(Resource.Id.cancel);
-			button.Click += delegate
+
+			Button cancelButton = view.FindViewById<Button>(Resource.Id.cancel);
+			Button submitButton = view.FindViewById<Button>(Resource.Id.submit);
+			cancelButton.Click += delegate
 			{
 				builder.Dismiss();
 			};
+
+			submitButton.Click += delegate {
+
+
+				builder.Dismiss();
+				string ins = "INSERT INTO WASHNDRYCUSTOMER1 (TEMPERATURE, HUMIDITY, PRECIPITATION, WINDSPEED, DRYING_TIME ) VALUES (27.8, 48.2, 0.64, 32.1, 2345)";
+				DB.DBOperation(DB.sql.insert, ins);
+
+			};
 			builder.Show();
+
 		}
 
 
