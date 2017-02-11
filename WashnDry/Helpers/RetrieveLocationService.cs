@@ -121,8 +121,8 @@ namespace WashnDry
 				return;
 			}
 
-			Address address = await ReverseGeocodeCurrentLocation();
-			getAddress(address);
+			//Address address = await ReverseGeocodeCurrentLocation();
+			//getAddress(address);
 		}
 
 		void getAddress(Address address)
@@ -163,8 +163,8 @@ namespace WashnDry
 			else
 			{
 				_locationText = string.Format("{0:f6},{1:f6}", _currentLocation.Latitude, _currentLocation.Longitude);
-				Address address = await ReverseGeocodeCurrentLocation();
-				getAddress(address);
+				//Address address = await ReverseGeocodeCurrentLocation();
+				//getAddress(address);
 				// store location
 				Context mContext = Application.Context;
 				AppPreferences ap = new AppPreferences(mContext);

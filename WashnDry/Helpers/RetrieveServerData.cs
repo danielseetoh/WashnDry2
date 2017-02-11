@@ -108,6 +108,10 @@ namespace WashnDry
 		public static async void getCurrentDryingTime(string[,] parsedWeatherData)
 		{
 			JsonValue serverData = await RetrieveServerData.InvokeRequestResponseService(parsedWeatherData);
+			if (serverData == null)
+			{
+				return;
+			}
 			//Console.Out.WriteLine("serverData: " + serverData.ToString());
 			double dryingTimeInSeconds = double.Parse(serverData["Results"]["output1"]["value"]["Values"][0][5]);
 			//Console.Out.WriteLine("dryingTimeInSeconds: " + dryingTimeInSeconds.ToString());
