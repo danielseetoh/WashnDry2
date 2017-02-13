@@ -49,7 +49,7 @@ namespace WashnDry
 			string d0s = dt[0].ToString();
 			string d1s = dt[1].ToString();
 			string d2s = dt[2].ToString();
-			var dt1 = DateTime.Parse(d1s);
+
 			string arrdt = d0s + "," + d1s + "," + d2s + "_" + "27,16,7";
 
 			// a function to split the string from DB into a DateTime array

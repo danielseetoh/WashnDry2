@@ -1995,7 +1995,7 @@ namespace WashnDry
 			public const int radio = 2131427390;
 			
 			// aapt resource value: 0x7f0b0065
-			public const int ratingBar1 = 2131427429;
+			public const int ratingBar = 2131427429;
 			
 			// aapt resource value: 0x7f0b0062
 			public const int resetSettings = 2131427426;

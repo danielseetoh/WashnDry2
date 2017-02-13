@@ -59,7 +59,7 @@ namespace WashnDry
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-			var r = DB.DBOperation(DB.sql.selectq, "SELECT * FROM WASHNDRYCUSTOMER1");
+			//var r = DB.DBOperation(DB.sql.selectq, "SELECT * FROM WASHNDRYCUSTOMER1");
 
 
 		}
@@ -393,17 +393,23 @@ namespace WashnDry
 
 			Button cancelButton = view.FindViewById<Button>(Resource.Id.cancel);
 			Button submitButton = view.FindViewById<Button>(Resource.Id.submit);
+			RatingBar ratingBar = view.FindViewById<RatingBar>(Resource.Id.ratingBar);
+			ratingBar.Rating = 3;
 			cancelButton.Click += delegate
 			{
 				builder.Dismiss();
 			};
 
 			submitButton.Click += delegate {
-
-
 				builder.Dismiss();
+				double r = ratingBar.Rating;
+
+				RatingData.getScaleData();
+				double correctedDryingTime = initialTimeInSeconds * RatingData.scale[r];
+				Console.WriteLine("corrected dry time" + correctedDryingTime);
+
 				string ins = "INSERT INTO WASHNDRYCUSTOMER1 (TEMPERATURE, HUMIDITY, PRECIPITATION, WINDSPEED, DRYING_TIME ) VALUES (27.8, 48.2, 0.64, 32.1, 2345)";
-				DB.DBOperation(DB.sql.insert, ins);
+				//DB.DBOperation(DB.sql.insert, ins);
 
 			};
 			builder.Show();

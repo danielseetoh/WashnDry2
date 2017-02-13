@@ -130,6 +130,7 @@
     <Compile Include="Helpers\RetrieveCalendarData.cs" />
     <Compile Include="Helpers\Dialogs.cs" />
     <Compile Include="Helpers\DB.cs" />
+    <Compile Include="Data\RatingData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

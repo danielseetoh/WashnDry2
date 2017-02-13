@@ -14,9 +14,7 @@ namespace WashnDry
 {
 	public class ListData
 	{
-		public ListData()
-		{
-		}
+
 
 		Dictionary<int, string> laundrySlots;
 
