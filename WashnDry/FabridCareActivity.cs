@@ -19,6 +19,7 @@ namespace WashnDry
 		Context mContext = Android.App.Application.Context;
 		AppPreferences ap;
 		TextView pageHeader, washInstruction, dryInstruction;
+		Button buy, back;
 		ImageView recProductImage;
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -31,6 +32,12 @@ namespace WashnDry
 			washInstruction = FindViewById<TextView>(Resource.Id.washInstruction);
 			dryInstruction = FindViewById<TextView>(Resource.Id.dryInstruction);
 			recProductImage = FindViewById<ImageView>(Resource.Id.recProductImage);
+			buy = FindViewById<Button>(Resource.Id.buy);
+			back = FindViewById<Button>(Resource.Id.back);
+			buy.Click += delegate { 
+				this.Finish();
+			};
+			back.Click += delegate { this.Finish(); };
 
 			int id = Intent.Extras.GetInt("fabricSelectedId");
 			pageHeader.Text = FabricData.fList[id].Item1;
@@ -39,7 +46,11 @@ namespace WashnDry
 			dryInstruction.Text = FabricData.fList[id].Item5;
 		}
 
+		void BackButton_Click(object sender, EventArgs e)
+		{
 
+			this.Finish();
+		}
 
 
 		public override void OnBackPressed()
