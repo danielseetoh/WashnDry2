@@ -33,7 +33,7 @@ namespace WashnDry
 		static int timeLeftInSeconds;
 		int initialTimeInSeconds;
 
-		enum State { ready, notReady, dryingInProgress, laundryFinished };
+		enum State { dateNotChosen, ready, notReady, dryingInProgress, laundryFinished };
 		static State state = State.notReady;
 
 		TextView nextLaundryButton, timeToNextLaundryTV;
@@ -94,6 +94,10 @@ namespace WashnDry
 			//RegisterBroadcastReceiver();
 
 			// should save state in a store. Various events should trigger a change in the state
+			if (state == State.dateNotChosen) { 
+				var intent = new Intent(Activity, typeof(LaundrySelectActivity));
+				StartActivityForResult(intent, 100);
+			}
 			if (state == State.notReady) { }
 			if (state == State.ready) { uiEventsOnReadyToStartDrying(); }
 			if (state == State.dryingInProgress) { uiEventsOnStartDrying(); }
@@ -312,8 +316,8 @@ namespace WashnDry
 			else {
 				nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
 				nextLaundryDc.formatSeconds(nextLaundryDc.Seconds);
-				if (nextLaundryDc.Days >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.MonthDay; }
-				else if (nextLaundryDc.Minutes >= 180) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.DayHour; }
+				if (nextLaundryDc.Days >= 1) { timeToNextLaundryTV.Text = "3 hours" + nextLaundryDc.verbose.MonthDay; }
+				else if (nextLaundryDc.Minutes >= 180) { timeToNextLaundryTV.Text = "hi"; Console.WriteLine("Minutes more than 180"); }//nextLaundryDc.verbose.DayHour; }
 				else if (nextLaundryDc.Minutes >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.HourMin; }
 				else if (nextLaundryDc.Seconds >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.Sec; }
 				else if (nextLaundryDc.Minutes >= -60)
@@ -351,7 +355,7 @@ namespace WashnDry
 
 		void uiEventsOnFinishedDrying()
 		{
-			state = State.notReady;
+			state = State.dateNotChosen;
 			dc.formatSeconds(initialTimeInSeconds);
 			ap.saveSelectedNextLaundryTime("");
 			uiSelectLaundryDateButton();

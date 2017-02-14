@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerHorizontal="true">
+    android:layout_centerHorizontal="true"
+    style="@style/pageWrapperStyle">
     <TextView
         android:textSize="80px"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -10,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Schedule"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="sans-serif"
         android:textStyle="italic"
         android:id="@+id/Title" />
     <TextView
@@ -106,5 +107,5 @@
         android:horizontalSpacing="1dp"
         android:stretchMode="columnWidth"
         android:scrollbarStyle="outsideOverlay"
-        android:background="#F2F2F2" />
+        android:background="#AEAEAE" />
 </RelativeLayout>

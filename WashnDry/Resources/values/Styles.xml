@@ -29,7 +29,22 @@
 		<item name="android:layout_marginTop">20px</item>
 		<item name="android:layout_marginBottom">20px</item>
 	    <item name="android:textSize" >15dp</item>
-		<item name="android:textStyle" >bold</item>
+		
+		<item name="android:gravity" >center</item>
+	</style>
+
+	<style name="greenButtonStyle.Big">
+    	<item name="android:layout_width" >match_parent</item>
+		<item name="android:layout_height" >wrap_content</item>
+		<item name="android:background">@drawable/buttonBgGreen</item>
+	    <item name="android:textColor" >@drawable/textColor</item>
+	    <item name="android:gravity" >center</item>
+	    <item name="android:layout_margin" >10dp</item>
+		<item name="android:layout_marginTop">35px</item>
+		<item name="android:layout_marginBottom">35px</item>
+		<item name="android:paddingTop">35px</item>
+		<item name="android:paddingBottom">35px</item>
+	    <item name="android:textSize" >25dp</item>
 		<item name="android:gravity" >center</item>
 	</style>
 

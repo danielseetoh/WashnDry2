@@ -10,23 +10,26 @@
         android:id="@+id/scrollView1">
         <LinearLayout
             style="@style/pageWrapperStyle">
+            <TextView
+                android:text="Select your next laundry session:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1" />
             <Button
                 android:text="New Button"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/greenButtonStyle.Big"
                 android:id="@+id/nextLaundryButton0" />
             <Button
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:text="New Button"
+                style="@style/greenButtonStyle.Big"
                 android:id="@+id/nextLaundryButton1" />
             <Button
                 android:text="New Button"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/greenButtonStyle.Big"
                 android:id="@+id/nextLaundryButton2" />
         </LinearLayout>
     </ScrollView>

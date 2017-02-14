@@ -42,9 +42,9 @@ namespace WashnDry
 			ap = new AppPreferences(mContext); // can try using "this" also
 
 			DateTime[] dt = new DateTime[3];
-			dt[0] = new DateTime(2017, 2, 10, 14, 55, 4);
-			dt[1] = new DateTime(2017, 1, 11, 16, 35, 43);
-			dt[2] = new DateTime(2017, 2, 9, 23, 26, 14);
+			dt[0] = new DateTime(2017, 2, 15, 14, 55, 4);
+			dt[1] = new DateTime(2017, 2, 16, 16, 35, 43);
+			dt[2] = new DateTime(2017, 2, 17, 23, 26, 14);
 
 			string d0s = dt[0].ToString();
 			string d1s = dt[1].ToString();
@@ -64,7 +64,7 @@ namespace WashnDry
 			for (int i = 0; i < d_t.Length; i++)
 			{
 				nextLaundryButton[i].SetTag(nextLaundryButton[i].Id, d_t[i]+","+est_T[i]);
-				var timeStr = string.Format(" {0}:{1}HRS ", d_t[i].Hour, d_t[i].Minute);
+				var timeStr = string.Format("\n {0}:{1}HRS ", d_t[i].Hour, d_t[i].Minute);
 				nextLaundryButton[i].Text = d_t[i].ToLongDateString() + timeStr;
 				nextLaundryButton[i].Click += BackButton_Click;
 			}

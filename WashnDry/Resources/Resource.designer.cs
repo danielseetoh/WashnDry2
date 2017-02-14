@@ -3653,44 +3653,47 @@ namespace WashnDry
 			// aapt resource value: 0x7f08014a
 			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131231050;
 			
-			// aapt resource value: 0x7f080155
-			public const int dialogWrapperStyle = 2131231061;
+			// aapt resource value: 0x7f080156
+			public const int dialogWrapperStyle = 2131231062;
 			
-			// aapt resource value: 0x7f080150
-			public const int drawerStyle = 2131231056;
+			// aapt resource value: 0x7f080151
+			public const int drawerStyle = 2131231057;
 			
 			// aapt resource value: 0x7f08014f
 			public const int greenButtonStyle = 2131231055;
 			
-			// aapt resource value: 0x7f08015b
-			public const int greenSubHeaderStyle = 2131231067;
+			// aapt resource value: 0x7f080150
+			public const int greenButtonStyle_Big = 2131231056;
 			
-			// aapt resource value: 0x7f080153
-			public const int overallPageWrapperStyle = 2131231059;
-			
-			// aapt resource value: 0x7f08015a
-			public const int pageHeaderStyle = 2131231066;
+			// aapt resource value: 0x7f08015c
+			public const int greenSubHeaderStyle = 2131231068;
 			
 			// aapt resource value: 0x7f080154
-			public const int pageWrapperStyle = 2131231060;
+			public const int overallPageWrapperStyle = 2131231060;
 			
-			// aapt resource value: 0x7f080152
-			public const int ratingTextStyle = 2131231058;
+			// aapt resource value: 0x7f08015b
+			public const int pageHeaderStyle = 2131231067;
 			
-			// aapt resource value: 0x7f080156
-			public const int scrollWrapperStyle = 2131231062;
+			// aapt resource value: 0x7f080155
+			public const int pageWrapperStyle = 2131231061;
 			
-			// aapt resource value: 0x7f080151
-			public const int textFieldStyle = 2131231057;
-			
-			// aapt resource value: 0x7f080159
-			public const int textStyle = 2131231065;
+			// aapt resource value: 0x7f080153
+			public const int ratingTextStyle = 2131231059;
 			
 			// aapt resource value: 0x7f080157
-			public const int timingListViewStyle = 2131231063;
+			public const int scrollWrapperStyle = 2131231063;
+			
+			// aapt resource value: 0x7f080152
+			public const int textFieldStyle = 2131231058;
+			
+			// aapt resource value: 0x7f08015a
+			public const int textStyle = 2131231066;
 			
 			// aapt resource value: 0x7f080158
-			public const int weatherDataStyle = 2131231064;
+			public const int timingListViewStyle = 2131231064;
+			
+			// aapt resource value: 0x7f080159
+			public const int weatherDataStyle = 2131231065;
 			
 			static Style()
 			{

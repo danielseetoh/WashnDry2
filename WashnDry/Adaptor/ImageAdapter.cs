@@ -65,8 +65,7 @@ namespace WashnDry
 			if (convertView == null)
 			{
 				view = new TextView(context);
-				view.LayoutParameters = new GridView.LayoutParams(100, 60);
-				view.SetPadding(0, 0, 0, 0);
+				view.LayoutParameters = new GridView.LayoutParams((parent.Width / 6)-1, 80);
 			}
 			else {
 				view = (TextView)convertView;
@@ -261,7 +260,7 @@ namespace WashnDry
 				}
 			}
 			// if there aren't any very good dates or good dates, suggest laundry service here (max once a day)
-			if (!wash_title_blocks.Contains("VeryGood") && !wash_title_blocks.Contains("Good"))
+			if (!wash_title_blocks.Contains("VeryGood"))
 			{
 				Dialogs.onDemandLaundry((Activity)context);
 			}
