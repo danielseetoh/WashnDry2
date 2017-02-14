@@ -36,12 +36,12 @@ namespace WashnDry
 		enum State { dateNotChosen, ready, notReady, dryingInProgress, laundryFinished };
 		static State state = State.notReady;
 
-		TextView nextLaundryButton, timeToNextLaundryTV;
+		TextView instructions, nextLaundryButton, timeToNextLaundryTV;
 		TextView timerTextView, estTextView;
 		Button startDryingButton, restartDryingButton, stopDryingButton;
 
 
-		LinearLayout afterStartDryingWrapper, beforeStartDryingWrapper;
+		LinearLayout countdownTimerWrapper, afterStartDryingWrapper, beforeStartDryingWrapper;
 		//RelativeLayout timerLayoutWrapper;
 		LinearTimer linearTimer;
 		LinearTimerView linearTimerView;
@@ -72,6 +72,7 @@ namespace WashnDry
 			ap = new AppPreferences(Activity);
 			initialTimeInSeconds = ap.getEstimatedTime();
 
+			instructions = rootView.FindViewById<TextView>(Resource.Id.instructions);
 			estTextView = rootView.FindViewById<TextView>(Resource.Id.estTime);
 			nextLaundryButton = rootView.FindViewById<Button>(Resource.Id.nextLaundryButton);
 			timeToNextLaundryTV = rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
@@ -79,6 +80,7 @@ namespace WashnDry
 			stopDryingButton = rootView.FindViewById<Button>(Resource.Id.stopDryingButton);
 			restartDryingButton = rootView.FindViewById<Button>(Resource.Id.restartDryingButton);
 
+			countdownTimerWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.countdownTimerWrapper);
 			beforeStartDryingWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.beforeStartDryingWrapper);
 			afterStartDryingWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.afterStartDryingWrapper);
 
@@ -139,11 +141,11 @@ namespace WashnDry
 			if (state == State.dryingInProgress) { dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
 			if (nextLaundryDc.Hours <= 4 && nextLaundryDc.Seconds >= 0)
 			{
-				int toNextDryTimerInterval;
-				if (nextLaundryDc.Hours >= 3) { toNextDryTimerInterval = 300000; Console.WriteLine("3 hours"); } // update UI every 5 minutes
-				else if (nextLaundryDc.Minutes >= 60) { toNextDryTimerInterval = 60000; Console.WriteLine("hour"); } // update UI every minute
-				else if (nextLaundryDc.Seconds >= 60) { toNextDryTimerInterval = 1000; Console.WriteLine("minute"); } //update UI every second
-				else { toNextDryTimerInterval = 1000; }
+				int toNextDryTimerInterval = 60000;
+				//if (nextLaundryDc.Hours >= 3) { toNextDryTimerInterval = 300000; Console.WriteLine("3 hours"); } // update UI every 5 minutes
+				//else if (nextLaundryDc.Minutes >= 60) { toNextDryTimerInterval = 60000; Console.WriteLine("hour"); } // update UI every minute
+				//else if (nextLaundryDc.Seconds >= 60) { toNextDryTimerInterval = 1000; Console.WriteLine("minute"); } //update UI every second
+				//else { toNextDryTimerInterval = 1000; }
 				toNextDryTimer = new System.Threading.Timer(ToNextDryTimer_Elapsed, null, 0, toNextDryTimerInterval);
 			}
 		}
@@ -270,14 +272,6 @@ namespace WashnDry
 			Activity.SendBroadcast(BroadcastIntent); //when this broadcast is received, it triggers the start of the TimerService
 		}
 
-		public void prompSpeechInput()
-		{
-			Intent i = new Intent(RecognizerIntent.ActionRecognizeSpeech);
-			i.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
-			i.PutExtra(RecognizerIntent.ExtraLanguage, Locale.Default);
-			i.PutExtra(RecognizerIntent.ExtraPrompt, "Say Something");		
-		}
-
 		void setNextLaundryDate(string s)
 		{
 			ap.saveSelectedNextLaundryTime(s);
@@ -296,7 +290,8 @@ namespace WashnDry
 			string h="", m="", s="", str="";
 			if (t.Hours > 0) h = string.Format("{0} Hours(s)", t.Hours);
 			if (t.Minutes > 0) m = string.Format("{0} Minutes(s)", t.Minutes);
-			str = "Estimated time to dry: " + h + m;
+			if (t.Minutes <= 0) s = string.Format("{0} Second(s)", t.Seconds);
+			str = "Estimated time to dry: " + h + m + s;
 			estTextView.Text = str;
 		}
 
@@ -318,22 +313,28 @@ namespace WashnDry
 			int mDiff = (int)(nextLaundryDate - currentDate).TotalMinutes;
 			int sDiff = (int)(nextLaundryDate - currentDate).TotalSeconds;
 
-			if (ap.getSelectedNextLaundryTime() == "") { timeToNextLaundryTV.Text = "Please select a date to dry your laundry"; }
+			if (ap.getSelectedNextLaundryTime() == "") {
+				instructions.Visibility = ViewStates.Visible;
+				instructions.Text = "Please select a next laundry session: ";
+				countdownTimerWrapper.Visibility = ViewStates.Gone;
+			}
 			else {
-				nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
-				nextLaundryDc.formatSeconds(nextLaundryDc.Seconds);
-				//if (mDiff > 1440) { timeToNextLaundryTV.Text = string.Format("{0}.{1}:{2}"); }
-				//else if (hDiff >= 3) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.DayHour; }
-				//else if (mDiff >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.HourMin; }
-				//else 
-				if (sDiff >= 1) { timeToNextLaundryTV.Text = string.Format("{0:D2} : {1:D2} : {2:D2}", dDiff, hDiff % 24, mDiff % 60); }
+				if (sDiff >= 1) { 
+					timeToNextLaundryTV.Text = string.Format("{0:D2} : {1:D2} : {2:D2}", dDiff, hDiff % 24, mDiff % 60);
+					countdownTimerWrapper.Visibility = ViewStates.Visible;
+					instructions.Text = "To next laundry session on:";
+				}
 				else if (nextLaundryDc.Minutes >= -60)
 				{
-					timeToNextLaundryTV.Text = "Begin drying now for optimal results!";
+					instructions.Text = "Begin drying now for optimal results!";
+					countdownTimerWrapper.Visibility = ViewStates.Gone;
 					canStartLaundryDialog();
 					uiEventsOnReadyToStartDrying();
 				}
-				else { timeToNextLaundryTV.Text = "You have missed the recommended timing by over an hour."; }
+				else { 
+					instructions.Text = "You have missed the recommended timing by over an hour."; 
+					countdownTimerWrapper.Visibility = ViewStates.Gone;
+				}
 			}
 		}
 

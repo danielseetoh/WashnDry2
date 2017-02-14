@@ -41,23 +41,14 @@ namespace WashnDry
 			SetContentView(Resource.Layout.LaundrySelect);
 			ap = new AppPreferences(mContext); // can try using "this" also
 
-			DateTime[] dt = new DateTime[3];
-			dt[0] = new DateTime(2017, 2, 15, 14, 55, 4);
-			dt[1] = new DateTime(2017, 2, 16, 16, 35, 43);
-			dt[2] = new DateTime(2017, 2, 17, 23, 26, 14);
-
-			string d0s = dt[0].ToString();
-			string d1s = dt[1].ToString();
-			string d2s = dt[2].ToString();
-
-			string arrdt = d0s + "," + d1s + "," + d2s + "_" + "27.44,16.33,7";
-			arrdt = ap.getThreeBestTimings();
-			Console.WriteLine("3 best " + ap.getThreeBestTimings());
+			string arrdt = ap.getThreeBestTimings();
 
 			// a function to split the string from DB into a DateTime array
 			string[] s = arrdt.Split('_');
 			DateTime[] d_t = Array.ConvertAll(s[0].Split(','), DateTime.Parse);
 			double[] est_T = Array.ConvertAll(s[1].Split(','), double.Parse);
+			d_t[0] = new DateTime(2017, 2, 16, 16, 35, 43);
+			est_T[0] = 10;
 
 			nextLaundryButton[0] = FindViewById<Button>(Resource.Id.nextLaundryButton0);
 			nextLaundryButton[1] = FindViewById<Button>(Resource.Id.nextLaundryButton1);
@@ -66,7 +57,7 @@ namespace WashnDry
 			for (int i = 0; i < d_t.Length; i++)
 			{
 				string t = "AM";
-				if (dt[i].Hour / 12 >= 1) { t = "PM";}
+				if (d_t[i].Hour / 12 >= 1) { t = "PM";}
 				nextLaundryButton[i].SetTag(nextLaundryButton[i].Id, d_t[i]+","+est_T[i]);
 				var timeStr = string.Format("{0}", d_t[i].Hour%12) + t;
 				TimeSpan ts = TimeSpan.FromSeconds(est_T[i]);

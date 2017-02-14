@@ -15,44 +15,53 @@
                 android:layout_height="wrap_content"
                 android:weightSum="100"
                 android:id="@+id/beforeStartDryingWrapper">
-                <TextView
-                    android:text="14 : 16 : 17"
-                    android:textSize="60dp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/timeToNextLaundryTextView" />
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:minWidth="25px"
                     android:minHeight="25px"
-                    android:weightSum="100"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/linearLayout1">
+                    android:weightSum="100"
+                    android:id="@+id/countdownTimerWrapper">
                     <TextView
-                        android:textColor="#64aabb"
-                        android:layout_weight="40"
+                        android:text="14 : 16 : 17"
+                        android:textSize="60dp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
                         android:gravity="center"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="DAYS" />
-                    <TextView
-                        android:textColor="#64aabb"
-                        android:layout_weight="30"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/timeToNextLaundryTextView" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:weightSum="100"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="HOURS" />
-                    <TextView
-                        android:textColor="#64aabb"
-                        android:layout_weight="30"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="MINUTES" />
+                        android:id="@+id/linearLayout1">
+                        <TextView
+                            android:textColor="#64aabb"
+                            android:layout_weight="40"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DAYS" />
+                        <TextView
+                            android:textColor="#64aabb"
+                            android:layout_weight="30"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="HOURS" />
+                        <TextView
+                            android:textColor="#64aabb"
+                            android:layout_weight="30"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MINUTES" />
+                    </LinearLayout>
                 </LinearLayout>
                 <TextView
                     android:text="To next laundry session on:"
@@ -62,10 +71,11 @@
                     android:gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    android:id="@+id/timeToNextLaundryHeader" />
+                    android:id="@+id/instructions" />
                 <Button
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/nextLaundryButton" />
