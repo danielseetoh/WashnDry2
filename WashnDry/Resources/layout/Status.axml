@@ -5,6 +5,7 @@
     <ScrollView
         style="@style/scrollWrapperStyle">
         <LinearLayout
+            android:layout_marginTop="40dp"
             style="@style/pageWrapperStyle">
             <LinearLayout
                 android:orientation="vertical"
@@ -12,28 +13,68 @@
                 android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:weightSum="100"
                 android:id="@+id/beforeStartDryingWrapper">
                 <TextView
-                    android:text=""
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="14 : 16 : 17"
+                    android:textSize="60dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/timeToNextLaundryTextView" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:weightSum="100"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout1">
+                    <TextView
+                        android:textColor="#64aabb"
+                        android:layout_weight="40"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DAYS" />
+                    <TextView
+                        android:textColor="#64aabb"
+                        android:layout_weight="30"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HOURS" />
+                    <TextView
+                        android:textColor="#64aabb"
+                        android:layout_weight="30"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MINUTES" />
+                </LinearLayout>
                 <TextView
-                    android:text="To next laundry date on:"
+                    android:text="To next laundry session on:"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:id="@+id/timeToNextLaundryHeader" />
                 <Button
                     android:text=""
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/nextLaundryButton" />
                 <TextView
                     android:text="Time:"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/estTime" />
@@ -77,22 +118,19 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:background="#008000"
                         android:id="@+id/timerTextView" />
                     <ImageView
                         android:src="@drawable/i_timer"
                         android:layout_height="100dp"
                         android:layout_centerInParent="true"
-                        android:layout_width="100dp"
-                        android:background="#ff0000"
+                        android:layout_width="250px"
                         android:id="@+id/timerImage" />
                     <io.github.krtkush.lineartimer.LinearTimerView
                         android:id="@+id/linearTimerView"
                         android:layout_centerInParent="true"
-                        android:layout_width="180dp"
-                        android:layout_height="180dp"
-                        android:background="#2b6dad"
-                        app:radius="25dp"
+                        android:layout_width="500px"
+                        android:layout_height="500px"
+                        app:radius="70px"
                         app:initialColor="#90E8E8"
                         app:progressColor="#eaeaea"
                         app:strokeWidth="5dp"

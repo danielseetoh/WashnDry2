@@ -283,8 +283,10 @@ namespace WashnDry
 			ap.saveSelectedNextLaundryTime(s);
 			var dt = DateTime.Parse(s);
 			nextLaundryDate = dt;
-			var timeStr = string.Format(" {0}:{1}HRS ", dt.Hour, dt.Minute);
-			nextLaundryButton.Text = dt.ToLongDateString() + timeStr;
+			string t = "AM";
+			if (dt.Hour / 12 >= 1) { t = "PM"; }
+			var timeStr = string.Format(" {0} ", dt.Hour%12)+t;
+			nextLaundryButton.Text = dt.ToString("dd MMM ") + timeStr;
 		}
 
 		void setEstimatedTime(int i)
@@ -293,9 +295,8 @@ namespace WashnDry
 			TimeSpan t = TimeSpan.FromSeconds(i);
 			string h="", m="", s="", str="";
 			if (t.Hours > 0) h = string.Format("{0} Hours(s)", t.Hours);
-			if (t.Minutes > 0) m = string.Format("{0} Minutes(s)", t.Hours);
-			s = string.Format("{0} Second(s)", t.Seconds);
-			str = h + m + s;
+			if (t.Minutes > 0) m = string.Format("{0} Minutes(s)", t.Minutes);
+			str = "Estimated time to dry: " + h + m;
 			estTextView.Text = str;
 		}
 
@@ -312,14 +313,20 @@ namespace WashnDry
 		{
 			currentDate = DateTime.Now;
 
+			int dDiff = (int)(nextLaundryDate - currentDate).TotalDays;
+			int hDiff = (int)(nextLaundryDate - currentDate).TotalHours;
+			int mDiff = (int)(nextLaundryDate - currentDate).TotalMinutes;
+			int sDiff = (int)(nextLaundryDate - currentDate).TotalSeconds;
+
 			if (ap.getSelectedNextLaundryTime() == "") { timeToNextLaundryTV.Text = "Please select a date to dry your laundry"; }
 			else {
 				nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
 				nextLaundryDc.formatSeconds(nextLaundryDc.Seconds);
-				if (nextLaundryDc.Days >= 1) { timeToNextLaundryTV.Text = "3 hours" + nextLaundryDc.verbose.MonthDay; }
-				else if (nextLaundryDc.Minutes >= 180) { timeToNextLaundryTV.Text = "hi"; Console.WriteLine("Minutes more than 180"); }//nextLaundryDc.verbose.DayHour; }
-				else if (nextLaundryDc.Minutes >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.HourMin; }
-				else if (nextLaundryDc.Seconds >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.Sec; }
+				//if (mDiff > 1440) { timeToNextLaundryTV.Text = string.Format("{0}.{1}:{2}"); }
+				//else if (hDiff >= 3) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.DayHour; }
+				//else if (mDiff >= 1) { timeToNextLaundryTV.Text = nextLaundryDc.verbose.HourMin; }
+				//else 
+				if (sDiff >= 1) { timeToNextLaundryTV.Text = string.Format("{0:D2} : {1:D2} : {2:D2}", dDiff, hDiff % 24, mDiff % 60); }
 				else if (nextLaundryDc.Minutes >= -60)
 				{
 					timeToNextLaundryTV.Text = "Begin drying now for optimal results!";
@@ -328,7 +335,7 @@ namespace WashnDry
 				}
 				else { timeToNextLaundryTV.Text = "You have missed the recommended timing by over an hour."; }
 			}
-}
+		}
 
 
 		void uiEventsNotReadyToStartDrying()
