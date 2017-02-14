@@ -405,6 +405,7 @@ namespace WashnDry
 				double r = ratingBar.Rating;
 
 				RatingData.getScaleData();
+
 				double correctedDryingTime = initialTimeInSeconds * RatingData.scale[r];
 				Console.WriteLine("corrected dry time" + correctedDryingTime);
 

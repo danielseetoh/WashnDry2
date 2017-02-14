@@ -31,9 +31,9 @@
                 android:weightSum="100"
                 android:layout_marginTop="30px">
                 <ImageView
-                    android:src="@android:drawable/ic_menu_gallery"
+                    android:src="@drawable/i_user"
                     android:layout_width="match_parent"
-                    android:layout_height="150px"
+                    android:layout_height="match_parent"
                     android:layout_weight="50"
                     android:id="@+id/imageView1" />
                 <LinearLayout

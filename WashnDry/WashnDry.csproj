@@ -123,7 +123,6 @@
     <Compile Include="Helpers\DateCalculator.cs" />
     <Compile Include="Helpers\TimerService.cs" />
     <Compile Include="Helpers\RetrieveLocationService.cs" />
-    <Compile Include="ImageAdapter.cs" />
     <Compile Include="Helpers\RetrieveWeatherData.cs" />
     <Compile Include="Helpers\RetrieveServerData.cs" />
     <Compile Include="LaundrySelectActivity.cs" />
@@ -131,6 +130,13 @@
     <Compile Include="Helpers\Dialogs.cs" />
     <Compile Include="Helpers\DB.cs" />
     <Compile Include="Data\RatingData.cs" />
+    <Compile Include="FabricFragment.cs" />
+    <Compile Include="Adaptor\ImageAdapter.cs" />
+    <Compile Include="Adaptor\FabricAdaptor.cs" />
+    <Compile Include="Data\FabricData.cs" />
+    <Compile Include="Helpers\TupleList.cs" />
+    <Compile Include="FabridCareActivity.cs" />
+    <Compile Include="Adaptor\NavListAdaptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -180,6 +186,28 @@
     <AndroidResource Include="Resources\drawable\bg_dialogWrapper.xml" />
     <AndroidResource Include="Resources\layout\Dialog_FinishDrying.xml" />
     <AndroidResource Include="Resources\layout\Dialog_OnDemandLaundry.xml" />
+    <AndroidResource Include="Resources\layout\Fabric.axml" />
+    <AndroidResource Include="Resources\layout\FabricListItem.xml" />
+    <AndroidResource Include="Resources\drawable\i_dress.png" />
+    <AndroidResource Include="Resources\drawable\i_longPants.png" />
+    <AndroidResource Include="Resources\drawable\i_rightCaret.png" />
+    <AndroidResource Include="Resources\drawable\i_shirt.png" />
+    <AndroidResource Include="Resources\drawable\i_towels.png" />
+    <AndroidResource Include="Resources\drawable\i_socks.png" />
+    <AndroidResource Include="Resources\layout\FabricCareDetails.axml" />
+    <AndroidResource Include="Resources\drawable\i_tShirt.png" />
+    <AndroidResource Include="Resources\layout\Toolbar.xml" />
+    <AndroidResource Include="Resources\drawable\logo_words.png" />
+    <AndroidResource Include="Resources\drawable\tide_colorGuard.png" />
+    <AndroidResource Include="Resources\drawable\tide_gentleLiquid.png" />
+    <AndroidResource Include="Resources\drawable\tide_lenor.png" />
+    <AndroidResource Include="Resources\drawable\tide_touchOfDowney.png" />
+    <AndroidResource Include="Resources\drawable\tide_vividBleach.png" />
+    <AndroidResource Include="Resources\drawable\logo.png" />
+    <AndroidResource Include="Resources\layout\NavGroupHeader.xml" />
+    <AndroidResource Include="Resources\layout\NavListItem.xml" />
+    <AndroidResource Include="Resources\drawable\bg_border.xml" />
+    <AndroidResource Include="Resources\drawable\i_user.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -187,6 +215,7 @@
     <Folder Include="Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Components\" />
+    <Folder Include="Adaptor\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

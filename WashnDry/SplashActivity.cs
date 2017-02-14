@@ -26,6 +26,8 @@ namespace WashnDry
 		{
 			base.OnCreate(savedInstanceState, persistentState);
 			Log.Debug(TAG, "SplashActivity.OnCreate");
+			// initialize data
+
 
 		}
 

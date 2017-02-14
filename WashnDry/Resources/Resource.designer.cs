@@ -1613,49 +1613,97 @@ namespace WashnDry
 			public const int abc_vector_test = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int bg_dialogWrapper = 2130837587;
+			public const int bg_border = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int bg_textField = 2130837588;
+			public const int bg_dialogWrapper = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int buttonBgGreen = 2130837589;
+			public const int bg_textField = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int drawer_shadow_dark = 2130837590;
+			public const int buttonBgGreen = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int drawer_shadow_light = 2130837591;
+			public const int drawer_shadow_dark = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int drawerBg = 2130837592;
+			public const int drawer_shadow_light = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int i_menu = 2130837593;
+			public const int drawerBg = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int i_splash = 2130837594;
+			public const int i_dress = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int i_timer = 2130837595;
+			public const int i_longPants = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int i_weather = 2130837596;
+			public const int i_menu = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int ic_drawer_dark = 2130837597;
+			public const int i_rightCaret = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int ic_drawer_light = 2130837598;
-			
-			// aapt resource value: 0x7f020061
-			public const int notification_template_icon_bg = 2130837601;
+			public const int i_shirt = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int splash_screen = 2130837599;
+			public const int i_socks = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int textColor = 2130837600;
+			public const int i_splash = 2130837600;
+			
+			// aapt resource value: 0x7f020061
+			public const int i_timer = 2130837601;
+			
+			// aapt resource value: 0x7f020062
+			public const int i_towels = 2130837602;
+			
+			// aapt resource value: 0x7f020063
+			public const int i_tShirt = 2130837603;
+			
+			// aapt resource value: 0x7f020064
+			public const int i_user = 2130837604;
+			
+			// aapt resource value: 0x7f020065
+			public const int i_weather = 2130837605;
+			
+			// aapt resource value: 0x7f020066
+			public const int ic_drawer_dark = 2130837606;
+			
+			// aapt resource value: 0x7f020067
+			public const int ic_drawer_light = 2130837607;
+			
+			// aapt resource value: 0x7f020068
+			public const int logo = 2130837608;
+			
+			// aapt resource value: 0x7f020069
+			public const int logo_words = 2130837609;
+			
+			// aapt resource value: 0x7f020071
+			public const int notification_template_icon_bg = 2130837617;
+			
+			// aapt resource value: 0x7f02006a
+			public const int splash_screen = 2130837610;
+			
+			// aapt resource value: 0x7f02006b
+			public const int textColor = 2130837611;
+			
+			// aapt resource value: 0x7f02006c
+			public const int tide_colorGuard = 2130837612;
+			
+			// aapt resource value: 0x7f02006d
+			public const int tide_gentleLiquid = 2130837613;
+			
+			// aapt resource value: 0x7f02006e
+			public const int tide_lenor = 2130837614;
+			
+			// aapt resource value: 0x7f02006f
+			public const int tide_touchOfDowney = 2130837615;
+			
+			// aapt resource value: 0x7f020070
+			public const int tide_vividBleach = 2130837616;
 			
 			static Drawable()
 			{
@@ -1670,80 +1718,83 @@ namespace WashnDry
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0b007e
-			public const int Best = 2131427454;
-			
-			// aapt resource value: 0x7f0b0084
-			public const int Busy = 2131427460;
-			
 			// aapt resource value: 0x7f0b008a
-			public const int CreateAccountButton = 2131427466;
+			public const int Best = 2131427466;
 			
-			// aapt resource value: 0x7f0b0089
-			public const int Email = 2131427465;
+			// aapt resource value: 0x7f0b0090
+			public const int Busy = 2131427472;
 			
-			// aapt resource value: 0x7f0b00a4
-			public const int EstDryingText = 2131427492;
+			// aapt resource value: 0x7f0b0096
+			public const int CreateAccountButton = 2131427478;
 			
-			// aapt resource value: 0x7f0b0080
-			public const int Good = 2131427456;
+			// aapt resource value: 0x7f0b0095
+			public const int Email = 2131427477;
 			
-			// aapt resource value: 0x7f0b00a1
-			public const int Humidity = 2131427489;
+			// aapt resource value: 0x7f0b00b0
+			public const int EstDryingText = 2131427504;
 			
-			// aapt resource value: 0x7f0b00a2
-			public const int HumidityText = 2131427490;
+			// aapt resource value: 0x7f0b0068
+			public const int FabricListView = 2131427432;
 			
-			// aapt resource value: 0x7f0b007c
-			public const int Legend = 2131427452;
+			// aapt resource value: 0x7f0b008c
+			public const int Good = 2131427468;
 			
-			// aapt resource value: 0x7f0b0082
-			public const int Okay = 2131427458;
+			// aapt resource value: 0x7f0b00ad
+			public const int Humidity = 2131427501;
+			
+			// aapt resource value: 0x7f0b00ae
+			public const int HumidityText = 2131427502;
 			
 			// aapt resource value: 0x7f0b0088
-			public const int Password = 2131427464;
+			public const int Legend = 2131427464;
 			
-			// aapt resource value: 0x7f0b009d
-			public const int Temperature = 2131427485;
+			// aapt resource value: 0x7f0b008e
+			public const int Okay = 2131427470;
 			
-			// aapt resource value: 0x7f0b009e
-			public const int TemperatureText = 2131427486;
+			// aapt resource value: 0x7f0b0094
+			public const int Password = 2131427476;
 			
-			// aapt resource value: 0x7f0b007b
-			public const int Title = 2131427451;
+			// aapt resource value: 0x7f0b00a9
+			public const int Temperature = 2131427497;
+			
+			// aapt resource value: 0x7f0b00aa
+			public const int TemperatureText = 2131427498;
 			
 			// aapt resource value: 0x7f0b0087
-			public const int Username = 2131427463;
+			public const int Title = 2131427463;
 			
-			// aapt resource value: 0x7f0b007d
-			public const int View1 = 2131427453;
+			// aapt resource value: 0x7f0b0093
+			public const int Username = 2131427475;
 			
-			// aapt resource value: 0x7f0b007f
-			public const int View2 = 2131427455;
+			// aapt resource value: 0x7f0b0089
+			public const int View1 = 2131427465;
 			
-			// aapt resource value: 0x7f0b0081
-			public const int View3 = 2131427457;
+			// aapt resource value: 0x7f0b008b
+			public const int View2 = 2131427467;
 			
-			// aapt resource value: 0x7f0b0083
-			public const int View4 = 2131427459;
+			// aapt resource value: 0x7f0b008d
+			public const int View3 = 2131427469;
 			
-			// aapt resource value: 0x7f0b0085
-			public const int View5 = 2131427461;
+			// aapt resource value: 0x7f0b008f
+			public const int View4 = 2131427471;
 			
-			// aapt resource value: 0x7f0b009b
-			public const int Weather = 2131427483;
+			// aapt resource value: 0x7f0b0091
+			public const int View5 = 2131427473;
 			
-			// aapt resource value: 0x7f0b009c
-			public const int WeatherText = 2131427484;
+			// aapt resource value: 0x7f0b00a7
+			public const int Weather = 2131427495;
 			
-			// aapt resource value: 0x7f0b009f
-			public const int Wind = 2131427487;
+			// aapt resource value: 0x7f0b00a8
+			public const int WeatherText = 2131427496;
 			
-			// aapt resource value: 0x7f0b00a0
-			public const int WindText = 2131427488;
+			// aapt resource value: 0x7f0b00ab
+			public const int Wind = 2131427499;
 			
-			// aapt resource value: 0x7f0b006e
-			public const int action0 = 2131427438;
+			// aapt resource value: 0x7f0b00ac
+			public const int WindText = 2131427500;
+			
+			// aapt resource value: 0x7f0b007a
+			public const int action0 = 2131427450;
 			
 			// aapt resource value: 0x7f0b0045
 			public const int action_bar = 2131427397;
@@ -1769,8 +1820,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0046
 			public const int action_context_bar = 2131427398;
 			
-			// aapt resource value: 0x7f0b0072
-			public const int action_divider = 2131427442;
+			// aapt resource value: 0x7f0b007e
+			public const int action_divider = 2131427454;
 			
 			// aapt resource value: 0x7f0b0002
 			public const int action_menu_divider = 2131427330;
@@ -1793,8 +1844,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0013
 			public const int add = 2131427347;
 			
-			// aapt resource value: 0x7f0b0091
-			public const int afterStartDryingWrapper = 2131427473;
+			// aapt resource value: 0x7f0b009d
+			public const int afterStartDryingWrapper = 2131427485;
 			
 			// aapt resource value: 0x7f0b0033
 			public const int alertTitle = 2131427379;
@@ -1805,8 +1856,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b001d
 			public const int always = 2131427357;
 			
-			// aapt resource value: 0x7f0b008b
-			public const int beforeStartDryingWrapper = 2131427467;
+			// aapt resource value: 0x7f0b0097
+			public const int beforeStartDryingWrapper = 2131427479;
 			
 			// aapt resource value: 0x7f0b001a
 			public const int beginning = 2131427354;
@@ -1820,8 +1871,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0066
 			public const int cancel = 2131427430;
 			
-			// aapt resource value: 0x7f0b006f
-			public const int cancel_action = 2131427439;
+			// aapt resource value: 0x7f0b007b
+			public const int cancel_action = 2131427451;
 			
 			// aapt resource value: 0x7f0b005b
 			public const int changeEmail = 2131427419;
@@ -1832,8 +1883,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b003c
 			public const int checkbox = 2131427388;
 			
-			// aapt resource value: 0x7f0b0075
-			public const int chronometer = 2131427445;
+			// aapt resource value: 0x7f0b0081
+			public const int chronometer = 2131427457;
 			
 			// aapt resource value: 0x7f0b001e
 			public const int collapseActionView = 2131427358;
@@ -1841,8 +1892,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0034
 			public const int contentPanel = 2131427380;
 			
-			// aapt resource value: 0x7f0b006c
-			public const int content_frame = 2131427436;
+			// aapt resource value: 0x7f0b0075
+			public const int content_frame = 2131427445;
 			
 			// aapt resource value: 0x7f0b0059
 			public const int country = 2131427417;
@@ -1862,8 +1913,11 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b000c
 			public const int disableHome = 2131427340;
 			
-			// aapt resource value: 0x7f0b006b
-			public const int drawer_layout = 2131427435;
+			// aapt resource value: 0x7f0b0074
+			public const int drawer_layout = 2131427444;
+			
+			// aapt resource value: 0x7f0b006c
+			public const int dryInstruction = 2131427436;
 			
 			// aapt resource value: 0x7f0b0061
 			public const int editSettings = 2131427425;
@@ -1874,14 +1928,14 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b001b
 			public const int end = 2131427355;
 			
-			// aapt resource value: 0x7f0b007a
-			public const int end_padder = 2131427450;
+			// aapt resource value: 0x7f0b0086
+			public const int end_padder = 2131427462;
 			
-			// aapt resource value: 0x7f0b00a3
-			public const int estHeader = 2131427491;
+			// aapt resource value: 0x7f0b00af
+			public const int estHeader = 2131427503;
 			
-			// aapt resource value: 0x7f0b008f
-			public const int estTime = 2131427471;
+			// aapt resource value: 0x7f0b009b
+			public const int estTime = 2131427483;
 			
 			// aapt resource value: 0x7f0b0028
 			public const int expand_activities_button = 2131427368;
@@ -1889,8 +1943,14 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b003b
 			public const int expanded_menu = 2131427387;
 			
-			// aapt resource value: 0x7f0b0086
-			public const int gridview = 2131427462;
+			// aapt resource value: 0x7f0b006d
+			public const int fabricImage = 2131427437;
+			
+			// aapt resource value: 0x7f0b006e
+			public const int fabricType = 2131427438;
+			
+			// aapt resource value: 0x7f0b0092
+			public const int gridview = 2131427474;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int home = 2131427332;
@@ -1910,8 +1970,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0057
 			public const int imageView1 = 2131427415;
 			
-			// aapt resource value: 0x7f0b0079
-			public const int info = 2131427449;
+			// aapt resource value: 0x7f0b0085
+			public const int info = 2131427461;
 			
 			// aapt resource value: 0x7f0b005e
 			public const int laundryFrequency_Spinner = 2131427422;
@@ -1919,20 +1979,20 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0060
 			public const int laundryTime_ListView = 2131427424;
 			
-			// aapt resource value: 0x7f0b006d
-			public const int left_drawer = 2131427437;
+			// aapt resource value: 0x7f0b0076
+			public const int left_drawer = 2131427446;
 			
-			// aapt resource value: 0x7f0b0073
-			public const int line1 = 2131427443;
+			// aapt resource value: 0x7f0b007f
+			public const int line1 = 2131427455;
 			
-			// aapt resource value: 0x7f0b0077
-			public const int line3 = 2131427447;
+			// aapt resource value: 0x7f0b0083
+			public const int line3 = 2131427459;
 			
-			// aapt resource value: 0x7f0b0099
-			public const int linearLayout1 = 2131427481;
+			// aapt resource value: 0x7f0b0072
+			public const int linearLayout1 = 2131427442;
 			
-			// aapt resource value: 0x7f0b0098
-			public const int linearTimerView = 2131427480;
+			// aapt resource value: 0x7f0b00a4
+			public const int linearTimerView = 2131427492;
 			
 			// aapt resource value: 0x7f0b0009
 			public const int listMode = 2131427337;
@@ -1940,8 +2000,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b002b
 			public const int list_item = 2131427371;
 			
-			// aapt resource value: 0x7f0b0071
-			public const int media_actions = 2131427441;
+			// aapt resource value: 0x7f0b007d
+			public const int media_actions = 2131427453;
 			
 			// aapt resource value: 0x7f0b001c
 			public const int middle = 2131427356;
@@ -1952,26 +2012,32 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0058
 			public const int name = 2131427416;
 			
+			// aapt resource value: 0x7f0b0079
+			public const int navItem = 2131427449;
+			
 			// aapt resource value: 0x7f0b0020
 			public const int never = 2131427360;
 			
-			// aapt resource value: 0x7f0b008e
-			public const int nextLaundryButton = 2131427470;
+			// aapt resource value: 0x7f0b009a
+			public const int nextLaundryButton = 2131427482;
 			
-			// aapt resource value: 0x7f0b0068
-			public const int nextLaundryButton0 = 2131427432;
+			// aapt resource value: 0x7f0b006f
+			public const int nextLaundryButton0 = 2131427439;
 			
-			// aapt resource value: 0x7f0b0069
-			public const int nextLaundryButton1 = 2131427433;
+			// aapt resource value: 0x7f0b0070
+			public const int nextLaundryButton1 = 2131427440;
 			
-			// aapt resource value: 0x7f0b006a
-			public const int nextLaundryButton2 = 2131427434;
+			// aapt resource value: 0x7f0b0071
+			public const int nextLaundryButton2 = 2131427441;
 			
 			// aapt resource value: 0x7f0b000e
 			public const int none = 2131427342;
 			
 			// aapt resource value: 0x7f0b000a
 			public const int normal = 2131427338;
+			
+			// aapt resource value: 0x7f0b0069
+			public const int pageHeader = 2131427433;
 			
 			// aapt resource value: 0x7f0b0054
 			public const int pageLayout = 2131427412;
@@ -1982,8 +2048,8 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0030
 			public const int parentPanel = 2131427376;
 			
-			// aapt resource value: 0x7f0b009a
-			public const int progressBar1 = 2131427482;
+			// aapt resource value: 0x7f0b00a5
+			public const int progressBar1 = 2131427493;
 			
 			// aapt resource value: 0x7f0b0005
 			public const int progress_circular = 2131427333;
@@ -1997,11 +2063,14 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0065
 			public const int ratingBar = 2131427429;
 			
+			// aapt resource value: 0x7f0b006b
+			public const int recProductImage = 2131427435;
+			
 			// aapt resource value: 0x7f0b0062
 			public const int resetSettings = 2131427426;
 			
-			// aapt resource value: 0x7f0b0092
-			public const int restartDryingButton = 2131427474;
+			// aapt resource value: 0x7f0b009e
+			public const int restartDryingButton = 2131427486;
 			
 			// aapt resource value: 0x7f0b0063
 			public const int saveChanges = 2131427427;
@@ -2081,14 +2150,14 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b0018
 			public const int src_over = 2131427352;
 			
-			// aapt resource value: 0x7f0b0090
-			public const int startDryingButton = 2131427472;
+			// aapt resource value: 0x7f0b009c
+			public const int startDryingButton = 2131427484;
 			
-			// aapt resource value: 0x7f0b0070
-			public const int status_bar_latest_event_content = 2131427440;
+			// aapt resource value: 0x7f0b007c
+			public const int status_bar_latest_event_content = 2131427452;
 			
-			// aapt resource value: 0x7f0b0093
-			public const int stopDryingButton = 2131427475;
+			// aapt resource value: 0x7f0b009f
+			public const int stopDryingButton = 2131427487;
 			
 			// aapt resource value: 0x7f0b003f
 			public const int submenuarrow = 2131427391;
@@ -2102,11 +2171,11 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b000b
 			public const int tabMode = 2131427339;
 			
-			// aapt resource value: 0x7f0b0078
-			public const int text = 2131427448;
+			// aapt resource value: 0x7f0b0084
+			public const int text = 2131427460;
 			
-			// aapt resource value: 0x7f0b0076
-			public const int text2 = 2131427446;
+			// aapt resource value: 0x7f0b0082
+			public const int text2 = 2131427458;
 			
 			// aapt resource value: 0x7f0b0037
 			public const int textSpacerNoButtons = 2131427383;
@@ -2117,26 +2186,26 @@ namespace WashnDry
 			// aapt resource value: 0x7f0b005d
 			public const int textView2 = 2131427421;
 			
-			// aapt resource value: 0x7f0b0074
-			public const int time = 2131427444;
+			// aapt resource value: 0x7f0b0080
+			public const int time = 2131427456;
 			
-			// aapt resource value: 0x7f0b0094
-			public const int timeTaken = 2131427476;
+			// aapt resource value: 0x7f0b00a0
+			public const int timeTaken = 2131427488;
 			
-			// aapt resource value: 0x7f0b008d
-			public const int timeToNextLaundryHeader = 2131427469;
+			// aapt resource value: 0x7f0b0099
+			public const int timeToNextLaundryHeader = 2131427481;
 			
-			// aapt resource value: 0x7f0b008c
-			public const int timeToNextLaundryTextView = 2131427468;
+			// aapt resource value: 0x7f0b0098
+			public const int timeToNextLaundryTextView = 2131427480;
 			
-			// aapt resource value: 0x7f0b0097
-			public const int timerImage = 2131427479;
+			// aapt resource value: 0x7f0b00a3
+			public const int timerImage = 2131427491;
 			
-			// aapt resource value: 0x7f0b0095
-			public const int timerLayoutWrapper = 2131427477;
+			// aapt resource value: 0x7f0b00a1
+			public const int timerLayoutWrapper = 2131427489;
 			
-			// aapt resource value: 0x7f0b0096
-			public const int timerTextView = 2131427478;
+			// aapt resource value: 0x7f0b00a2
+			public const int timerTextView = 2131427490;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int title = 2131427373;
@@ -2146,6 +2215,12 @@ namespace WashnDry
 			
 			// aapt resource value: 0x7f0b0032
 			public const int title_template = 2131427378;
+			
+			// aapt resource value: 0x7f0b00a6
+			public const int toolbar = 2131427494;
+			
+			// aapt resource value: 0x7f0b0073
+			public const int toolbar_actionbar = 2131427443;
 			
 			// aapt resource value: 0x7f0b0023
 			public const int top = 2131427363;
@@ -2158,6 +2233,15 @@ namespace WashnDry
 			
 			// aapt resource value: 0x7f0b0012
 			public const int useLogo = 2131427346;
+			
+			// aapt resource value: 0x7f0b0078
+			public const int usernameText = 2131427448;
+			
+			// aapt resource value: 0x7f0b0077
+			public const int userpic = 2131427447;
+			
+			// aapt resource value: 0x7f0b006a
+			public const int washInstruction = 2131427434;
 			
 			// aapt resource value: 0x7f0b0021
 			public const int withText = 2131427361;
@@ -2297,61 +2381,79 @@ namespace WashnDry
 			public const int DrawerListItem = 2130968606;
 			
 			// aapt resource value: 0x7f04001f
-			public const int LaundrySelect = 2130968607;
+			public const int Fabric = 2130968607;
 			
 			// aapt resource value: 0x7f040020
-			public const int Main = 2130968608;
+			public const int FabricCareDetails = 2130968608;
 			
 			// aapt resource value: 0x7f040021
-			public const int notification_media_action = 2130968609;
+			public const int FabricListItem = 2130968609;
 			
 			// aapt resource value: 0x7f040022
-			public const int notification_media_cancel_action = 2130968610;
+			public const int LaundrySelect = 2130968610;
 			
 			// aapt resource value: 0x7f040023
-			public const int notification_template_big_media = 2130968611;
+			public const int Main = 2130968611;
 			
 			// aapt resource value: 0x7f040024
-			public const int notification_template_big_media_narrow = 2130968612;
+			public const int NavGroupHeader = 2130968612;
 			
 			// aapt resource value: 0x7f040025
-			public const int notification_template_lines = 2130968613;
+			public const int NavListItem = 2130968613;
 			
 			// aapt resource value: 0x7f040026
-			public const int notification_template_media = 2130968614;
+			public const int notification_media_action = 2130968614;
 			
 			// aapt resource value: 0x7f040027
-			public const int notification_template_part_chronometer = 2130968615;
+			public const int notification_media_cancel_action = 2130968615;
 			
 			// aapt resource value: 0x7f040028
-			public const int notification_template_part_time = 2130968616;
+			public const int notification_template_big_media = 2130968616;
 			
 			// aapt resource value: 0x7f040029
-			public const int Schedule = 2130968617;
+			public const int notification_template_big_media_narrow = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-			public const int select_dialog_item_material = 2130968618;
+			public const int notification_template_lines = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int select_dialog_multichoice_material = 2130968619;
+			public const int notification_template_media = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int select_dialog_singlechoice_material = 2130968620;
+			public const int notification_template_part_chronometer = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int Setup = 2130968621;
+			public const int notification_template_part_time = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int Status = 2130968622;
+			public const int Schedule = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int support_simple_spinner_dropdown_item = 2130968623;
+			public const int select_dialog_item_material = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int Timer = 2130968624;
+			public const int select_dialog_multichoice_material = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int Weather = 2130968625;
+			public const int select_dialog_singlechoice_material = 2130968625;
+			
+			// aapt resource value: 0x7f040032
+			public const int Setup = 2130968626;
+			
+			// aapt resource value: 0x7f040033
+			public const int Status = 2130968627;
+			
+			// aapt resource value: 0x7f040034
+			public const int support_simple_spinner_dropdown_item = 2130968628;
+			
+			// aapt resource value: 0x7f040035
+			public const int Timer = 2130968629;
+			
+			// aapt resource value: 0x7f040036
+			public const int Toolbar = 2130968630;
+			
+			// aapt resource value: 0x7f040037
+			public const int Weather = 2130968631;
 			
 			static Layout()
 			{
@@ -3332,6 +3434,9 @@ namespace WashnDry
 			// aapt resource value: 0x7f080102
 			public const int ThemeOverlay_AppCompat_Light = 2131230978;
 			
+			// aapt resource value: 0x7f08014e
+			public const int WashNDryTheme = 2131231054;
+			
 			// aapt resource value: 0x7f080103
 			public const int Widget_AppCompat_ActionBar = 2131230979;
 			
@@ -3548,38 +3653,44 @@ namespace WashnDry
 			// aapt resource value: 0x7f08014a
 			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131231050;
 			
-			// aapt resource value: 0x7f080154
-			public const int dialogWrapperStyle = 2131231060;
-			
-			// aapt resource value: 0x7f08014f
-			public const int drawerStyle = 2131231055;
-			
-			// aapt resource value: 0x7f08014e
-			public const int greenButtonStyle = 2131231054;
-			
-			// aapt resource value: 0x7f080152
-			public const int overallPageWrapperStyle = 2131231058;
-			
-			// aapt resource value: 0x7f080153
-			public const int pageWrapperStyle = 2131231059;
-			
-			// aapt resource value: 0x7f080151
-			public const int ratingTextStyle = 2131231057;
-			
 			// aapt resource value: 0x7f080155
-			public const int scrollWrapperStyle = 2131231061;
+			public const int dialogWrapperStyle = 2131231061;
 			
 			// aapt resource value: 0x7f080150
-			public const int textFieldStyle = 2131231056;
+			public const int drawerStyle = 2131231056;
 			
-			// aapt resource value: 0x7f080158
-			public const int textStyle = 2131231064;
+			// aapt resource value: 0x7f08014f
+			public const int greenButtonStyle = 2131231055;
+			
+			// aapt resource value: 0x7f08015b
+			public const int greenSubHeaderStyle = 2131231067;
+			
+			// aapt resource value: 0x7f080153
+			public const int overallPageWrapperStyle = 2131231059;
+			
+			// aapt resource value: 0x7f08015a
+			public const int pageHeaderStyle = 2131231066;
+			
+			// aapt resource value: 0x7f080154
+			public const int pageWrapperStyle = 2131231060;
+			
+			// aapt resource value: 0x7f080152
+			public const int ratingTextStyle = 2131231058;
 			
 			// aapt resource value: 0x7f080156
-			public const int timingListViewStyle = 2131231062;
+			public const int scrollWrapperStyle = 2131231062;
+			
+			// aapt resource value: 0x7f080151
+			public const int textFieldStyle = 2131231057;
+			
+			// aapt resource value: 0x7f080159
+			public const int textStyle = 2131231065;
 			
 			// aapt resource value: 0x7f080157
-			public const int weatherDataStyle = 2131231063;
+			public const int timingListViewStyle = 2131231063;
+			
+			// aapt resource value: 0x7f080158
+			public const int weatherDataStyle = 2131231064;
 			
 			static Style()
 			{

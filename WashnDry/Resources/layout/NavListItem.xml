@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:weightSum="100"
+    android:background="@drawable/bg_border"
+    android:layout_height="40dp">
+    <TextView
+        android:text="item"
+        android:id="@+id/navItem"
+        android:textColor="#000000"
+        android:paddingLeft="15dp"
+        android:background="?android:attr/activatedBackgroundIndicator"
+        android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="60"
+        android:textSize="15dp" />
+</LinearLayout>

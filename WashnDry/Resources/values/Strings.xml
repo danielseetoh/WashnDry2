@@ -9,10 +9,11 @@
 	<string name="DrawerOpen">Open</string>
 	<string name="DrawerClose">Close</string>
   	<string-array name="PagesArray">
-  		<item>Status</item>
-		<item>Weather</item>
+		<item>Home</item>
+		<item>Current Weather</item>
 		<item>Schedule</item>
-		<item>Account</item>
+		<item>Fabric Care</item>
+		<item>Account Settings</item>
 	</string-array>
 	<string-array name="laundryFrequencyArray">
 		<item>Select One</item>
