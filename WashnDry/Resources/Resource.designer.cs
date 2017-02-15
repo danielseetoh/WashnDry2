@@ -1679,31 +1679,34 @@ namespace WashnDry
 			public const int logo = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int logo_words = 2130837609;
-			
-			// aapt resource value: 0x7f020071
-			public const int notification_template_icon_bg = 2130837617;
+			public const int logo_nowords = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int splash_screen = 2130837610;
+			public const int logo_words = 2130837610;
+			
+			// aapt resource value: 0x7f020072
+			public const int notification_template_icon_bg = 2130837618;
 			
 			// aapt resource value: 0x7f02006b
-			public const int textColor = 2130837611;
+			public const int splash_screen = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int tide_colorGuard = 2130837612;
+			public const int textColor = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int tide_gentleLiquid = 2130837613;
+			public const int tide_colorGuard = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int tide_lenor = 2130837614;
+			public const int tide_gentleLiquid = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int tide_touchOfDowney = 2130837615;
+			public const int tide_lenor = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int tide_vividBleach = 2130837616;
+			public const int tide_touchOfDowney = 2130837616;
+			
+			// aapt resource value: 0x7f020071
+			public const int tide_vividBleach = 2130837617;
 			
 			static Drawable()
 			{

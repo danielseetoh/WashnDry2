@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace WashnDry
 {
-	[Activity(Label = "FabricCareActivity")]
+	[Activity(Label = "Fabric Care Information")]
 	public class FabricCareActivity : Activity
 	{
 		Context mContext = Android.App.Application.Context;

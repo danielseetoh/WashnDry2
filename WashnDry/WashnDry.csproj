@@ -208,6 +208,7 @@
     <AndroidResource Include="Resources\layout\NavListItem.xml" />
     <AndroidResource Include="Resources\drawable\bg_border.xml" />
     <AndroidResource Include="Resources\drawable\i_user.png" />
+    <AndroidResource Include="Resources\drawable\logo_nowords.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

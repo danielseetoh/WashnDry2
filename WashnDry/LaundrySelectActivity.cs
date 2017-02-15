@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace WashnDry
 {
-	[Activity(Label = "LaundrySelectActivity")]
+	[Activity(Label = "Seect a Date")]
 	public class LaundrySelectActivity : Activity
 	{
 		Dictionary<int, string> laundrySlots;

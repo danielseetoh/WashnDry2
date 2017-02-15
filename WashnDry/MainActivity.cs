@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace WashnDry
 {
-	[Activity(Icon = "@drawable/logo", Theme = "@style/WashNDryTheme")] //@android:style/Theme.Material.Light
+	[Activity(Icon = "@drawable/logo_nowords", Theme = "@style/WashNDryTheme")] //@android:style/Theme.Material.Light
 	public class MainActivity : Activity
 	{
 		//int count = 1;
@@ -69,6 +69,7 @@ namespace WashnDry
 
 			ActionBar.SetDisplayHomeAsUpEnabled(true);
 			ActionBar.SetHomeButtonEnabled(true);
+			ActionBar.Title = "";
 
 			//DrawerToggle is the animation that happens with the indicator next to the
 			//ActionBar icon. You can choose not to use this.
