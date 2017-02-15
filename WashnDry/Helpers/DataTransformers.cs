@@ -39,6 +39,38 @@ namespace WashnDry
 			return boolList;
 		}
 
+		public static string formatSecondsToHourMinSec(int seconds)
+		{
+			string timeString;
+			TimeSpan ts = TimeSpan.FromSeconds(seconds);
+			string h = "", m = "", s = "";
+			if (ts.Hours > 0) { h = string.Format(" {0:D2} Hrs ", ts.Hours); }
+			if (ts.Minutes > 0) { m = string.Format(" {0:D2} Min ", ts.Minutes); }
+			if (ts.Minutes <= 0) { s = string.Format(" {0:D2} Sec ", ts.Seconds); }
+			timeString = h + m + s;
+			return timeString;
+		}
+
+		public static string formatDateTimeTo12HourTimeString(DateTime dt)
+		{
+			string t = "AM";
+			string min = "";
+			if (dt.Hour / 12 >= 1) { t = "PM"; }
+			if (dt.Minute > 0) { min = "."+dt.Minute.ToString(); }
+			return string.Format("{0}", dt.Hour % 12) + min + t;
+		}
+
+		public static void destroyTimer(System.Threading.Timer t)
+		{
+			if (t != null)
+			{
+				Console.WriteLine("timer destroyed");
+				t.Dispose();
+				t = null;
+			}
+		}
+
+
 		public enum TimeFormat { verbose, verbose_DH, verbose_HM, verbose_MS, digital };
 		public static string formatSecondsToTime(long unformattedTimeInSeconds, TimeFormat format)
 		{
