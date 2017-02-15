@@ -319,7 +319,8 @@ namespace WashnDry
 				countdownTimerWrapper.Visibility = ViewStates.Gone;
 			}
 			else {
-				if (sDiff >= 1) { 
+				if (sDiff >= 1) {
+					state = State.notReady;
 					timeToNextLaundryTV.Text = string.Format("{0:D2} : {1:D2} : {2:D2}", dDiff, hDiff % 24, mDiff % 60);
 					countdownTimerWrapper.Visibility = ViewStates.Visible;
 					instructions.Text = "To next laundry session on:";
