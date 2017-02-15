@@ -20,9 +20,9 @@ namespace WashnDry
 		private LinearLayout pageWrapper;
 		private ScrollView scrollView1;
 		private TextView name;
-		private TextView country;
-		private EditText changeEmail;
-		private EditText changePassword;
+		private TextView countryTextView;
+		private EditText changeEmailTextInput;
+		private EditText changePasswordTextInput;
 		private CheckBox allowLocationServices;
 		private Spinner laundryFrequencySpinner;
 		private ListView mListView;
@@ -66,9 +66,9 @@ namespace WashnDry
 			pageWrapper 			= rootView.FindViewById<LinearLayout>(Resource.Id.pageWrapper);
 			scrollView1 			= rootView.FindViewById<ScrollView>(Resource.Id.scrollView1);
 			name 					= rootView.FindViewById<TextView>(Resource.Id.name);
-			country 				= rootView.FindViewById<TextView>(Resource.Id.country);
-			changeEmail 			= rootView.FindViewById<EditText>(Resource.Id.changeEmail);
-			changePassword 			= rootView.FindViewById<EditText>(Resource.Id.changePassword);
+			countryTextView 		= rootView.FindViewById<TextView>(Resource.Id.country);
+			changeEmailTextInput 	= rootView.FindViewById<EditText>(Resource.Id.changeEmail);
+			changePasswordTextInput = rootView.FindViewById<EditText>(Resource.Id.changePassword);
 			allowLocationServices 	= rootView.FindViewById<CheckBox>(Resource.Id.allowLocationServices);
 			laundryFrequencySpinner = rootView.FindViewById<Spinner>(Resource.Id.laundryFrequency_Spinner);
 			mListView 				= rootView.FindViewById<ListView>(Resource.Id.laundryTime_ListView);
@@ -87,7 +87,7 @@ namespace WashnDry
 
 			// Assigning values to the various UI elements
 			name.Text = userInfo.getUsername();
-			country.Text = "Japan, Tokyo";
+			countryTextView.Text = "Japan, Tokyo";
 			initializeFieldsFromDB();
 
 			// Laundry Frequency Spinner Selector
@@ -112,18 +112,10 @@ namespace WashnDry
 			return rootView;
 		}
 
-		void click_event(object sender, AdapterView.ItemClickEventArgs e)
-		{
-			//var selectedIndex = e.Position.ToString();
-			//Toast.MakeText(Activity, "clicked: " + selectedIndex, ToastLength.Short).Show();
-			//throw new NotImplementedException();
-		}
-
 		void editSettingsEvent(object sender, EventArgs e)
 		{
 			enableUIElements(true);
 			Toast.MakeText(Activity, "In Edit Mode", ToastLength.Short).Show();
-			//throw new NotImplementedException();
 		}
 
 		void resetSettingsEvent(object sender, EventArgs e)
@@ -137,21 +129,22 @@ namespace WashnDry
 		{
 			String updatedLaundryTimes_String = DataTransformers.sparseArrayToString(updatedLaundryTimes);
 			userInfo.saveLaundryTime(updatedLaundryTimes_String);
+			userInfo.saveEmail(changeEmailTextInput.Text);
 			enableUIElements(false);
 			Toast.MakeText(Activity, "changes saved", ToastLength.Short).Show();
 		}
 
 		void initializeFieldsFromDB()
 		{
-			changeEmail.Text = userInfo.getEmail();
-			changePassword.Text = "";
+			changeEmailTextInput.Text = userInfo.getEmail();
+			changePasswordTextInput.Text = "";
 			for (int i = 0; i < laundryTime_Checked.Count; i++) { mListView.SetItemChecked(laundryTime_Keys[i], laundryTime_Checked[i]); }
 		}
 
 		void enableUIElements(bool isEnabled)
 		{
-			changeEmail.Enabled 	= isEnabled;
-			changePassword.Enabled 	= isEnabled;
+			changeEmailTextInput.Enabled 	= isEnabled;
+			changePasswordTextInput.Enabled 	= isEnabled;
 			allowLocationServices.Enabled = isEnabled;
 			laundryFrequencySpinner.Enabled = isEnabled;
 			mListView.Enabled = isEnabled;

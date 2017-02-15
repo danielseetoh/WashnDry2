@@ -21,14 +21,17 @@
                 android:id="@+id/textView1" />
             <Button
                 android:text="New Button"
+                android:textAllCaps="false"
                 style="@style/greenButtonStyle.Big"
                 android:id="@+id/nextLaundryButton0" />
             <Button
                 android:text="New Button"
+                android:textAllCaps="false"
                 style="@style/greenButtonStyle.Big"
                 android:id="@+id/nextLaundryButton1" />
             <Button
                 android:text="New Button"
+                android:textAllCaps="false"
                 style="@style/greenButtonStyle.Big"
                 android:id="@+id/nextLaundryButton2" />
         </LinearLayout>

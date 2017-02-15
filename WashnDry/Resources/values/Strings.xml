@@ -2,6 +2,7 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">WashnDry</string>
+	<string name="toolbar_height">60dp</string>
 	<string name="account">Account</string>
 	<string name="schedule">Schedule</string>
 	<string name="drying_status">Drying Status</string>

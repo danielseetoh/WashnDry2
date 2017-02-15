@@ -2515,11 +2515,11 @@ namespace WashnDry
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f060028
-			public const int DrawerClose = 2131099688;
+			// aapt resource value: 0x7f060029
+			public const int DrawerClose = 2131099689;
 			
-			// aapt resource value: 0x7f060027
-			public const int DrawerOpen = 2131099687;
+			// aapt resource value: 0x7f060028
+			public const int DrawerOpen = 2131099688;
 			
 			// aapt resource value: 0x7f060000
 			public const int abc_action_bar_home_description = 2131099648;
@@ -2614,38 +2614,41 @@ namespace WashnDry
 			// aapt resource value: 0x7f060012
 			public const int abc_toolbar_collapse_description = 2131099666;
 			
-			// aapt resource value: 0x7f060023
-			public const int account = 2131099683;
+			// aapt resource value: 0x7f060024
+			public const int account = 2131099684;
+			
+			// aapt resource value: 0x7f06002b
+			public const int action_slidingpane = 2131099691;
 			
 			// aapt resource value: 0x7f06002a
-			public const int action_slidingpane = 2131099690;
-			
-			// aapt resource value: 0x7f060029
-			public const int action_websearch = 2131099689;
+			public const int action_websearch = 2131099690;
 			
 			// aapt resource value: 0x7f060021
 			public const int app_name = 2131099681;
 			
-			// aapt resource value: 0x7f06002b
-			public const int app_not_available = 2131099691;
+			// aapt resource value: 0x7f06002c
+			public const int app_not_available = 2131099692;
 			
-			// aapt resource value: 0x7f060025
-			public const int drying_status = 2131099685;
+			// aapt resource value: 0x7f060026
+			public const int drying_status = 2131099686;
 			
 			// aapt resource value: 0x7f060022
 			public const int hello = 2131099682;
 			
-			// aapt resource value: 0x7f060024
-			public const int schedule = 2131099684;
+			// aapt resource value: 0x7f060025
+			public const int schedule = 2131099685;
 			
 			// aapt resource value: 0x7f060013
 			public const int search_menu_title = 2131099667;
 			
-			// aapt resource value: 0x7f060026
-			public const int setup = 2131099686;
+			// aapt resource value: 0x7f060027
+			public const int setup = 2131099687;
 			
 			// aapt resource value: 0x7f060014
 			public const int status_bar_notification_info_overflow = 2131099668;
+			
+			// aapt resource value: 0x7f060023
+			public const int toolbar_height = 2131099683;
 			
 			static String()
 			{

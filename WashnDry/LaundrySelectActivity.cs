@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace WashnDry
 {
-	[Activity(Label = "Seect a Date")]
+	[Activity(Label = "Select a Date")]
 	public class LaundrySelectActivity : Activity
 	{
 		Dictionary<int, string> laundrySlots;
@@ -41,10 +41,10 @@ namespace WashnDry
 			SetContentView(Resource.Layout.LaundrySelect);
 			ap = new AppPreferences(mContext); // can try using "this" also
 
-			string arrdt = ap.getThreeBestTimings();
+			string dtFromAppPreference = ap.getThreeBestTimings();
 
 			// a function to split the string from DB into a DateTime array
-			string[] s = arrdt.Split('_');
+			string[] s = dtFromAppPreference.Split('_');
 			DateTime[] d_t = Array.ConvertAll(s[0].Split(','), DateTime.Parse);
 			double[] est_T = Array.ConvertAll(s[1].Split(','), double.Parse);
 			d_t[0] = new DateTime(2017, 2, 16, 16, 35, 43);
@@ -56,14 +56,9 @@ namespace WashnDry
 
 			for (int i = 0; i < d_t.Length; i++)
 			{
-				string t = "AM";
-				if (d_t[i].Hour / 12 >= 1) { t = "PM";}
 				nextLaundryButton[i].SetTag(nextLaundryButton[i].Id, d_t[i]+","+est_T[i]);
-				var timeStr = string.Format("{0}", d_t[i].Hour%12) + t;
-				TimeSpan ts = TimeSpan.FromSeconds(est_T[i]);
-				string h = "";
-				if (ts.Hours > 0) { h = string.Format(" {0:D2} HRS ", ts.Hours); }
-				var timeToNext = "\n" + h + string.Format("{0:D2} min(s)", ts.Minutes);
+				var timeStr = DataTransformers.formatDateTimeTo12HourTimeString(d_t[i]);
+				var timeToNext = "\n Est Time: " + DataTransformers.formatSecondsToHourMinSec((int)est_T[i]);
 				nextLaundryButton[i].Text = d_t[i].ToString("dd MMM ") + timeStr + timeToNext;
 				nextLaundryButton[i].Click += BackButton_Click;
 			}

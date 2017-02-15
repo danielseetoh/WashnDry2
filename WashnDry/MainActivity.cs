@@ -6,6 +6,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
+using Android.Graphics.Drawables;
+
 
 namespace WashnDry
 {
@@ -33,15 +35,12 @@ namespace WashnDry
 			_title = _drawerTitle =  ""; //_drawerTitle = Title;
 			_pagesTitles = Resources.GetStringArray(Resource.Array.PagesArray);
 
-			//List<string> pTitles = new List<string>(_pagesTitles);
-
 			_drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = FindViewById<ListView>(Resource.Id.left_drawer);
 
 			_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
 			//_drawerList.Adapter = new ArrayAdapter<string>(this,Resource.Layout.DrawerListItem, _pagesTitles);
-
 
 			FabricData.getFabricList();
 			List<NavList> nList = new List<NavList>();
