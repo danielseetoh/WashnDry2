@@ -19,7 +19,6 @@ using Plugin.Geolocator;
 using System.Net;
 using System.Json;
 using System.IO;
-using System.Timers;
 using IO.Github.Krtkush.Lineartimer;
 using DT = System.Data;            // System.Data.dll  
 using QC = System.Data.SqlClient;
@@ -29,7 +28,7 @@ namespace WashnDry
 	public class StatusFragment : Fragment
 	{
 		public System.Threading.Timer toNextDryTimer;
-		public System.Threading.Timer dryingTimer;
+		public System.Threading.Timer dryInProgressTimer;
 		static int timeLeftInSeconds;
 		int initialTimeInSeconds;
 
@@ -39,7 +38,6 @@ namespace WashnDry
 		TextView instructions, nextLaundryButton, timeToNextLaundryTV;
 		TextView timerTextView, estTextView;
 		Button startDryingButton, restartDryingButton, stopDryingButton;
-
 
 		LinearLayout countdownTimerWrapper, afterStartDryingWrapper, beforeStartDryingWrapper;
 		//RelativeLayout timerLayoutWrapper;
@@ -60,8 +58,6 @@ namespace WashnDry
 		{
 			base.OnCreate(savedInstanceState);
 			//var r = DB.DBOperation(DB.sql.selectq, "SELECT * FROM WASHNDRYCUSTOMER1");
-
-
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -72,49 +68,16 @@ namespace WashnDry
 			ap = new AppPreferences(Activity);
 			initialTimeInSeconds = ap.getEstimatedTime();
 
-			instructions = rootView.FindViewById<TextView>(Resource.Id.instructions);
-			estTextView = rootView.FindViewById<TextView>(Resource.Id.estTime);
-			nextLaundryButton = rootView.FindViewById<Button>(Resource.Id.nextLaundryButton);
-			timeToNextLaundryTV = rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
-			startDryingButton = rootView.FindViewById<Button>(Resource.Id.startDryingButton);
-			stopDryingButton = rootView.FindViewById<Button>(Resource.Id.stopDryingButton);
-			restartDryingButton = rootView.FindViewById<Button>(Resource.Id.restartDryingButton);
-
-			countdownTimerWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.countdownTimerWrapper);
-			beforeStartDryingWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.beforeStartDryingWrapper);
-			afterStartDryingWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.afterStartDryingWrapper);
-
-			timerTextView = rootView.FindViewById<TextView>(Resource.Id.timerTextView);
-
-			linearTimerView = rootView.FindViewById<LinearTimerView>(Resource.Id.linearTimerView);
-			linearTimer = new LinearTimer(linearTimerView);
-
-			nextLaundryButton.Click += NextLaundryButton_Click;;
-			startDryingButton.Click += startDryingHandler;
-			restartDryingButton.Click += restartDryingHandler;
-			stopDryingButton.Click += stopDryingHandler;
-			//RegisterBroadcastReceiver();
-
+			getViews();
+			clickHandlers();
 			// should save state in a store. Various events should trigger a change in the state
-			if (state == State.dateNotChosen) { 
-				var intent = new Intent(Activity, typeof(LaundrySelectActivity));
-				StartActivityForResult(intent, 100);
-			}
-			if (state == State.notReady) { }
-			if (state == State.ready) { uiEventsOnReadyToStartDrying(); }
-			if (state == State.dryingInProgress) { uiEventsOnStartDrying(); }
-			if (state == State.laundryFinished) { uiEventsOnFinishedDrying(); }
+			eventOnState(state);
 
-			uiSelectLaundryDateButton();
-
-			if (ap.getEstimatedTime() != 0) { setEstimatedTime(initialTimeInSeconds);}
-
+			uiOnGetLaundryDate();
 			currentDate = DateTime.Now;
 			nextLaundryDc.storeDiffBetweenDates(nextLaundryDate, currentDate);
-			uiCountDownToNextLaundry();
+
 			uiEventsOnReadyToStartDrying();
-
-
 
 			return rootView;
 		}
@@ -122,10 +85,10 @@ namespace WashnDry
 		public override void OnPause()
 		{
 			base.OnPause();
-			if (dryingTimer != null)
+			if (dryInProgressTimer != null)
 			{
-				dryingTimer.Dispose();
-				dryingTimer = null;
+				dryInProgressTimer.Dispose();
+				dryInProgressTimer = null;
 			}
 			if (toNextDryTimer != null)
 			{
@@ -138,20 +101,15 @@ namespace WashnDry
 		{
 			base.OnResume();
 
-			if (state == State.dryingInProgress) { dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); }
+			if (state == State.dryingInProgress) { 
+				dryInProgressTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000); 
+			}
 			if (nextLaundryDc.Hours <= 4 && nextLaundryDc.Seconds >= 0)
 			{
 				int toNextDryTimerInterval = 60000;
-				//if (nextLaundryDc.Hours >= 3) { toNextDryTimerInterval = 300000; Console.WriteLine("3 hours"); } // update UI every 5 minutes
-				//else if (nextLaundryDc.Minutes >= 60) { toNextDryTimerInterval = 60000; Console.WriteLine("hour"); } // update UI every minute
-				//else if (nextLaundryDc.Seconds >= 60) { toNextDryTimerInterval = 1000; Console.WriteLine("minute"); } //update UI every second
-				//else { toNextDryTimerInterval = 1000; }
 				toNextDryTimer = new System.Threading.Timer(ToNextDryTimer_Elapsed, null, 0, toNextDryTimerInterval);
 			}
 		}
-
-	
-
 
 		void NextLaundryButton_Click(object sender, EventArgs e)
 		{
@@ -166,9 +124,12 @@ namespace WashnDry
 			{
 				setNextLaundryDate(data.GetStringExtra("selectedLaundryDate"));
 				setEstimatedTime(data.GetIntExtra("estimatedTime", 0));
-				uiCountDownToNextLaundry();
+				uiOnGetLaundryDate();
+				Console.WriteLine("On activity result");
 			}
 		}
+
+
 
 		void ToNextDryTimer_Elapsed(object sender)
 		{
@@ -198,7 +159,7 @@ namespace WashnDry
 				});
 
 				// create push notification
-				Notification.Builder builder = new Notification.Builder(Activity).SetContentTitle("Finished Drying").SetContentText("Time finished is").SetSmallIcon(Resource.Drawable.i_splash);
+				Notification.Builder builder = new Notification.Builder(Activity).SetContentTitle("Finished Drying").SetContentText("Time finished is " + DateTime.Now).SetSmallIcon(Resource.Drawable.i_splash);
 				Notification notification = builder.Build();
 				NotificationManager notificationManager = Activity.GetSystemService(Context.NotificationService) as NotificationManager;
 				const int notificationId = 0;
@@ -208,7 +169,7 @@ namespace WashnDry
 
 			else if (state == State.dryingInProgress)
 			{
-				if (dryingTimer != null) // context guard against null reference exception
+				if (dryInProgressTimer != null) // context guard against null reference exception
 				{
 					dc.formatSeconds(timeLeftInSeconds);
 					Activity.RunOnUiThread(() =>
@@ -217,17 +178,14 @@ namespace WashnDry
 					});
 				}
 			}
-
 		}
-
-
 
 		void startDryingHandler(object sender, EventArgs e)
 		{
 			Toast.MakeText(Activity, "Started Drying now!", ToastLength.Short).Show();
 			state = State.dryingInProgress;
 			uiEventsOnStartDrying();
-			dryingTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
+			dryInProgressTimer = new System.Threading.Timer(dryTimer_Elapsed, null, 0, 1000);
 			linearTimer.StartTimer(360, initialTimeInSeconds*1000);
 			startTimerBroadcast(initialTimeInSeconds);
 		}
@@ -254,13 +212,9 @@ namespace WashnDry
 		void stopTimerBroadcast()
 		{
 			Activity.StopService(new Intent(Activity, typeof(TimerService)));
-			if (dryingTimer != null)
-			{
-				Console.WriteLine("timer destroyed");
-				dryingTimer.Dispose();
-				dryingTimer = null;
-			}
+			Helpers.destroyTimer(dryInProgressTimer);
 		}
+
 
 		void startTimerBroadcast(int initialTime)
 		{
@@ -277,30 +231,30 @@ namespace WashnDry
 			ap.saveSelectedNextLaundryTime(s);
 			var dt = DateTime.Parse(s);
 			nextLaundryDate = dt;
-			string t = "AM";
-			if (dt.Hour / 12 >= 1) { t = "PM"; }
-			var timeStr = string.Format(" {0} ", dt.Hour%12)+t;
+			var timeStr = DataTransformers.formatDateTimeTo12HourTimeString(dt);
 			nextLaundryButton.Text = dt.ToString("dd MMM ") + timeStr;
 		}
 
-		void setEstimatedTime(int i)
+		void setEstimatedTime(int initSeconds)
 		{
-			initialTimeInSeconds = i;
-			TimeSpan t = TimeSpan.FromSeconds(i);
-			string h="", m="", s="", str="";
-			if (t.Hours > 0) h = string.Format("{0} Hours(s)", t.Hours);
-			if (t.Minutes > 0) m = string.Format("{0} Minutes(s)", t.Minutes);
-			if (t.Minutes <= 0) s = string.Format("{0} Second(s)", t.Seconds);
-			str = "Estimated time to dry: " + h + m + s;
-			estTextView.Text = str;
+			initialTimeInSeconds = initSeconds;
+			estTextView.Visibility = ViewStates.Visible;
+			estTextView.Text = "Estimated time to dry is: " + DataTransformers.formatSecondsToHourMinSec(initSeconds);
 		}
 
-		void uiSelectLaundryDateButton()
+
+		void uiOnGetLaundryDate()
 		{
-			if (ap.getSelectedNextLaundryTime() != "") { setNextLaundryDate(ap.getSelectedNextLaundryTime()); }
+			uiCountDownToNextLaundry();
+			if (ap.getEstimatedTime() != 0) { setEstimatedTime(initialTimeInSeconds); }
+			if (ap.getSelectedNextLaundryTime() != "") { 
+				setNextLaundryDate(ap.getSelectedNextLaundryTime());
+				startDryingButton.Enabled = true;
+			}
 			else { 
 				nextLaundryButton.Text = "Select Next Laundry Session";
-
+				estTextView.Visibility = ViewStates.Gone;
+				startDryingButton.Enabled = false;
 			}
 		}
 
@@ -325,7 +279,7 @@ namespace WashnDry
 					countdownTimerWrapper.Visibility = ViewStates.Visible;
 					instructions.Text = "To next laundry session on:";
 				}
-				else if (nextLaundryDc.Minutes >= -60)
+				else if (mDiff >= -60)
 				{
 					instructions.Text = "Begin drying now for optimal results!";
 					countdownTimerWrapper.Visibility = ViewStates.Gone;
@@ -367,8 +321,7 @@ namespace WashnDry
 			state = State.dateNotChosen;
 			dc.formatSeconds(initialTimeInSeconds);
 			ap.saveSelectedNextLaundryTime("");
-			uiSelectLaundryDateButton();
-			uiCountDownToNextLaundry();
+			uiOnGetLaundryDate();
 			beforeStartDryingWrapper.Visibility = ViewStates.Visible;
 			afterStartDryingWrapper.Visibility = ViewStates.Gone;
 			finishLaundryDialog();
@@ -416,21 +369,14 @@ namespace WashnDry
 			submitButton.Click += delegate {
 				builder.Dismiss();
 				double r = ratingBar.Rating;
-
 				RatingData.getScaleData();
-
 				double correctedDryingTime = initialTimeInSeconds * RatingData.scale[r];
 				Console.WriteLine("corrected dry time" + correctedDryingTime);
-
 				string ins = "INSERT INTO WASHNDRYCUSTOMER1 (TEMPERATURE, HUMIDITY, PRECIPITATION, WINDSPEED, DRYING_TIME ) VALUES (27.8, 48.2, 0.64, 32.1, 2345)";
 				//DB.DBOperation(DB.sql.insert, ins);
-
 			};
 			builder.Show();
-
 		}
-
-
 
 		[BroadcastReceiver]
 		public class HomeBroadcastReceiver : BroadcastReceiver
@@ -454,6 +400,49 @@ namespace WashnDry
 
 			}
 		}
+
+		void eventOnState(State s)
+		{
+			if (s == State.dateNotChosen)
+			{
+				var intent = new Intent(Activity, typeof(LaundrySelectActivity));
+				StartActivityForResult(intent, 100);
+			}
+			if (s == State.notReady) { }
+			if (s == State.ready) { uiEventsOnReadyToStartDrying(); }
+			if (s == State.dryingInProgress) { uiEventsOnStartDrying(); }
+			if (s == State.laundryFinished) { uiEventsOnFinishedDrying(); }
+			
+		}
+
+		void clickHandlers()
+		{
+			nextLaundryButton.Click += NextLaundryButton_Click; ;
+			startDryingButton.Click += startDryingHandler;
+			restartDryingButton.Click += restartDryingHandler;
+			stopDryingButton.Click += stopDryingHandler;
+		}
+
+		void getViews()
+		{
+			instructions = rootView.FindViewById<TextView>(Resource.Id.instructions);
+			estTextView = rootView.FindViewById<TextView>(Resource.Id.estTime);
+			nextLaundryButton = rootView.FindViewById<Button>(Resource.Id.nextLaundryButton);
+			timeToNextLaundryTV = rootView.FindViewById<TextView>(Resource.Id.timeToNextLaundryTextView);
+			startDryingButton = rootView.FindViewById<Button>(Resource.Id.startDryingButton);
+			stopDryingButton = rootView.FindViewById<Button>(Resource.Id.stopDryingButton);
+			restartDryingButton = rootView.FindViewById<Button>(Resource.Id.restartDryingButton);
+
+			countdownTimerWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.countdownTimerWrapper);
+			beforeStartDryingWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.beforeStartDryingWrapper);
+			afterStartDryingWrapper = rootView.FindViewById<LinearLayout>(Resource.Id.afterStartDryingWrapper);
+
+			timerTextView = rootView.FindViewById<TextView>(Resource.Id.timerTextView);
+
+			linearTimerView = rootView.FindViewById<LinearTimerView>(Resource.Id.linearTimerView);
+			linearTimer = new LinearTimer(linearTimerView);
+		}
+
 
 	}
 }
